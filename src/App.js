@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
+import Calendar from './components/calendar';
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
         <Button variant="secondary" size="lg" block>
           Pitäiskö tätä projektia alkaa vääntää? =)
         </Button>
+        <Calendar/>
       </div>
     );
   }
