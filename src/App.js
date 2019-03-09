@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import Button from 'react-bootstrap/Button';
-import Calendar from './components/calendar';
+import { Button, Container } from 'react-bootstrap';
+import Date from './components/date';
+import Time from './components/time';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <Container>
         <Button variant="primary" size="lg" block>
           Hello World
         </Button>
         <Button variant="secondary" size="lg" block>
           Pitäiskö tätä projektia alkaa vääntää? =)
         </Button>
-        <Calendar/>
-      </div>
+        <Date/>
+        <Time/>
+      </Container>
     );
   }
 }
