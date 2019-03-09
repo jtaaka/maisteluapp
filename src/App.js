@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import './App.css';
-import { Button, Container } from 'react-bootstrap';
-import Date from './components/date';
-import Time from './components/time';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Home from "./pages/home/home";
 
 class App extends Component {
   render() {
     return (
-      <Container>
-        <Button variant="primary" size="lg" block>
-          Hello World
-        </Button>
-        <Button variant="secondary" size="lg" block>
-          Pitäiskö tätä projektia alkaa vääntää? =)
-        </Button>
-        <Date/>
-        <Time/>
-      </Container>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={Home}/>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
