@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Button, Form, Container, Row, Col} from "react-bootstrap";
-import './login.css';
+import './signup.css';
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
 
@@ -10,7 +10,8 @@ class Login extends Component {
   }
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.username.length < 20
+    return this.state.username.length > 0
+      && this.state.username.length < 20
       && this.state.password.length > 0;
   }
 
@@ -21,6 +22,16 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
+    let reqBody = {username: this.state.username, password: this.state.password};
+
+    fetch('http://localhost:8080/users/' , {
+      method: "PUT",
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(reqBody)
+    })
+      .then((result) => result.json())
+      .then((info) => {console.log(info)})
   }
 
   render() {
@@ -29,7 +40,7 @@ class Login extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="username">
             <Row className="justify-content-md-center">
-              <h2>Log in</h2>
+              <h2>Sign up</h2>
             </Row>
             <Row className="justify-content-md-center">
               <Col xs={5}>
@@ -59,7 +70,7 @@ class Login extends Component {
                 block
                 disabled={!this.validateForm()}
                 type="submit">
-                Log in
+                Sign up
               </Button>
             </Col>
           </Row>
@@ -69,4 +80,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Signup;
