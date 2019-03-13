@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route} from 'react-router-dom'
-import Login from "./pages/login/login";
-import Signup from "./pages/signup/signup";
+import LoginAndSignup from "./pages/loginAndSignup/loginAndSignup";
 
 
 class App extends Component {
@@ -9,8 +8,7 @@ class App extends Component {
     return (
       <HashRouter>
         <Switch>
-          <Route exact path='/' component={Login}/>
-          <Route exact path='/signup' component={Signup}/>
+          <Route exact path='/' component={LoginAndSignup}/>
         </Switch>
       </HashRouter>
     );

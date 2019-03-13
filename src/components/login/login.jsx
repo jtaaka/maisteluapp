@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Container, Row, Col} from "react-bootstrap";
 import { Link } from 'react-router-dom'
-import './login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -30,7 +29,6 @@ class Login extends Component {
 
   render() {
     return (
-      <Container>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="username">
             <Row className="justify-content-md-center">
@@ -66,23 +64,9 @@ class Login extends Component {
                 type="submit">
                 Log in
               </Button>
-              <h6>Not registered yet?</h6>
             </Col>
           </Row>
         </Form>
-        <Row className="justify-content-md-center">
-          <Col xs={5}>
-            <Link to="/signup">
-              <Button
-                variant ="info"
-                block>
-                Sign up
-              </Button>
-            </Link>
-          </Col>
-        </Row>
-
-      </Container>
     );
   }
 }

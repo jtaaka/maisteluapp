@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Container, Row, Col} from "react-bootstrap";
-import { Redirect, Route } from 'react-router-dom'
-import './signup.css';
+import { Button, Form, Row, Col} from "react-bootstrap";
 
 class Signup extends Component {
   constructor(props) {
@@ -42,7 +40,6 @@ class Signup extends Component {
 
   render() {
     return (
-      <Container>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="username">
             <Row className="justify-content-md-center">
@@ -81,7 +78,6 @@ class Signup extends Component {
             </Col>
           </Row>
         </Form>
-      </Container>
     );
   }
 }
