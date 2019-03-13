@@ -7,16 +7,20 @@ class Login extends Component {
     super(props);
 
     this.state = {username: "", password: ""};
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.username.length < 20
+    return this.state.username.match(/^[a-z0-9\-_.]+$/i) !== null
+      && this.state.username.length > 0
+      && this.state.username.length < 20
       && this.state.password.length > 0;
   }
 
   handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value});
+    this.setState({[event.target.id]: event.target.value});
   }
 
   handleSubmit = event => {
