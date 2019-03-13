@@ -11,8 +11,6 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.toSignUp = this.toSignUp.bind(this);
-
   }
 
   validateForm() {
@@ -28,11 +26,6 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-  }
-
-  toSignUp = event => {
-    event.preventDefault();
-
   }
 
   render() {
