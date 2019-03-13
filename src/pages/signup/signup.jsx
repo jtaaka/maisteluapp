@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Container, Row, Col} from "react-bootstrap";
+import { Redirect, Route } from 'react-router-dom'
 import './signup.css';
 
 class Signup extends Component {
@@ -35,6 +36,8 @@ class Signup extends Component {
     })
       .then((result) => result.json())
       .then((info) => {console.log(info)})
+
+    this.props.history.push("/");
   }
 
   render() {

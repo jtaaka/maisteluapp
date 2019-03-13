@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Container, Row, Col} from "react-bootstrap";
+import { Link } from 'react-router-dom'
 import './login.css';
 
 class Login extends Component {
@@ -10,6 +11,8 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.toSignUp = this.toSignUp.bind(this);
+
   }
 
   validateForm() {
@@ -25,6 +28,11 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+  }
+
+  toSignUp = event => {
+    event.preventDefault();
+
   }
 
   render() {
@@ -65,9 +73,22 @@ class Login extends Component {
                 type="submit">
                 Log in
               </Button>
+              <h6>Not registered yet?</h6>
             </Col>
           </Row>
         </Form>
+        <Row className="justify-content-md-center">
+          <Col xs={5}>
+            <Link to="/signup">
+              <Button
+                variant ="info"
+                block>
+                Sign up
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+
       </Container>
     );
   }
