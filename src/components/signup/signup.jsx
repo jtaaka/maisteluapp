@@ -34,8 +34,6 @@ class Signup extends Component {
     })
       .then((result) => result.json())
       .then((info) => {console.log(info)})
-
-    this.props.history.push("/");
   }
 
   render() {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, Container, Row, Col} from "react-bootstrap";
 import { Link } from 'react-router-dom'
+import {BACKEND_URL} from '../../GlobalConfig';
 
 class Login extends Component {
   constructor(props) {
@@ -21,10 +22,34 @@ class Login extends Component {
 
   handleChange = event => {
     this.setState({[event.target.id]: event.target.value});
+
   }
 
   handleSubmit = event => {
     event.preventDefault();
+
+    let requestBody = {
+      username: this.state.username,
+      password: this.state.password
+    };
+
+    console.log(this.state.username);
+    console.log(this.state.password);
+    console.log(requestBody['username']);
+    console.log(requestBody['password']);
+
+    fetch(BACKEND_URL + 'users/login/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(requestBody)
+    })
+    .then(function(response) {
+      if(response.status === 200) {
+        alert("Success");
+      } else if(response.status === 401) {
+        alert("Invalid username or password");
+      }
+    })
   }
 
   render() {
