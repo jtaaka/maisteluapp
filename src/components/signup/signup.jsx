@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Button, Form, Row, Col} from "react-bootstrap";
+import {BACKEND_URL} from '../../GlobalConfig';
+
 
 class Signup extends Component {
   constructor(props) {
     super(props);
 
     this.state = {username: "", password: ""};
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +30,7 @@ class Signup extends Component {
 
     let reqBody = {username: this.state.username, password: this.state.password};
 
-    fetch('http://localhost:8080/users/' , {
+    fetch(BACKEND_URL + 'users/', {
       method: "PUT",
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(reqBody)
@@ -38,44 +41,44 @@ class Signup extends Component {
 
   render() {
     return (
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="username">
-            <Row className="justify-content-md-center">
-              <h2>Sign up</h2>
-            </Row>
-            <Row className="justify-content-md-center">
-              <Col xs={5}>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter username"
-                  value={this.state.username}
-                  onChange={this.handleChange}/>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Row className="justify-content-md-center">
-              <Col xs={5}>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter password"
-                  value={this.state.password}
-                  onChange={this.handleChange}/>
-              </Col>
-            </Row>
-          </Form.Group>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group controlId="username">
+          <Row className="justify-content-md-center">
+            <h2>Sign up</h2>
+          </Row>
           <Row className="justify-content-md-center">
             <Col xs={5}>
-              <Button
-                variant ="primary"
-                block
-                disabled={!this.validateForm()}
-                type="submit">
-                Sign up
-              </Button>
+              <Form.Control
+                type="text"
+                placeholder="Enter username"
+                value={this.state.username}
+                onChange={this.handleChange}/>
             </Col>
           </Row>
-        </Form>
+        </Form.Group>
+        <Form.Group controlId="password">
+          <Row className="justify-content-md-center">
+            <Col xs={5}>
+              <Form.Control
+                type="password"
+                placeholder="Enter password"
+                value={this.state.password}
+                onChange={this.handleChange}/>
+            </Col>
+          </Row>
+        </Form.Group>
+        <Row className="justify-content-md-center">
+          <Col xs={5}>
+            <Button
+              variant ="primary"
+              block
+              disabled={!this.validateForm()}
+              type="submit">
+              Sign up
+            </Button>
+          </Col>
+        </Row>
+      </Form>
     );
   }
 }
