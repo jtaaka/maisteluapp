@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Button, Form, Container, Row, Col} from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Button, Form, Row, Col} from "react-bootstrap";
+import { withRouter } from 'react-router-dom'
 import {BACKEND_URL} from '../../GlobalConfig';
 
 class Login extends Component {
@@ -46,10 +46,13 @@ class Login extends Component {
     .then(function(response) {
       if(response.status === 200) {
         alert("Success");
+        //this.props.history.push('/navigation');
       } else if(response.status === 401) {
         alert("Invalid username or password");
       }
     })
+
+    this.props.history.push('/navigation');
   }
 
   render() {
@@ -96,4 +99,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Button, Form, Row, Col} from "react-bootstrap";
 import {BACKEND_URL} from '../../GlobalConfig';
 
-
 class Signup extends Component {
   constructor(props) {
     super(props);
