@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
+import Cookies from "js-cookie";
 
 
 export class Navigation extends Component {
@@ -8,6 +9,7 @@ export class Navigation extends Component {
       super(props);
   
       this.toggle = this.toggle.bind(this);
+      this.handleLogOut = this.handleLogOut.bind(this);
       this.state = {
         isOpen: false
       };
@@ -17,6 +19,13 @@ export class Navigation extends Component {
         isOpen: !this.state.isOpen
       });
     }
+
+    handleLogOut = event => {
+      console.log(Cookies.get("token"));
+      Cookies.remove("token");
+      console.log("removed");
+    };
+
     render() {
       /* Disbales navbar in login page */
       if (window.location.pathname === '/login') {
@@ -45,7 +54,7 @@ export class Navigation extends Component {
                 
                 <NavDropdown.Item>Create tasting session</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link>Log out</Nav.Link>
+              <Nav.Link onClick={this.handleLogOut}>Log out</Nav.Link>
             </Navbar.Collapse>
           </Navbar>
         </div>

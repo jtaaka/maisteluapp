@@ -4,6 +4,7 @@ import { Button, Form, Container, Row, Col} from "react-bootstrap";
 import { Redirect } from 'react-router-dom'
 import {BACKEND_URL} from '../../GlobalConfig';
 import {withRouter} from "react-router-dom";
+import Cookies from "js-cookie";
 
 class Login extends Component {
   constructor(props) {
@@ -22,10 +23,11 @@ class Login extends Component {
       && this.state.password.length > 0;
   }
 
+
+
   handleChange = event => {
     this.setState({[event.target.id]: event.target.value});
-
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -35,7 +37,9 @@ class Login extends Component {
       password: this.state.password
     };
 
-    fetch(BACKEND_URL + 'users/login/', {
+    let parent = this;
+
+    fetch(BACKEND_URL + 'auth/', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(requestBody)
@@ -43,12 +47,19 @@ class Login extends Component {
     .then(function(response) {
       if(response.status === 200) {
         console.log("SUCCESS");
+        response.json().then(function(json){
+          Cookies.set("token", json.token);
+          parent.props.history.push("/tastingapp");
+        });
+
       } else if(response.status === 401) {
         alert("Invalid username or password");
       }
-    })
-    this.props.history.push('/tastingapp');
-  }
+    });
+    //this.props.history.push('/tastingapp');
+  };
+
+
 
   render() {
     return (
