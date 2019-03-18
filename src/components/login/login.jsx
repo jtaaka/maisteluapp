@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Container, Row, Col} from "react-bootstrap";
+
 import { Redirect } from 'react-router-dom'
 import {BACKEND_URL} from '../../GlobalConfig';
 
@@ -46,6 +47,8 @@ class Login extends Component {
         alert("Invalid username or password");
       }
     })
+
+    this.props.history.push('/navigation');
   }
 
   render() {
