@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Container, Row, Col} from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import {BACKEND_URL} from '../../GlobalConfig';
 
 class Login extends Component {
@@ -33,11 +33,6 @@ class Login extends Component {
       password: this.state.password
     };
 
-    console.log(this.state.username);
-    console.log(this.state.password);
-    console.log(requestBody['username']);
-    console.log(requestBody['password']);
-
     fetch(BACKEND_URL + 'users/login/', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -45,7 +40,8 @@ class Login extends Component {
     })
     .then(function(response) {
       if(response.status === 200) {
-        alert("Success");
+        console.log("SUCCESS");
+        return <Redirect to='tastingapp/'/>
       } else if(response.status === 401) {
         alert("Invalid username or password");
       }
