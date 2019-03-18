@@ -3,6 +3,7 @@ import { Button, Form, Container, Row, Col} from "react-bootstrap";
 
 import { Redirect } from 'react-router-dom'
 import {BACKEND_URL} from '../../GlobalConfig';
+import {withRouter} from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -93,4 +94,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
