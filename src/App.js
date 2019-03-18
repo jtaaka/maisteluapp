@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute'
 import {Navigation} from "./components/Navigation";
+import { Redirect } from 'react-router-dom'
 
 import axios from 'axios';
 
@@ -26,9 +27,11 @@ class App extends Component {
           <Navigation/>
           <Switch>
             <Route exact path = '/login' component = {LoginAndSignup}/>  
-            <PrivateRoute exact path = '/' component = {TastingApp}/>
+            <PrivateRoute exact path = '/' component = {TastingApp}/>}
+            <PrivateRoute exact path = '/tastingapp/' component = {TastingApp}/>
             <PrivateRoute exact path = '/tastingapp/beers' component = {Beers}/>
             <PrivateRoute exact path = '/tastingapp/beers/add' component = {AddModifyBeer}/>
+            <Redirect from='*' to='/404' />
           </Switch>
         </div>
       </BrowserRouter>
