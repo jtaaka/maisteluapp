@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Navigation} from './Navigation';
 
 class Beers extends Component {
 

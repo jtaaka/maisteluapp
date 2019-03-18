@@ -42,13 +42,11 @@ class Login extends Component {
     .then(function(response) {
       if(response.status === 200) {
         console.log("SUCCESS");
-        return <Redirect to='tastingapp/'/>
       } else if(response.status === 401) {
         alert("Invalid username or password");
       }
     })
-
-    this.props.history.push('/navigation');
+    this.props.history.push('/tastingapp');
   }
 
   render() {

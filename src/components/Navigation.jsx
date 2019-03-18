@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 
 
@@ -37,8 +37,15 @@ export class Navigation extends Component {
                 </Nav>
 
             <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>Signed in as: #TODO</Navbar.Text>
-                    <Nav.Link>Log out</Nav.Link>
+              <Navbar.Text>Signed in as: #TODO</Navbar.Text>
+              <NavDropdown title="Manage app" id="basic-nav-dropdown">
+                <LinkContainer to="/tastingapp/beers/add">
+                  <NavDropdown.Item>Add beer</NavDropdown.Item>
+                </LinkContainer>
+                
+                <NavDropdown.Item>Create tasting session</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link>Log out</Nav.Link>
             </Navbar.Collapse>
           </Navbar>
         </div>

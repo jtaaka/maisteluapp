@@ -1,0 +1,13 @@
+.form-group {
+    color: white;
+    text-align: center;
+}
+
+.form-control {
+    border-color: grey;
+}
+
+#buttons {
+    text-align: center;
+    margin:auto;
+}
