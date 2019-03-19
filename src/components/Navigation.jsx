@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import { NavObjects } from './NavObjects.js';
 
 
 export class Navigation extends Component {
@@ -12,6 +13,8 @@ export class Navigation extends Component {
       this.toggle = this.toggle.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
       this.renderLogout = this.renderLogout.bind(this);
+      this.renderLinks = this.renderLinks.bind(this);
+      this.NavObjects = NavObjects;
       this.state = {
         isOpen: false,
         logout: false
@@ -37,6 +40,18 @@ export class Navigation extends Component {
       }
     }
 
+    renderLinks(){
+      //console.log(NavObjects);
+      let ret = [];
+      for(let title in NavObjects){
+        ret.push(<LinkContainer to={NavObjects[title]}>
+        <Nav.Link>{title}</Nav.Link>
+        </LinkContainer>)
+      } 
+      return ret;
+    
+    }
+
     render() {
       /* Disbales navbar in login page */
       if (window.location.pathname === '/login') {
@@ -47,14 +62,8 @@ export class Navigation extends Component {
             {this.renderLogout()}
           <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Navbar.Brand href="/">Maisteluapp</Navbar.Brand>
-
               <Nav className="ml-auto">
-                <LinkContainer to="/tastingapp/beers">
-                  <Nav.Link>Beers</Nav.Link>
-                </LinkContainer>
-                <Nav.Link>Item1</Nav.Link>
-                <Nav.Link>Item2</Nav.Link>
-                <Nav.Link>Item3</Nav.Link>
+                {this.renderLinks()}
                 </Nav>
 
             <Navbar.Collapse className="justify-content-end">
@@ -74,3 +83,11 @@ export class Navigation extends Component {
       }
     }
   }
+
+  /*
+  <LinkContainer to="/tastingapp/beers">
+                  <Nav.Link>Beers</Nav.Link>
+                </LinkContainer>
+                <Nav.Link>Item1</Nav.Link>
+                <Nav.Link>Item2</Nav.Link>
+                <Nav.Link>Item3</Nav.Link>*/
