@@ -60,7 +60,7 @@ export class Navigation extends Component {
         return (
           <div>
             {this.renderLogout()}
-          <Navbar expand="md" bg="light" variant="light" fixed="top">
+          <Navbar expand="md" bg="light" variant="light" fixed="top" collapseOnSelect="true">
             <LinkContainer to="/">
               <Navbar.Brand>Maisteluapp</Navbar.Brand>
             </LinkContainer>
