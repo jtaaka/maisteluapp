@@ -60,12 +60,12 @@ export class Navigation extends Component {
         return (
           <div>
             {this.renderLogout()}
-          <Navbar expand="md" bg="light" variant="light" fixed="top" collapseOnSelect="true">
+          <Navbar expand="lg" bg="light" variant="light" collapseOnSelect="true">
             <LinkContainer to="/">
               <Navbar.Brand>Maisteluapp</Navbar.Brand>
             </LinkContainer>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                   {this.renderLinks()}
                   </Nav>

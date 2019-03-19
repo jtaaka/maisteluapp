@@ -44,10 +44,10 @@ class LoginAndSignup extends Component {
       currentForm = <Signup/>;
 
     return (
-      <Container>
+      <Container id="loginAndSignupContainer">
         {currentForm}
         <Row className="justify-content-md-center">
-          <Col xs={5}><h6>{this.state.header6Text}</h6>
+          <Col><h6>{this.state.header6Text}</h6>
             <Button variant ="info" onClick={this.switchForms} block>{this.state.switchFormsBtnText}
             </Button>
           </Col>

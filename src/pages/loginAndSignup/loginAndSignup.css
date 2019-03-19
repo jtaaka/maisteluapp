@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-.container {
+#loginAndSignupContainer {
     width: 100%;
     position: fixed;
     top: 40%;

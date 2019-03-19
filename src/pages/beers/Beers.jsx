@@ -34,19 +34,28 @@ class Beers extends Component {
     }
 
     render() {
-        const beerCards = this.state.listOfBeers.map((d) => 
+        /*const beerCards = this.state.listOfBeers.map((d) => 
                 <BeerCard 
                     beerName={d.beerName}
                     description={d.description}
                     alcoholPercent={d.alcoholPercent}
                 />
-        );
+        );*/
+
+        const beerCards = [];
+        for(let i = 0; i < 20; i++) {
+          beerCards[i] = <BeerCard 
+                            beerName="{d.beerName"
+                            description="d.description"
+                            alcoholPercent="5"
+                        />;
+        }
 
         return (
-          <Container id="beersContainer">
-            <div id="beersPage">
+          <Container>
+            <div id="beersPage" >
               <h1 id="beersH1">Beers</h1>
-              <CardColumns>
+              <CardColumns id="beersCardColumns">
                 {beerCards}
               </CardColumns>
             </div>
