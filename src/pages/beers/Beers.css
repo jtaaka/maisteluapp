@@ -1,0 +1,14 @@
+#beersH1 {
+    color: #f5f5f5;
+    text-align: center;
+    margin-top: 1%
+}
+
+#beersContainer {
+    width: 100%;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
