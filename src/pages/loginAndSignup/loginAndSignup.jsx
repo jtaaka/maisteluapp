@@ -47,7 +47,7 @@ class LoginAndSignup extends Component {
       <Container>
         {currentForm}
         <Row className="justify-content-md-center">
-          <Col xs={5}><h6>{this.state.header6Text}</h6>
+          <Col xl={5} xs={12}><h6>{this.state.header6Text}</h6>
             <Button variant ="info" onClick={this.switchForms} block>{this.state.switchFormsBtnText}
             </Button>
           </Col>
