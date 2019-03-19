@@ -28,9 +28,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               isLoggedIn = true;
           } else {
               isLoggedIn = false;
-              this.props.history.push("login");
+              this.props.history.push("/login");
               console.log("false");
           }
+      }).catch((error) => {
+          console.log(error);
+          isLoggedIn = false;
+          Cookies.remove("token");
       });
   }
 
