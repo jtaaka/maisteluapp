@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       isLoggedIn = true;
       auth();
   } else {
-      isLoggedIn = false;
+      isLoggedIn = true;
   }
 
   function auth () {
