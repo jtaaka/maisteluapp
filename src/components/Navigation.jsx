@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
+import { Redirect } from 'react-router-dom'
 
 
 export class Navigation extends Component {
@@ -10,8 +11,10 @@ export class Navigation extends Component {
   
       this.toggle = this.toggle.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
+      this.renderLogout = this.renderLogout.bind(this);
       this.state = {
-        isOpen: false
+        isOpen: false,
+        logout: false
       };
     }
     toggle() {
@@ -24,7 +27,15 @@ export class Navigation extends Component {
       console.log(Cookies.get("token"));
       Cookies.remove("token");
       console.log("removed");
+      this.setState({"logout":true});
     };
+
+    renderLogout(){
+      if(this.state.logout){
+        this.setState({"logout": false});
+        return (<Redirect to="/login"/>);
+      }
+    }
 
     render() {
       /* Disbales navbar in login page */
@@ -33,6 +44,7 @@ export class Navigation extends Component {
       } else {
         return (
           <div>
+            {this.renderLogout()}
           <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Navbar.Brand href="/">Maisteluapp</Navbar.Brand>
 
