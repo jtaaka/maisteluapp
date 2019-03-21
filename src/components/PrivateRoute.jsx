@@ -10,8 +10,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
    */
   let isLoggedIn; // = Cookies.get("token") != undefined;
 
-
-
   if(Cookies.get("token") !== undefined){
       isLoggedIn = true;
       auth();

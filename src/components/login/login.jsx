@@ -66,11 +66,14 @@ class Login extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="username">
             <Row className="justify-content-md-center">
-              <h2>Log in</h2>
+              <Col>
+                <h2>Log in</h2>
+              </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <Col xs={5}>
+              <Col>
                 <Form.Control
+                  className="loginAndSignupFormControl"
                   type="text"
                   placeholder="Enter username"
                   value={this.state.username}
@@ -80,8 +83,9 @@ class Login extends Component {
           </Form.Group>
           <Form.Group controlId="password">
             <Row className="justify-content-md-center">
-              <Col xs={5}>
+              <Col>
                 <Form.Control
+                  className="loginAndSignupFormControl"
                   type="password"
                   placeholder="Enter password"
                   value={this.state.password}
@@ -90,7 +94,7 @@ class Login extends Component {
             </Row>
           </Form.Group>
           <Row className="justify-content-md-center">
-            <Col xs={5}>
+            <Col>
               <Button
                 variant ="primary"
                 block
