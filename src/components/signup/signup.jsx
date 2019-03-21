@@ -50,6 +50,7 @@ class Signup extends Component {
           <Row className="justify-content-md-center">
             <Col>
               <Form.Control
+                className="loginAndSignupFormControl"
                 type="text"
                 placeholder="Enter username"
                 value={this.state.username}
@@ -61,6 +62,7 @@ class Signup extends Component {
           <Row className="justify-content-md-center">
             <Col>
               <Form.Control
+                className="loginAndSignupFormControl"
                 type="password"
                 placeholder="Enter password"
                 value={this.state.password}
