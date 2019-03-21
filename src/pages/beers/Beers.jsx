@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, CardColumns, CardGroup} from 'react-bootstrap';
+import {Container, Form, InputGroup, Button, Col, Row} from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -36,18 +36,28 @@ class Beers extends Component {
     render() {
         const beerCards = this.state.listOfBeers.map((d) =>
                 <li className="beerItem">
-                <BeerCard 
-                    beerName={d.beerName}
-                    slogan="Amazing beer from finland.."
-                    alcoholPercent={d.alcoholPercent}
-                />
+                    <BeerCard 
+                        beerName={d.beerName}
+                        description={d.description}
+                        alcoholPercent={d.alcoholPercent}
+                    />
                 </li>
         );
 
         return (
           <Container>
-            <div id="beersPage" >
+            <div id="beersPage" className="rounded">
               <h1 id="beersH1">Beers</h1>
+              <div id="beerSearch">
+                <Row className="justify-content-md-center">
+                  <Col id="searchColumn" xl={7} xs={12}>
+                    <InputGroup id="searchInputGroup">
+                      <Form.Control type="text" placeholder="TODO"></Form.Control>
+                      <Button>Search</Button>
+                    </InputGroup>
+                  </Col>
+                </Row>
+              </div>
               <ul id="beerCardsList">
                 {beerCards}
               </ul>

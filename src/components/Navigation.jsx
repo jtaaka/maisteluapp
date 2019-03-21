@@ -62,7 +62,7 @@ export class Navigation extends Component {
             {this.renderLogout()}
           <Navbar expand="lg" bg="light" variant="light" collapseOnSelect="true">
             <LinkContainer to="/">
-              <Navbar.Brand>Maisteluapp</Navbar.Brand>
+              <Navbar.Brand>Tasting app</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
