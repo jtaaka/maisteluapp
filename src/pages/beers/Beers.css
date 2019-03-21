@@ -9,8 +9,44 @@
     margin-bottom: 5%;
 }
 
+#beerCardsList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+.beerImg {
+    min-width: 80%;
+    max-width: 80%;
+    min-height: 80%;
+    max-height: 80%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.beerName {
+    color: orange;
+    border-width: 1px;
+    border-color: black;
+    text-align: center;
+  }
+
+.beerItem {
+    display: inline-flex;
+    margin: 10px;
+  }
+
 #beersPage {
     background-color: red;
+}
+
+.beerSlogan {
+    height: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #beersCardColumns {
@@ -20,4 +56,5 @@
 #beerCard {
     border-color: aqua;
 }
+
 

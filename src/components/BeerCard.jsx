@@ -2,6 +2,10 @@ import React, {Component, Image} from 'react';
 
 import {Card, Button} from 'react-bootstrap';
 
+import beerImg from '../img/testbeer.png';
+
+const DESCRIPTION_MAX_LENGTH = 60;
+
 class BeerCard extends Component {
 
     constructor(props) {
@@ -9,20 +13,36 @@ class BeerCard extends Component {
 
       this.state = {
         beerName: this.props.beerName != null ? this.props.beerName : "",
-        description: this.props.description != null ? this.props.description : "",
+        slogan: this.props.slogan != null ? this.props.slogan : "",
         alcoholPercent: this.props.alcoholPercent != null ? this.props.alcoholPercent : 0.0
       }
     }
 
+    componentDidMount() {
+     /* if(this.state.description.length >= DESCRIPTION_MAX_LENGTH) {
+        console.log(this.state.description);
+        let newDesc = this.limitDescriptionLength(this.state.description);
+        console.log(newDesc + " STAGTE NOW");
+        this.setState({description: newDesc});
+
+      }*/
+    }
+
+    limitDescriptionLength(description) {
+      return description.slice(0, DESCRIPTION_MAX_LENGTH) + '...';
+      console.log("DONE");
+    }
+
     render() {
         return(
-          <Card className="beerCard">
-            <Card.Img variant="top" src="https://www.ultraliquors.co.za/images/cooldrinks/beer-at-ultraliquors.jpg" />
+          <Card className="beerCard" style={{ width: '15rem' }}>
+            <Card.Img variant="top" src={beerImg} />
             <Card.Body>
-              <Card.Title>{this.state.beerName}</Card.Title>
-              <Card.Text>{this.state.description}</Card.Text>
-              <Card.Text>{this.state.alcoholPercent}%</Card.Text>
-              <Button variant="primary">Go somewhere</Button>
+              <Card.Title>Karhu</Card.Title>
+              <Card.Text className="beerSlogan">
+                Some quick example text to build on the card title and make up the bulk of
+                the card's content.sssssssssssssadasdasdasdasdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+              </Card.Text>
             </Card.Body>
           </Card>
         );
