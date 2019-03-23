@@ -17,7 +17,6 @@ export class Navigation extends Component {
       this.toggle = this.toggle.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
       this.renderLogout = this.renderLogout.bind(this);
-      this.renderLinks = this.renderLinks.bind(this);
     }
     toggle() {
       this.setState({
