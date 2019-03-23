@@ -76,7 +76,7 @@ export class Navigation extends Component {
                   <NavDropdown.Item>Add beer</NavDropdown.Item>
                 </LinkContainer>
                   
-                <LinkContainer to="/tastingSessions/create">
+                <LinkContainer to="/tastingsessions/create">
                   <NavDropdown.Item>Create tasting session</NavDropdown.Item>
                 </LinkContainer>
                 </NavDropdown>
