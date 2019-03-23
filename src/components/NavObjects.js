@@ -1,6 +1,6 @@
 export
 let NavObjects = {
+  TastingSessions: "/tastingsessions/",
   Beers : "/tastingapp/beers",
-  Item1: "",
   Item2: ""
 }
