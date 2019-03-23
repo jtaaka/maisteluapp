@@ -1,0 +1,50 @@
+#createTastingSession {
+  margin-top: 1%;
+  background-color: #a0a6b2;
+  border-style: solid;
+  border-color: #e0e0e0;
+  border-width: 3px;
+  padding-bottom: 5px;
+  margin-bottom: 100px;
+}
+
+#tastingSessionForm {
+  position: relative;
+}
+
+#createTastingSession > h1 {
+  color: #f5f5f5;
+  text-align: center;
+  margin-top: 1%;
+  margin-bottom: 5%;
+}
+
+#startingDateLabel {
+  color: #f5f5f5;
+  text-align: center;
+}
+
+#startingDatePicker {
+  text-align: center;
+}
+
+.list-unstyled {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+#selectedBeers {
+  text-align: center;
+}
+
+#selectedBeersList {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#sessionName {
+  text-align:center;
+}
