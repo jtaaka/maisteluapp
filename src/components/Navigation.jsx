@@ -68,16 +68,18 @@ export class Navigation extends Component {
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                   {this.renderLinks()}
-                  </Nav>
+                </Nav>
                   
-                    <Navbar.Text>Signed in as: #TODO</Navbar.Text>
-                    <NavDropdown title="Manage app" id="basic-nav-dropdown">
-                    <LinkContainer to="/tastingapp/beers/add">
-                    <NavDropdown.Item>Add beer</NavDropdown.Item>
-                    </LinkContainer>
+                <Navbar.Text>Signed in as: #TODO</Navbar.Text>
+                <NavDropdown title="Manage app" id="basic-nav-dropdown">
+                <LinkContainer to="/tastingapp/beers/add">
+                  <NavDropdown.Item>Add beer</NavDropdown.Item>
+                </LinkContainer>
                   
-                    <NavDropdown.Item>Create tasting session</NavDropdown.Item>
-                    </NavDropdown>
+                <LinkContainer to="/tastingSessions/create">
+                  <NavDropdown.Item>Create tasting session</NavDropdown.Item>
+                </LinkContainer>
+                </NavDropdown>
               <Nav.Link onClick={this.handleLogOut}>Log out</Nav.Link>
             </Navbar.Collapse>
           </Navbar>
