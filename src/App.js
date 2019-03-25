@@ -12,13 +12,18 @@ import TastingApp from "./pages/tastingApp/tastingApp";
 import Beers from "./pages/beers/Beers"
 import AddModifyBeer from './pages/beers/add/AddModifyBeer';
 import CreateTastingSession from './pages/tastingSessions/create/CreateTastingSession';
+import { refreshToken } from './authorization/Auth';
 
 class App extends Component {
 
   componentWillMount() {
-    axios.defaults.baseURL = 'http://192.168.1.100:8080/';
+    axios.defaults.baseURL = 'http://localhost:8080/';
     axios.defaults.headers.post['Content-Type'] = 'application/json';
     axios.defaults.headers.put['Content-Type'] = 'application/json';
+  }
+
+  componentDidMount() {
+    setInterval(refreshToken, 30000);
   }
 
   render() {
