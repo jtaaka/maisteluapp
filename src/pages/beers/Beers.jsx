@@ -7,6 +7,8 @@ import BeerCard from '../../components/BeerCard';
 
 import './Beers.css';
 
+import { Link } from "react-router-dom";
+
 class Beers extends Component {
 
     constructor(props) {
@@ -36,11 +38,13 @@ class Beers extends Component {
     render() {
         const beerCards = this.state.listOfBeers.map((d) =>
                 <li className="beerItem">
+                  <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + d.id}>
                     <BeerCard 
-                        beerName={d.beerName}
-                        description={d.description}
-                        alcoholPercent={d.alcoholPercent}
+                      beerName={d.beerName}
+                      description={d.description}
+                      alcoholPercent={d.alcoholPercent}
                     />
+                  </Link>
                 </li>
         );
 

@@ -14,9 +14,9 @@ class BeerCard extends Component {
       this.state = {
         beerName: this.props.beerName != null ? this.props.beerName : "",
         description: this.props.description != null ? this.props.description : "",
-        alcoholPercent: this.props.alcoholPercent != null ? this.props.alcoholPercent : 0.0
+        alcoholPercent: this.props.alcoholPercent != null ? this.props.alcoholPercent : 0.0,
+        link: ("/tastingapp/beers/" + this.props.beerId)
       }
-      this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -30,13 +30,9 @@ class BeerCard extends Component {
       return description.slice(0, DESCRIPTION_MAX_LENGTH) + '...';
     }
 
-    handleClick(){
-      console.log("clicked");
-    }
-
     render() {
         return(
-          <Card className="beerCard shadow" style={{ width: '13rem' }} onClick={this.handleClick}>
+          <Card className="beerCard shadow" style={{ width: '13rem' }}>
             <Card.Img variant="top" src={beerImg} />
             <Card.Body>
               <Card.Title>{this.state.beerName}</Card.Title>
