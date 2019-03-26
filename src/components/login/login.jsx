@@ -49,6 +49,8 @@ class Login extends Component {
         console.log("SUCCESS");
         response.json().then(function(json){
           Cookies.set("token", json.token);
+          Cookies.set("user", json.user);
+          Cookies.set("id", json.id);
           parent.props.history.push("/tastingapp");
         });
 

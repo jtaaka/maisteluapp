@@ -13,6 +13,7 @@ import Beers from "./pages/beers/Beers"
 import AddModifyBeer from './pages/beers/add/AddModifyBeer';
 import CreateTastingSession from './pages/tastingSessions/create/CreateTastingSession';
 import { refreshToken } from './authorization/Auth';
+import BeerInfo from './pages/beers/BeerInfo';
 
 class App extends Component {
 
@@ -37,6 +38,7 @@ class App extends Component {
             <PrivateRoute exact path = '/tastingsessions/create' component = {CreateTastingSession}/>}
             <PrivateRoute exact path = '/tastingapp/' component = {TastingApp}/>
             <PrivateRoute exact path = '/tastingapp/beers' component = {Beers}/>
+            <PrivateRoute exact path = '/tastingapp/beer/:id' component ={BeerInfo}/>
             <PrivateRoute exact path = '/tastingapp/beers/add' component = {AddModifyBeer}/>
             <Redirect from='*' to='/404' />
           </Switch>
