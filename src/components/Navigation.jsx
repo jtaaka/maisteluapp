@@ -71,7 +71,7 @@ export class Navigation extends Component {
                   {this.renderLinks()}
                 </Nav>
                   
-                <Navbar.Text>Signed in as: #TODO</Navbar.Text>
+                <Navbar.Text>Signed in as: {Cookies.get("user")}</Navbar.Text>
                 <NavDropdown title="Manage app" id="basic-nav-dropdown">
                 <LinkContainer to="/tastingapp/beers/add">
                   <NavDropdown.Item>Add beer</NavDropdown.Item>
