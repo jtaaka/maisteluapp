@@ -4,6 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
 import { Redirect } from 'react-router-dom';
 import { NavObjects } from './NavObjects.js';
+import { removeCookies } from './../authorization/Auth';
 
 
 export class Navigation extends Component {
@@ -28,7 +29,7 @@ export class Navigation extends Component {
 
     handleLogOut = event => {
       console.log(Cookies.get("token"));
-      Cookies.remove("token");
+      removeCookies();
       console.log("removed");
       this.setState({"logout":true});
     };
