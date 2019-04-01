@@ -57,6 +57,7 @@ class BeerInfo extends Component {
             <Row style={{margin:1 + "%"}}>
               <Col>
                 <h1>{this.state.beer.beerName}</h1>
+                <p>Alcohol: <b>{this.state.beer.alcoholPercent}%</b></p>
                 <p>{this.state.beer.description}</p>
               </Col>
             </Row>
