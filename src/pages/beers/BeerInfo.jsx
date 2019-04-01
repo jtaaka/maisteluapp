@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Form, InputGroup, Button, Col, Row, Media} from 'react-bootstrap';
+import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image} from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -47,16 +47,19 @@ class BeerInfo extends Component {
           <Container>
             <div id="beersPage" className="rounded">
             <Row className='justify-content-center'>
-              <Media>
-                <img
-                  width={100}
-                  height={100}
-                  src={beerImg}
-                  alt="Generic placeholder"
-                />
-              </Media>
+                <Image src={beerImg} rounded style={{margin:1 + "%"}}></Image>
+  
+              
             </Row>
-            asdasd
+            <Alert variant='dark'>
+              Rating 5/5 (TODO)
+            </Alert>
+            <Row style={{margin:1 + "%"}}>
+              <Col>
+                <h1>{this.state.beer.beerName}</h1>
+                <p>{this.state.beer.description}</p>
+              </Col>
+            </Row>
             </div>
           </Container>
         )
