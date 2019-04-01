@@ -49,7 +49,12 @@ class Login extends Component {
         console.log("SUCCESS");
         response.json().then(function(json){
           Cookies.set("token", json.token);
-          parent.props.history.push("/tastingapp");
+          Cookies.set("user", json.user);
+          Cookies.set("id", json.id);
+          parent.props.history.push({
+            pathname: "/",
+            state: {userId: "hehe", username: "lol"}
+          });
         });
 
       } else if(response.status === 401) {
