@@ -4,7 +4,14 @@ import {Container, Card, Button} from 'react-bootstrap';
 
 import axios from 'axios';
 
+import moment from 'moment';
+
+import {DATE_FORMAT} from '../../GlobalConfig';
+
 import './TastingSessions.css';
+import User from '../../User';
+
+const DESCRIPTION_MAX_LENGTH = 250;
 
 class TastingSessions extends Component {
 
@@ -12,6 +19,7 @@ class TastingSessions extends Component {
     super(props);
 
     this.state = {
+      user: new User(),
       tastingSessions: []
     };
 
@@ -34,6 +42,14 @@ class TastingSessions extends Component {
   }
 
   createTastingSessionCard(id, startingDateTime, name, additionalInfo) {
+
+    /* Limits the additional info text length in the card */
+    if(additionalInfo.length > DESCRIPTION_MAX_LENGTH) {
+      additionalInfo = additionalInfo.slice(0, DESCRIPTION_MAX_LENGTH) + '...';
+    }
+
+    startingDateTime = moment(new Date(startingDateTime)).format(DATE_FORMAT);
+
     return (
       <li sessionId={id}>
         <Card className="m-2">
@@ -44,7 +60,7 @@ class TastingSessions extends Component {
               {additionalInfo}
             </Card.Text>
             <Button variant="info" className="m-1">Info</Button>
-            <Button variant="success" className="m-1">Join session</Button>
+            <Button variant="success" className="m-1" onClick={() => this.state.user.joinTastingSession(id)}>Join session(TODO)</Button>
           </Card.Body>
         </Card>
       </li>
