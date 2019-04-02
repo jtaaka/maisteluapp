@@ -49,8 +49,8 @@ class Login extends Component {
         console.log("SUCCESS");
         response.json().then(function(json){
           Cookies.set("token", json.token);
-          Cookies.set("user", json.user);
-          Cookies.set("id", json.id);
+          Cookies.set("username", json.user);
+          Cookies.set("userId", json.id);
           parent.props.history.push({
             pathname: "/",
             state: {userId: "hehe", username: "lol"}
