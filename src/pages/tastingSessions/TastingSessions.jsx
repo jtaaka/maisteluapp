@@ -133,7 +133,7 @@ class TastingSessions extends Component {
                     variant="danger" 
                     className="m-1" 
                     onClick={this.handleOnClick}>
-                    Cancel join
+                    Quit session
                   </Button>;
         }
       }
