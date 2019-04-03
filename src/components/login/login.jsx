@@ -22,8 +22,6 @@ class Login extends Component {
       && this.state.password.length > 0;
   }
 
-
-
   handleChange = event => {
     this.setState({[event.target.id]: event.target.value});
   };
