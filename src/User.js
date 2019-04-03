@@ -9,10 +9,6 @@ class User {
     this.username = Cookies.get("username") != null ? Cookies.get("username") : '';
     this.usersJoinedSessions = [];
 
-    console.log("USER:");
-    console.log(this.userId);
-    console.log(this.username);
-
     this.joinTastingSession = this.joinTastingSession.bind(this);
     this.leaveTastingSession = this.leaveTastingSession.bind(this);
     this.updateJoinedSessions = this.updateJoinedSessions.bind(this);
