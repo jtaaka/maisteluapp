@@ -17,7 +17,7 @@ import CreateTastingSession from './pages/tastingSessions/create/CreateTastingSe
 class App extends Component {
 
   componentWillMount() {
-    axios.defaults.baseURL = 'http://192.168.1.100:8080/';
+    axios.defaults.baseURL = 'http://localhost:8080/';
     axios.defaults.headers.post['Content-Type'] = 'application/json';
     axios.defaults.headers.put['Content-Type'] = 'application/json';
   }

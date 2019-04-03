@@ -3,8 +3,6 @@ import {Form, Container, Button} from 'react-bootstrap';
 
 import axios from 'axios';
 
-import {BACKEND_URL} from '../../../GlobalConfig';
-
 import './AddModifyBeer.css';
 /**
  * TODO: Add image uploading possibility.

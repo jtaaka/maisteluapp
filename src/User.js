@@ -7,25 +7,64 @@ class User {
   constructor() {
     this.userId = Cookies.get("userId") != null ? Cookies.get("userId") : '';
     this.username = Cookies.get("username") != null ? Cookies.get("username") : '';
+    this.usersJoinedSessions = [];
+
+    console.log("USER:");
+    console.log(this.userId);
+    console.log(this.username);
 
     this.joinTastingSession = this.joinTastingSession.bind(this);
+    this.leaveTastingSession = this.leaveTastingSession.bind(this);
+    this.updateJoinedSessions = this.updateJoinedSessions.bind(this);
   }
 
-  joinTastingSession(tastingSessionId) {
+  joinTastingSession(tastingSessionId, successCallBack) {
     let requestBody = {
       userId: this.userId,
       tastingSessionId: tastingSessionId
     };
 
-    console.log("CURRENT BODY: " + JSON.stringify(requestBody));
-
     axios
     .post(
-      'users/jointastingsession',
+      'userandtastingsession/',
       JSON.stringify(requestBody)
     )
-    .then(r => alert("Succesfully joined tasting session!"))
+    .then(function(response) {
+      alert("Succesfully joined tasting session!");
+      successCallBack();
+    })
     .catch(e => console.log(e));
+  }
+
+  leaveTastingSession(tastingSessionId, successCallBack) {
+    axios
+    .delete(
+      'userandtastingsession/', {
+        params: {
+          userId: this.userId,
+          tastingSessionId: tastingSessionId
+        }
+      }
+    )
+    .then(function(response) {
+      alert("Succesfully left tasting session!");
+      successCallBack();
+    })
+    .catch(e => console.log(e));
+  }
+
+  updateJoinedSessions(successCallBack) {
+    axios
+      .get(
+        'userandtastingsession/user/' + this.userId
+      )
+      .then((response) => {
+        if(response.status === 200)
+          this.usersJoinedSessions = response.data;
+
+        successCallBack();
+      })
+      .catch(e => console.log(e));
   }
 }
 
