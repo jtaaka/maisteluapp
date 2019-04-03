@@ -9,7 +9,6 @@ import {DATE_FORMAT} from '../../GlobalConfig';
 import User from '../../User';
 
 import './TastingSessions.css';
-import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 
 const DESCRIPTION_MAX_LENGTH = 250;
 
@@ -46,25 +45,41 @@ class TastingSessions extends Component {
     });
   }
 
+  /**
+   * Updates the users list of joined sessions and then
+   * updates the state.
+   */
   updateUserState() {
-    console.log("AND WE ARE DONE.");
-    this.state.user.updateJoinedSessions();
-    this.setState({user: this.state.user});
+    this.state.user.updateJoinedSessions(() => this.setState({user: this.state.user}));
   }
 
   handleOnClick(event) {
     event.preventDefault();
-    console.log(event.target.sessionid + "HEHE")
     if(event.target.id === 'join') {
       /* Join tasting session button */
-      this.state.user.joinTastingSession(event.target.sessionid, this.updateUserState);
+      this.state.user.joinTastingSession(
+        event.currentTarget.getAttribute('sessionid'),
+        this.updateUserState
+      );
     } else if(event.target.id === 'cancel') {
       /* Cancel joining tasting session button */
-
-      this.state.user.leaveTastingSession(event.target.sessionid, this.updateUserState);
+      this.state.user.leaveTastingSession(
+        event.currentTarget.getAttribute('sessionid'),
+        this.updateUserState
+      );
     }
   }
 
+  /**
+   * Creates a single bootstrap card that contains
+   * information of a tasting sessions and info and join/cancel
+   * join buttons.
+   * 
+   * @param {*} id 
+   * @param {*} startingDateTime 
+   * @param {*} name 
+   * @param {*} additionalInfo 
+   */
   createTastingSessionCard(id, startingDateTime, name, additionalInfo) {
 
     /* Limits the additional info text length in the card */
@@ -91,14 +106,35 @@ class TastingSessions extends Component {
     );
   }
 
+  /**
+   * Creates join/cancel join button for a tasting
+   * session card depenging on if the user is already
+   * joined or not.
+   * 
+   * @param {*} sessionId 
+   */
   createJoinOrCancelJoinButton(sessionId) {
       let listOfJoinedSessions = this.state.user.usersJoinedSessions;
       for(let i = 0; i < listOfJoinedSessions.length; i++) {
         if(sessionId === listOfJoinedSessions[i]) {
-          return <Button id="cancel" sessionid={sessionId} variant="danger" className="m-1" onClick={this.handleOnClick}>Lily kiss me</Button>;
+          return <Button 
+                    id="cancel" 
+                    sessionid={sessionId} 
+                    variant="danger" 
+                    className="m-1" 
+                    onClick={this.handleOnClick}>
+                    Lily kiss me
+                  </Button>;
         }
       }
-      return <Button id="join" sessionid={sessionId} variant="success" className="m-1" onClick={this.handleOnClick}>Join session(TODO)</Button>;
+      return <Button 
+                id="join" 
+                sessionid={sessionId} 
+                variant="success" 
+                className="m-1" 
+                onClick={this.handleOnClick}>
+                Join session
+              </Button>;
   }
 
   render() {
