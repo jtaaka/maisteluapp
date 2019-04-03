@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
-import {Container} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
+
+import axios from 'axios';
 
 import './TastingSessionView.css';
 import User from '../../../User';
@@ -14,17 +16,46 @@ class TastingSessionView extends Component {
 
     this.state = {
       tastingSessionId: passedParameters.tastingSessionId != null ? passedParameters.tastingSessionId : -1,
-      user: passedParameters.user != null ? passedParameters.user : new User()
+      user: new User(),
+      tastingSessionName: '',
+      tastingSessionStartingDate: new Date(),
+      tastingSessionAdditionalInfo: '',
+      tastingSessionBeers: []
     };
 
-    console.log(this.state.tastingSessionId + " ID");
-    console.log(this.state.user.username + " USER");
+    console.log(this.state.user.getIsUserJoinedInSession(this.state.tastingSessionId) + " HAHA");
+  }
+
+  componentWillMount() {
+    axios.get(
+      'tastingsession/' + this.state.tastingSessionId
+    ).then((response) => {
+      if(response.status === 200) {
+        this.setState({
+          tastingSessionName: response.data.name,
+          tastingSessionStartingDate: new Date(response.data.startingDate),
+          tastingSessionAdditionalInfo: response.data.tastingSessionAdditionalInfo,
+          tastingSessionsBeers: response.data.beers
+        });
+      }
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  createJoinOrQuitSessionButton() {
+
   }
 
   render() {
     return (
-      <Container>
-        <p>HELLO</p>
+      <Container id="tastingsession-container" className="rounded">
+        <h1>{this.state.tastingSessionName}</h1>
+        <Row className="justify-content-md-center">
+          <Col md="auto">
+            <Button>Join</Button>
+          </Col>
+        </Row>
       </Container>
     );
   }
