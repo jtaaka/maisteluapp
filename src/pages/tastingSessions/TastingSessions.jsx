@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 import {Container, Card, Button} from 'react-bootstrap';
 
@@ -98,7 +99,17 @@ class TastingSessions extends Component {
             <Card.Text>
               {additionalInfo}
             </Card.Text>
-            <Button variant="info" className="m-1">Info</Button>
+            <Link 
+              style={{ textDecoration: 'none' }} 
+              to={{
+                pathname: '/tastingsessions/' + id,
+                state: { 
+                  tastingSessionId: id,
+                  user: this.state.user
+                 }
+              }}>
+              <Button variant="info" className="m-1">Info</Button>
+            </Link>
             {this.createJoinOrCancelJoinButton(id)}
           </Card.Body>
         </Card>
