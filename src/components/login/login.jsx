@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Button, Form, Container, Row, Col} from "react-bootstrap";
+import { Button, Form, Row, Col} from "react-bootstrap";
 
-import { Redirect } from 'react-router-dom'
 import {BACKEND_URL} from '../../GlobalConfig';
 import {withRouter} from "react-router-dom";
 import Cookies from "js-cookie";
@@ -49,9 +48,9 @@ class Login extends Component {
         console.log("SUCCESS");
         response.json().then(function(json){
           Cookies.set("token", json.token);
-          Cookies.set("user", json.user);
-          Cookies.set("id", json.id);
-          parent.props.history.push("/tastingapp");
+          Cookies.set("username", json.user);
+          Cookies.set("userId", json.id);
+          parent.props.history.push("/");
         });
 
       } else if(response.status === 401) {

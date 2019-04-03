@@ -6,20 +6,18 @@ import { Redirect } from 'react-router-dom';
 import { NavObjects } from './NavObjects.js';
 import { removeCookies } from './../authorization/Auth';
 
-
 export class Navigation extends Component {
     constructor(props) {
       super(props);
-  
-      this.toggle = this.toggle.bind(this);
-      this.handleLogOut = this.handleLogOut.bind(this);
-      this.renderLogout = this.renderLogout.bind(this);
-      this.renderLinks = this.renderLinks.bind(this);
-      this.NavObjects = NavObjects;
+
       this.state = {
         isOpen: false,
         logout: false
       };
+
+      this.toggle = this.toggle.bind(this);
+      this.handleLogOut = this.handleLogOut.bind(this);
+      this.renderLogout = this.renderLogout.bind(this);
     }
     toggle() {
       this.setState({
@@ -41,18 +39,6 @@ export class Navigation extends Component {
       }
     }
 
-    renderLinks(){
-      //console.log(NavObjects);
-      let ret = [];
-      for(let title in NavObjects){
-        ret.push(<LinkContainer to={NavObjects[title]}>
-        <Nav.Link>{title}</Nav.Link>
-        </LinkContainer>)
-      } 
-      return ret;
-    
-    }
-
     render() {
       /* Disbales navbar in login page */
       if (window.location.pathname === '/login') {
@@ -68,7 +54,12 @@ export class Navigation extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                  {this.renderLinks()}
+                  <LinkContainer to="/tastingsessions/">
+                    <Nav.Link>Tasting Sessions</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/tastingapp/beers/">
+                    <Nav.Link>Beers</Nav.Link>
+                  </LinkContainer>
                 </Nav>
                   
                 <Navbar.Text>Signed in as: {Cookies.get("user")}</Navbar.Text>

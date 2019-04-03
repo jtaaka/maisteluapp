@@ -11,6 +11,7 @@ import LoginAndSignup from "./pages/loginAndSignup/loginAndSignup";
 import TastingApp from "./pages/tastingApp/tastingApp";
 import Beers from "./pages/beers/Beers"
 import AddModifyBeer from './pages/beers/add/AddModifyBeer';
+import TastingSessions from './pages/tastingSessions/TastingSessions';
 import CreateTastingSession from './pages/tastingSessions/create/CreateTastingSession';
 import { refreshToken } from './authorization/Auth';
 import BeerInfo from './pages/beers/BeerInfo';
@@ -35,6 +36,7 @@ class App extends Component {
           <Switch>
             <Route exact path = '/login' component = {LoginAndSignup}/>  
             <PrivateRoute exact path = '/' component = {TastingApp}/>}
+            <PrivateRoute exact path = '/tastingsessions/' component = {TastingSessions}/>}
             <PrivateRoute exact path = '/tastingsessions/create' component = {CreateTastingSession}/>}
             <PrivateRoute exact path = '/tastingapp/' component = {TastingApp}/>
             <PrivateRoute exact path = '/tastingapp/beers' component = {Beers}/>
