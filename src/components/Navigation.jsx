@@ -3,7 +3,6 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
 import { Redirect } from 'react-router-dom';
-import { NavObjects } from './NavObjects.js';
 import { removeCookies } from './../authorization/Auth';
 
 export class Navigation extends Component {

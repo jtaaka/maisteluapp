@@ -50,7 +50,7 @@ class Login extends Component {
           Cookies.set("token", json.token);
           Cookies.set("username", json.user);
           Cookies.set("userId", json.id);
-          parent.props.history.push("/");
+          parent.props.history.push("/tastingapp");
         });
 
       } else if(response.status === 401) {

@@ -34,7 +34,7 @@ export function refreshToken () {
 }
 
 export function checkCookies(){
-    if(Cookies.get("token") === undefined || Cookies.get("user") === undefined || Cookies.get("id") === undefined){
+    if(Cookies.get("token") === undefined || Cookies.get("userId") === undefined || Cookies.get("username") === undefined){
         return false;
     }
     return true;
