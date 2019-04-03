@@ -50,10 +50,7 @@ class Login extends Component {
           Cookies.set("token", json.token);
           Cookies.set("username", json.user);
           Cookies.set("userId", json.id);
-          parent.props.history.push({
-            pathname: "/",
-            state: {userId: "hehe", username: "lol"}
-          });
+          parent.props.history.push("/");
         });
 
       } else if(response.status === 401) {

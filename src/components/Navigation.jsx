@@ -3,7 +3,8 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
 import { Redirect } from 'react-router-dom';
-
+import { NavObjects } from './NavObjects.js';
+import { removeCookies } from './../authorization/Auth';
 
 export class Navigation extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ export class Navigation extends Component {
 
     handleLogOut = event => {
       console.log(Cookies.get("token"));
-      Cookies.remove("token");
+      removeCookies();
       console.log("removed");
       this.setState({"logout":true});
     };
@@ -61,7 +62,7 @@ export class Navigation extends Component {
                   </LinkContainer>
                 </Nav>
                   
-                <Navbar.Text>Signed in as: #TODO</Navbar.Text>
+                <Navbar.Text>Signed in as: {Cookies.get("user")}</Navbar.Text>
                 <NavDropdown title="Manage app" id="basic-nav-dropdown">
                 <LinkContainer to="/tastingapp/beers/add">
                   <NavDropdown.Item>Add beer</NavDropdown.Item>

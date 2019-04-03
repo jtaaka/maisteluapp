@@ -13,6 +13,8 @@ import Beers from "./pages/beers/Beers"
 import AddModifyBeer from './pages/beers/add/AddModifyBeer';
 import TastingSessions from './pages/tastingSessions/TastingSessions';
 import CreateTastingSession from './pages/tastingSessions/create/CreateTastingSession';
+import { refreshToken } from './authorization/Auth';
+import BeerInfo from './pages/beers/BeerInfo';
 
 class App extends Component {
 
@@ -20,6 +22,10 @@ class App extends Component {
     axios.defaults.baseURL = 'http://localhost:8080/';
     axios.defaults.headers.post['Content-Type'] = 'application/json';
     axios.defaults.headers.put['Content-Type'] = 'application/json';
+  }
+
+  componentDidMount() {
+    setInterval(refreshToken, 30000);
   }
 
   render() {
@@ -35,6 +41,7 @@ class App extends Component {
             <PrivateRoute exact path = '/tastingapp/' component = {TastingApp}/>
             <PrivateRoute exact path = '/tastingapp/beers' component = {Beers}/>
             <PrivateRoute exact path = '/tastingapp/beers/add' component = {AddModifyBeer}/>
+            <PrivateRoute exact path = '/tastingapp/beers/:id' component ={BeerInfo}/>
             <Redirect from='*' to='/404' />
           </Switch>
         </div>

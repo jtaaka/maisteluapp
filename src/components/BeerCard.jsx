@@ -14,7 +14,8 @@ class BeerCard extends Component {
       this.state = {
         beerName: this.props.beerName != null ? this.props.beerName : "",
         description: this.props.description != null ? this.props.description : "",
-        alcoholPercent: this.props.alcoholPercent != null ? this.props.alcoholPercent : 0.0
+        alcoholPercent: this.props.alcoholPercent != null ? this.props.alcoholPercent : 0.0,
+        link: ("/tastingapp/beers/" + this.props.beerId)
       }
     }
 
