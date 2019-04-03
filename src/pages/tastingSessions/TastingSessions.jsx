@@ -105,7 +105,6 @@ class TastingSessions extends Component {
                 pathname: '/tastingsessions/' + id,
                 state: { 
                   tastingSessionId: id,
-                  user: this.state.user
                  }
               }}>
               <Button variant="info" className="m-1">Info</Button>
@@ -134,7 +133,7 @@ class TastingSessions extends Component {
                     variant="danger" 
                     className="m-1" 
                     onClick={this.handleOnClick}>
-                    Lily kiss me
+                    Cancel join
                   </Button>;
         }
       }
