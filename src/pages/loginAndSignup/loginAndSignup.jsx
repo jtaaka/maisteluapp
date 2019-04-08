@@ -45,8 +45,8 @@ class LoginAndSignup extends Component {
 
     return (
       <Container id="loginAndSignupContainer">
-        <Row>
-          <Col>
+        <Row className="justify-content-center">
+          <Col xs={10} sm={10} md={8} lg={6} xl={5}>
             {currentForm}
             <h6>{this.state.header6Text}</h6>
             <Button 
