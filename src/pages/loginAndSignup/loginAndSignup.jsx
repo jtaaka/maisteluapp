@@ -11,7 +11,7 @@ class LoginAndSignup extends Component {
 
     this.state = {
       showLogin: true,
-      header6Text: "Dont have an account? Click here to register:",
+      header6Text: "Don't have an account? Click here to register:",
       switchFormsBtnText: "Sign up"
     };
 
@@ -28,7 +28,7 @@ class LoginAndSignup extends Component {
     } else {
       this.setState({
         showLogin: !this.state.showLogin,
-        header6Text: "Dont have an account? Click here to register:",
+        header6Text: "Don't have an account? Click here to register:",
         switchFormsBtnText: "Sign up"
       });
     }
@@ -45,10 +45,15 @@ class LoginAndSignup extends Component {
 
     return (
       <Container id="loginAndSignupContainer">
-        {currentForm}
-        <Row className="justify-content-md-center">
-          <Col><h6>{this.state.header6Text}</h6>
-            <Button variant ="info" onClick={this.switchForms} block>{this.state.switchFormsBtnText}
+        <Row>
+          <Col>
+            {currentForm}
+            <h6>{this.state.header6Text}</h6>
+            <Button 
+              variant ="info" 
+              onClick={this.switchForms} 
+              block>
+              {this.state.switchFormsBtnText}
             </Button>
           </Col>
         </Row>
