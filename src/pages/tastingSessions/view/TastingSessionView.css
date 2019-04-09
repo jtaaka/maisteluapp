@@ -8,9 +8,18 @@
     margin-bottom: 100px;
   }
   
-  #tastingsession-container > h1 {
+  #title-date-row:nth-child(1) h1 {
     color: #f5f5f5;
-    text-align: center;
+    border: 1px;
+    text-shadow: 3px 2px black;
+    text-align: left;
     margin-top: 1%;
     margin-bottom: 5%;
   }
+
+  #title-date-row:nth-child(1) p {
+    font-size: 20px;
+    color: #f5f5f5;
+    margin-bottom: 5%;
+  }
+
