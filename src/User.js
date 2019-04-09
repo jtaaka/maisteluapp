@@ -13,6 +13,7 @@ class User {
     this.leaveTastingSession = this.leaveTastingSession.bind(this);
     this.updateJoinedSessions = this.updateJoinedSessions.bind(this);
     this.getIsUserJoinedInTastingSession = this.getIsUserJoinedInTastingSession.bind(this);
+    this.getRating = this.getRating.bind(this);
     this.rateBeer = this.rateBeer.bind(this);
   }
 
@@ -70,6 +71,15 @@ class User {
       params: {
         userId: this.userId,
         tastingSessionId: sessionId
+      }
+    });
+  }
+
+  getRating(beerId) {
+    return axios.get('rating', {
+      params: {
+        userId: this.userId,
+        beerId: beerId
       }
     });
   }
