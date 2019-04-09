@@ -61,7 +61,7 @@ export class Navigation extends Component {
                   </LinkContainer>
                 </Nav>
                   
-                <Navbar.Text>Signed in as: {Cookies.get("user")}</Navbar.Text>
+                <Navbar.Text>Signed in as: {Cookies.get("username")}</Navbar.Text>
                 <NavDropdown title="Manage app" id="basic-nav-dropdown">
                 <LinkContainer to="/tastingapp/beers/add">
                   <NavDropdown.Item>Add beer</NavDropdown.Item>
