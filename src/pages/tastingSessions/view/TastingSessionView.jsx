@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card} from 'react-bootstrap';
+import {Container, Row, Col, Card, Form} from 'react-bootstrap';
 
 import axios from 'axios';
 import moment from 'moment';
 
+import RatingComponent from './Rating';
 import User from '../../../User';
 import {DATE_FORMAT} from '../../../GlobalConfig';
 
@@ -40,6 +41,7 @@ class TastingSessionView extends Component {
             tastingSessionName: response.data.name,
             tastingSessionStartingDate: new Date(response.data.startingDate),
             tastingSessionAdditionalInfo: response.data.additionalInfo,
+            tastingSessionBeers: response.data.beers
           });
         }
     })
@@ -59,19 +61,22 @@ class TastingSessionView extends Component {
 
   createRateBeerCard(beer) {
     return (
-      <Card className="shadow align-items-center">
-        <Card.Img variant="top" src={beerImg}  style={{ width: '13rem' }} />
-        <Card.Body>
-          <Card.Title>Olvi3</Card.Title>
-          <Card.Text>Saatana</Card.Text>
-        </Card.Body>
+      <Card className="shadow align-items-center" style={{width:'23rem'}}>
+        <Card.Img variant="top" src={beerImg} />
+          <Card.Body className="text-center w-100">
+            <Card.Title>{beer.beerName}</Card.Title>
+            <Card.Text>{beer.description}</Card.Text>
+            <RatingComponent user={this.state.user} beerId={beer.id}/>
+          </Card.Body>
       </Card>
     );
   }
 
   render() {
 
-    let beerCard = this.createRateBeerCard(0);
+    const beerRatingListItems = this.state.tastingSessionBeers.map((d) => {
+      return <li className="mb-4">{this.createRateBeerCard(d)}</li>;
+    });
 
     return (
       <Container id="tastingsession-container" className="rounded">
@@ -89,17 +94,16 @@ class TastingSessionView extends Component {
           </h1>
         </Row>
         <Row className="justify-content-center">
-        <div className="border rounded shadow-sm p-3 mb-5 bg-white rounded w-75" align="center">
+          <div className="border rounded shadow-sm p-3 mb-5 bg-white rounded w-75" align="center">
             {this.state.tastingSessionAdditionalInfo}
           </div>
         </Row>
         <Row className="justify-content-center">
           <h1>Drinks:</h1>
         </Row>
-        <Row className="justify-content-center">
-        <ul className="list-group list-group-flush bg-light w-75">
-          <li className="list-group-item">{beerCard}</li>
-          <li className="list-group-item">{beerCard}</li>
+        <Row className="justify-content-center homo">
+        <ul id="beer-rate-list">
+          {beerRatingListItems}
         </ul>
         </Row>
       </Container>

@@ -17,6 +17,7 @@ import CreateTastingSession from './pages/tastingSessions/create/CreateTastingSe
 import { refreshToken } from './authorization/Auth';
 import BeerInfo from './pages/beers/BeerInfo';
 
+
 class App extends Component {
 
   componentWillMount() {
