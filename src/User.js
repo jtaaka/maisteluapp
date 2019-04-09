@@ -13,6 +13,7 @@ class User {
     this.leaveTastingSession = this.leaveTastingSession.bind(this);
     this.getIsUserJoinedInSession = this.getIsUserJoinedInSession.bind(this);
     this.updateJoinedSessions = this.updateJoinedSessions.bind(this);
+    this.getIsUserJoinedInTastingSession = this.getIsUserJoinedInTastingSession.bind(this);
   }
 
   joinTastingSession(tastingSessionId, successCallBack) {
@@ -64,25 +65,12 @@ class User {
       .catch(e => console.log(e));
   }
 
-  getIsUserJoinedInSession(tastingSessionId) {
-    axios
-    .get(
-      'userandtastingsession', {
-        params: {
-          userId: this.userId,
-          tastingSessionId: tastingSessionId
-        }
+  getIsUserJoinedInTastingSession(sessionId) {
+    return axios.get('userandtastingsession', {
+      params: {
+        userId: this.userId,
+        tastingSessionId: sessionId
       }
-    )
-    .then((response) => {
-      if(response.status === 200)
-        return true;
-      else
-        return false;
-    })
-    .catch((error) => {
-      console.log(error);
-      return false;
     });
   }
 }
