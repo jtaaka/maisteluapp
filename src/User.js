@@ -11,9 +11,9 @@ class User {
 
     this.joinTastingSession = this.joinTastingSession.bind(this);
     this.leaveTastingSession = this.leaveTastingSession.bind(this);
-    this.getIsUserJoinedInSession = this.getIsUserJoinedInSession.bind(this);
     this.updateJoinedSessions = this.updateJoinedSessions.bind(this);
     this.getIsUserJoinedInTastingSession = this.getIsUserJoinedInTastingSession.bind(this);
+    this.rateBeer = this.rateBeer.bind(this);
   }
 
   joinTastingSession(tastingSessionId, successCallBack) {
@@ -72,6 +72,16 @@ class User {
         tastingSessionId: sessionId
       }
     });
+  }
+
+  rateBeer(beerId, ratingValue, comment) {
+    const requestBody = {
+        userId: this.userId,
+        beerId: beerId,
+        ratingValue: ratingValue,
+        comment: comment
+    };
+    return axios.post('rating', JSON.stringify(requestBody));
   }
 }
 
