@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import {Button, Collapse, Container, Form} from 'react-bootstrap';
+import {Button, Collapse, Form} from 'react-bootstrap';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import {notificationSuccess} from '../../../components/Notification';
+import {notificationSuccess, notificationError} from '../../../components/Notification';
 
 const MIN_RATING_VALUE = 0.00;
 const MAX_RATING_VALUE = 5.00;
@@ -57,7 +57,10 @@ class RatingComponent extends Component {
         notificationSuccess('Rating updated succesfully!')
       }
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      notificationError("Rating updating failed!") 
+    });
   }
 
   render() {
