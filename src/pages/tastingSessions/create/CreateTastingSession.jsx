@@ -199,7 +199,7 @@ class CreateTastingSession extends Component {
                         selected={this.state.startingDate}
                         onChange={this.handleDateChange}
                         showTimeSelect
-                        dateFormat="DD/MM/YYYY HH:mm"
+                        dateFormat="d/MM/YYYY HH:mm"
                       />
                   </Row>
                 </Form.Group>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Row, Col} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 import {BACKEND_URL} from '../../GlobalConfig';
 import {withRouter} from "react-router-dom";
@@ -10,6 +10,7 @@ class Login extends Component {
     super(props);
 
     this.state = {username: "", password: ""};
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -23,7 +24,7 @@ class Login extends Component {
   }
 
   handleChange = event => {
-    this.setState({[event.target.id]: event.target.value});
+    this.setState({ [event.target.id]: event.target.value} );
   };
 
   handleSubmit = event => {
@@ -58,52 +59,34 @@ class Login extends Component {
     //this.props.history.push('/tastingapp');
   };
 
-
-
   render() {
     return (
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="username">
-            <Row className="justify-content-md-center">
-              <Col>
-                <h2>Log in</h2>
-              </Col>
-            </Row>
-            <Row className="justify-content-md-center">
-              <Col>
-                <Form.Control
-                  className="loginAndSignupFormControl"
-                  type="text"
-                  placeholder="Enter username"
-                  value={this.state.username}
-                  onChange={this.handleChange}/>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Row className="justify-content-md-center">
-              <Col>
-                <Form.Control
-                  className="loginAndSignupFormControl"
-                  type="password"
-                  placeholder="Enter password"
-                  value={this.state.password}
-                  onChange={this.handleChange}/>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Row className="justify-content-md-center">
-            <Col>
-              <Button
-                variant ="primary"
-                block
-                disabled={!this.validateForm()}
-                type="submit">
-                Log in
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group controlId="username">
+          <h2>Log in</h2>
+          <Form.Control
+            className="loginAndSignupFormControl"
+            type="text"
+            placeholder="Enter username"
+            value={this.state.username}
+            onChange={this.handleChange}/>
+        </Form.Group>
+        <Form.Group controlId="password">
+          <Form.Control
+            className="loginAndSignupFormControl"
+            type="password"
+            placeholder="Enter password"
+            value={this.state.password}
+            onChange={this.handleChange}/>
+        </Form.Group>
+          <Button
+            variant ="success"
+            block
+            disabled={!this.validateForm()}
+            type="submit">
+            Log in
+          </Button>
+      </Form>
     );
   }
 }

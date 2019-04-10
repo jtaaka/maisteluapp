@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Row, Col} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import {BACKEND_URL} from '../../GlobalConfig';
 
 class Signup extends Component {
@@ -42,45 +42,29 @@ class Signup extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group controlId="username">
-          <Row className="justify-content-md-center">
-            <Col>
-              <h2>Sign up</h2>
-            </Col>
-          </Row>
-          <Row className="justify-content-md-center">
-            <Col>
-              <Form.Control
-                className="loginAndSignupFormControl"
-                type="text"
-                placeholder="Enter username"
-                value={this.state.username}
-                onChange={this.handleChange}/>
-            </Col>
-          </Row>
+          <h2>Sign up</h2>
+          <Form.Control
+            className="loginAndSignupFormControl"
+            type="text"
+            placeholder="Enter username"
+            value={this.state.username}
+            onChange={this.handleChange}/>
         </Form.Group>
         <Form.Group controlId="password">
-          <Row className="justify-content-md-center">
-            <Col>
-              <Form.Control
-                className="loginAndSignupFormControl"
-                type="password"
-                placeholder="Enter password"
-                value={this.state.password}
-                onChange={this.handleChange}/>
-            </Col>
-          </Row>
+          <Form.Control
+            className="loginAndSignupFormControl"
+            type="password"
+            placeholder="Enter password"
+            value={this.state.password}
+            onChange={this.handleChange}/>
         </Form.Group>
-        <Row className="justify-content-md-center">
-          <Col>
-            <Button
-              variant ="primary"
-              block
-              disabled={!this.validateForm()}
-              type="submit">
-              Sign up
-            </Button>
-          </Col>
-        </Row>
+          <Button
+            variant ="primary"
+            block
+            disabled={!this.validateForm()}
+            type="submit">
+            Sign up
+          </Button>
       </Form>
     );
   }

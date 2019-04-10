@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 import LoginAndSignup from "./pages/loginAndSignup/loginAndSignup";
+import Profile from "./pages/profile/profile";
 import TastingApp from "./pages/tastingApp/tastingApp";
 import Beers from "./pages/beers/Beers"
 import AddModifyBeer from './pages/beers/add/AddModifyBeer';
@@ -41,9 +42,10 @@ class App extends Component {
           <Switch>
             <Route exact path = '/login' component = {LoginAndSignup}/>  
             <PrivateRoute exact path = '/' component = {TastingApp}/>
+            <PrivateRoute exact path = '/profile/profile' component ={Profile}/>
             <PrivateRoute exact path = '/tastingsessions/' component = {TastingSessions}/>
             <PrivateRoute exact path = '/tastingsessions/create' component = {CreateTastingSession}/>
-            <PrivateRoute exact path = '/tastingsessions/:id' component = {TastingSessionView} test={30012}/>
+            <PrivateRoute exact path = '/tastingsessions/:id' component = {TastingSessionView} />     
             <PrivateRoute exact path = '/tastingapp/' component = {TastingApp}/>
             <PrivateRoute exact path = '/tastingapp/beers' component = {Beers}/>
             <PrivateRoute exact path = '/tastingapp/beers/add' component = {AddModifyBeer}/>

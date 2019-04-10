@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown, Image} from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
 import { Redirect } from 'react-router-dom';
 import { removeCookies } from './../authorization/Auth';
+import profileIcon from '../img/profile-icon-test.png';
 
 export class Navigation extends Component {
     constructor(props) {
@@ -53,15 +54,18 @@ export class Navigation extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                  <LinkContainer to="/tastingsessions/">
+                  <LinkContainer to="/tastingsessions">
                     <Nav.Link>Tasting Sessions</Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/tastingapp/beers/">
                     <Nav.Link>Beers</Nav.Link>
                   </LinkContainer>
                 </Nav>
-                  
-                <Navbar.Text>Signed in as: {Cookies.get("user")}</Navbar.Text>
+
+                <Navbar.Text>Signed in as: {Cookies.get("username")}</Navbar.Text>
+                <LinkContainer to="/profile/profile">
+                  <Nav.Link><Image alt="" src={profileIcon} width="30" height="30" /></Nav.Link>
+                </LinkContainer>
                 <NavDropdown title="Manage app" id="basic-nav-dropdown">
                 <LinkContainer to="/tastingapp/beers/add">
                   <NavDropdown.Item>Add beer</NavDropdown.Item>
