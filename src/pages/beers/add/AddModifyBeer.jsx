@@ -52,7 +52,9 @@ class AddModifyBeer extends Component {
           notificationSuccess("Succesfully added beer " + this.state.beerName + "!");
         }
       })
-      .catch(e => console.log(e));
+      .catch((error) => {
+        notificationError("Error adding beer!");
+      });
     }
 
     render() {
