@@ -12,6 +12,12 @@ import beerImg from '../../../img/testbeer.png';
 
 import './TastingSessionView.css';
 
+/**
+ * TODO: Better design for the layout.
+ * TODO: Add list or number of participants.
+ * TODO: Add joining buttons for session to this view.
+ */
+
 class TastingSessionView extends Component {
 
   constructor(props) {
@@ -30,7 +36,6 @@ class TastingSessionView extends Component {
     };
 
     this.createRateBeerCard = this.createRateBeerCard.bind(this);
-    //this.createJoinOrQuitSessionButton = this.createJoinOrQuitSessionButton.bind(this);
   }
 
   componentWillMount() {
