@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Container, Card, Row, Col } from 'react-bootstrap';
 import './tastingApp.css';
 
-const cardStyle = {width: '20rem', marginLeft: '10px', marginTop: '10px', marginBottom: '10px'};
+const cardStyle = {marginTop: '10px', marginBottom: '10px'};
 
 class TastingApp extends Component {
   constructor(props) {
@@ -13,17 +13,47 @@ class TastingApp extends Component {
 
     this.getUpcomingSessions = this.getUpcomingSessions.bind(this);
     this.getLatestBeer = this.getLatestBeer.bind(this);
+    this.getDateFromDatabase = this.getDateFromDatabase.bind(this);
+    this.getCurrentDate = this.getCurrentDate.bind(this);
+  }
+
+  getCurrentDate() {
+    var today = new Date();
+
+    var day = today.getDate();
+    var month = today.getMonth() + 1;
+    var year = today.getFullYear();
+
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    return (day + month + year).valueOf();
+  }
+
+  getDateFromDatabase(DBdate) {
+    var date = DBdate.split(/[.,\/ -]/);
+
+    return (date[0] + date[1] + date[2]).valueOf();
   }
 
   getUpcomingSessions() {
+    let arrayOfSessions = [];
+    
     axios.get(
       'tastingsession/'
     )
-    .then(response => {
-      if (response.status === 200 && response.data.length > 0)
-        this.setState({ upcomingSessions: response.data });
-      else
-        this.setState({ upcomingSessions: "No upcoming sessions." });
+      .then(response => {
+        if (response.status === 200 && response.data.length > 0) {
+          for (let i = 0; i < response.data.length; i++) {
+            if (this.getDateFromDatabase(response.data[i].startingDate) >= this.getCurrentDate()) {
+              arrayOfSessions.push(response.data[i]);
+            }
+          }
+          this.setState({ upcomingSessions: arrayOfSessions });
+        } else {
+          this.setState({ upcomingSessions: [{additionalInfo: "No upcoming sessions."}] });
+        }
       }
     );
   }
@@ -34,9 +64,9 @@ class TastingApp extends Component {
     )
     .then(response => {
       if (response.status === 200 && response.data.length > 0)
-        this.setState({ latestAddedBeer: response.data });
+        this.setState({ latestAddedBeer: response.data.splice(-3, 3) });
       else
-        this.setState({ latestAddedBeer: "Where are all the beers?" });
+        this.setState({ latestAddedBeer: [{description: "No added beers yet."}] });
       }
     );
   }
@@ -46,12 +76,10 @@ class TastingApp extends Component {
     this.getLatestBeer();
   }
 
-  /*
+  /* TODO:
 
-  TODO:
-
-  - Map only sessions that are in the future
-  - Beers maybe in <Carousel/> component + map only like 3
+  - Sort upcoming sessions by date (?)
+  - Make this look a lot better (<Carousel/> for beers ?)
 
   */
 
@@ -64,8 +92,9 @@ class TastingApp extends Component {
         </Row>
         
         <Row>
+          <Col xs={11} sm={11} md={8} lg={6} xl={5}>
           {this.state.upcomingSessions.map( sessions =>
-          <Card bg="dark" text="white" style={cardStyle}>
+          <Card key={sessions.id} bg="dark" text="white" style={cardStyle}>
             <Card.Header><h5>{sessions.startingDate}</h5></Card.Header>
             <Card.Body>
             <Card.Title>{sessions.name}</Card.Title>
@@ -74,6 +103,7 @@ class TastingApp extends Component {
               </Card.Text>
             </Card.Body>
           </Card>)}
+          </Col>
         </Row>
 
         <Row id="header">
@@ -81,16 +111,18 @@ class TastingApp extends Component {
         </Row>
 
         <Row>
+          <Col xs={11} sm={11} md={8} lg={6} xl={5}>
           {this.state.latestAddedBeer.map( beers =>
-          <Card bg="dark" text="white" style={cardStyle}>
+          <Card key={beers.id} bg="dark" text="white" style={cardStyle}>
             <Card.Header><h5>{beers.beerName}</h5></Card.Header>
             <Card.Body>
               <Card.Text>
-                <p>{beers.description}</p>
-                <p>Alcohol: {beers.alcoholPercent}%</p> 
+                {beers.description}
+                {beers.alcoholPercent && <p>Alcohol: {beers.alcoholPercent}%</p>}
               </Card.Text>
             </Card.Body>
           </Card>)}
+          </Col>
         </Row>
 
       </Container>
