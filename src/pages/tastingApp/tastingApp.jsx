@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { Container, Card, Row, Col } from 'react-bootstrap';
+import { Container, Card, Row, Col, Carousel } from 'react-bootstrap';
 import './tastingApp.css';
+import beerImg from '../../img/testbeer.png';
 
 const cardStyle = {marginTop: '10px', marginBottom: '10px'};
 
@@ -9,11 +10,16 @@ class TastingApp extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {upcomingSessions: [], latestAddedBeer: []};
+    this.state = {upcomingSessions: [], latestAddedBeers: []};
 
     this.getUpcomingSessions = this.getUpcomingSessions.bind(this);
     this.getLatestBeer = this.getLatestBeer.bind(this);
     this.compareDates = this.compareDates.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUpcomingSessions();
+    this.getLatestBeer();
   }
 
   compareDates(DBdate) {
@@ -65,26 +71,38 @@ class TastingApp extends Component {
     )
     .then(response => {
       if (response.status === 200 && response.data.length > 0)
-        this.setState({ latestAddedBeer: response.data.splice(-3, 3) });
+        this.setState({ latestAddedBeers: response.data.splice(-3, 3) });
       else
-        this.setState({ latestAddedBeer: [{description: "No added beers yet."}] });
+        this.setState({ latestAddedBeers: [{description: "No added beers yet."}] });
       }
     );
   }
 
-  componentDidMount() {
-    this.getUpcomingSessions();
-    this.getLatestBeer();
+  showLatestBeers(name, description, alcoholPercent) {
+    return (
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          style={{opacity: 0.7}}
+          src={beerImg}
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h3>{name}</h3>
+          <p>{description}</p>
+          <p>{alcoholPercent}%</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    );
   }
 
-  /* TODO:
-
-  - Sort upcoming sessions by date (?)
-  - Make this look a lot better (<Carousel/> for beers ?)
-
-  */
+  // TODO: Sort upcoming sessions by date (?)
 
   render() {
+    const latestBeers = this.state.latestAddedBeers.map((beer) => 
+      this.showLatestBeers(beer.beerName, beer.description, beer.alcoholPercent)
+    );
+
     return (
       <Container>
         <Row id="header">
@@ -108,16 +126,11 @@ class TastingApp extends Component {
         <h1>Latest added beers</h1>
         </Row>
 
-        <Row>
+        <Row style={{marginBottom: '10px'}}>
           <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-            {this.state.latestAddedBeer.map( beers =>
-            <Card key={beers.id} bg="dark" text="white" style={cardStyle}>
-              <Card.Header><h5>{beers.beerName}</h5></Card.Header>
-              <Card.Body>
-                {beers.description}
-                {beers.alcoholPercent && <p>Alcohol: {beers.alcoholPercent}%</p>}
-              </Card.Body>
-            </Card>)}
+            <Carousel>
+              {latestBeers}
+            </Carousel>
           </Col>
         </Row>
       </Container>

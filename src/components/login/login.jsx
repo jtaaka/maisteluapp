@@ -80,7 +80,7 @@ class Login extends Component {
             onChange={this.handleChange}/>
         </Form.Group>
           <Button
-            variant ="primary"
+            variant ="success"
             block
             disabled={!this.validateForm()}
             type="submit">
