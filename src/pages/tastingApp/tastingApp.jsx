@@ -30,7 +30,7 @@ class TastingApp extends Component {
 
     if ( DByear > currentYear 
         || (DByear === currentYear && DBmonth > currentMonth) 
-        || (DByear === currentYear && DBmonth == currentMonth && DBday >= currentDay )) {
+        || (DByear === currentYear && DBmonth === currentMonth && DBday >= currentDay )) {
       
       return true;
     }
@@ -87,23 +87,20 @@ class TastingApp extends Component {
   render() {
     return (
       <Container>
-
         <Row id="header">
         <h1>Upcoming sessions</h1>
         </Row>
         
         <Row>
           <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-          {this.state.upcomingSessions.map( sessions =>
-          <Card key={sessions.id} bg="dark" text="white" style={cardStyle}>
-            <Card.Header><h5>{sessions.startingDate}</h5></Card.Header>
-            <Card.Body>
-            <Card.Title>{sessions.name}</Card.Title>
-              <Card.Text>
+            {this.state.upcomingSessions.map( sessions =>
+            <Card key={sessions.id} bg="dark" text="white" style={cardStyle}>
+              <Card.Header><h5>{sessions.startingDate}</h5></Card.Header>
+              <Card.Body>
+              <Card.Title>{sessions.name}</Card.Title>
                 {sessions.additionalInfo}
-              </Card.Text>
-            </Card.Body>
-          </Card>)}
+              </Card.Body>
+            </Card>)}
           </Col>
         </Row>
 
@@ -113,19 +110,16 @@ class TastingApp extends Component {
 
         <Row>
           <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-          {this.state.latestAddedBeer.map( beers =>
-          <Card key={beers.id} bg="dark" text="white" style={cardStyle}>
-            <Card.Header><h5>{beers.beerName}</h5></Card.Header>
-            <Card.Body>
-              <Card.Text>
+            {this.state.latestAddedBeer.map( beers =>
+            <Card key={beers.id} bg="dark" text="white" style={cardStyle}>
+              <Card.Header><h5>{beers.beerName}</h5></Card.Header>
+              <Card.Body>
                 {beers.description}
                 {beers.alcoholPercent && <p>Alcohol: {beers.alcoholPercent}%</p>}
-              </Card.Text>
-            </Card.Body>
-          </Card>)}
+              </Card.Body>
+            </Card>)}
           </Col>
         </Row>
-
       </Container>
     );
   }
