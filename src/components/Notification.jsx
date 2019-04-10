@@ -1,39 +1,23 @@
-import React, {Component} from 'react';
+import { toast } from 'react-toastify';
 
-/**
- * Master l33th4x class for using notifications as all around
- * functions. -GodTeemu
- */
-class Notification extends Component {
-
-    constructor(props) {
-        super(props);
-
-        console.log(props.notificationRef);
-        console.log(props);
-
-        this.notificationRef = props.notificationRef;
-
-        this.addNotification = this.addNotification.bind(this);
-    }
-
-    addNotification() {
-        this.notificationRef.current.addNotification({
-          title: "Awesomeness",
-          message: "Awesome Notifications!",
-          type: "success",
-          insert: "top",
-          container: "top-right",
-          animationIn: ["animated", "fadeIn"],
-          animationOut: ["animated", "fadeOut"],
-          dismiss: { duration: 2000 },
-          dismissable: { click: true }
-        });
-      }
-
-    render() {
-        return<div></div>
-    }
+export function notificationSuccess(msg) {
+  toast.success(msg, {
+    position: 'bottom-left',
+    duration: 4000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false
+  });
 }
 
-export default Notification;
+export function notificationError(msg) {
+  toast.error(msg, {
+    position: 'bottom-left',
+    duration: 4000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false
+  });
+}
