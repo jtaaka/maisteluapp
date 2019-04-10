@@ -4,7 +4,7 @@ import {Button, Collapse, Container, Form} from 'react-bootstrap';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import Notification from '../../../components/Notification';
+import {notificationSuccess} from '../../../components/Notification';
 
 const MIN_RATING_VALUE = 0.00;
 const MAX_RATING_VALUE = 5.00;
@@ -51,15 +51,14 @@ class RatingComponent extends Component {
   };
 
   postRating() {
-    Notification.addNotification();
     this.state.user.rateBeer(this.state.beerId, this.state.ratingValue, this.state.ratingComment)
     .then((response) => {
-
+      if(response.status === 200) {
+        notificationSuccess('Rating updated succesfully!')
+      }
     })
     .catch((error) => console.log(error));
   }
-
-
 
   render() {
     const { open } = this.state;
