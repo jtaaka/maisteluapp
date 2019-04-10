@@ -59,8 +59,8 @@ class AddModifyBeer extends Component {
 
     render() {
         return(
-            <div id="addModifyBeer">
-            <Container>
+            <Container id="add-beer-container" className="rounded-lg">
+                <h1>Add beer</h1>
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Group controlId="beerName">
                       <Form.Label>Beer name</Form.Label>
@@ -92,8 +92,7 @@ class AddModifyBeer extends Component {
                     <Button variant="success" type="submit">Add beer</Button>
                   </div>
                 </Form>
-              </Container>
-            </div>
+            </Container>
         );
     }
 
