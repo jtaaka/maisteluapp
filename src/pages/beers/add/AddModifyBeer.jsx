@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {Form, Container, Button} from 'react-bootstrap';
 
+import {notificationSuccess, notificationError} from '../../../components/Notification'
+
 import axios from 'axios';
 
 import './AddModifyBeer.css';
+
+
 /**
  * TODO: Add image uploading possibility.
  * TODO: Implement a better way getting the alcoholPercent. Currently using a text field with no validation.
@@ -43,7 +47,11 @@ class AddModifyBeer extends Component {
           'beers/add',
           JSON.stringify(requestBody)
         )
-      .then(r => alert("Succesfully added beer " + this.state.beerName + "."))
+      .then((response) => {
+        if(response.status === 200) {
+          notificationSuccess("Succesfully added beer " + this.state.beerName + "!");
+        }
+      })
       .catch(e => console.log(e));
     }
 
