@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 
 import {Button, Collapse, Container, Form} from 'react-bootstrap';
 import Slider from 'rc-slider';
-// We can just import Slider or Range to reduce bundle size
-// import Slider from 'rc-slider/lib/Slider';
-// import Range from 'rc-slider/lib/Range';
 import 'rc-slider/assets/index.css';
+
+import Notification from '../../../components/Notification';
 
 const MIN_RATING_VALUE = 0.00;
 const MAX_RATING_VALUE = 5.00;
@@ -13,37 +12,54 @@ const MAX_RATING_COMMENT_LENGTH = 500;
 
 class RatingComponent extends Component {
   constructor(props, context) {
+    console.log(props)
     super(props, context);
 
     this.state = {
       open: false,
       user: this.props.user,
+      userHasAlreadyRated: false,
       beerId: this.props.beerId,
       ratingValue: 0,
       ratingComment: ''
     };
 
-    this.postRating = this.postRating.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
+    this.postRating = this.postRating.bind(this);
   }
 
-  postRating() {
-    this.state.user.rateBeer(this.state.beerId, this.state.ratingValue, this.state.ratingComment)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => console.log(error));
+  componentWillMount() {
+    this.state.user.getRating(this.state.beerId)
+      .then((response) => {
+        if(response.status === 200) {
+          this.setState({
+            userHasAlreadyRated: true,
+            ratingValue: response.data.ratingValue,
+            ratingComment: response.data.comment
+          });
+        }
+    }).catch(error => console.log(error));
   }
 
   handleChange(event) {
-    console.log('asdas')
     this.setState({[event.target.id]: event.target.value});
   }
 
   handleSliderChange = event => {
     this.setState({ratingValue: event});
   };
+
+  postRating() {
+    Notification.addNotification();
+    this.state.user.rateBeer(this.state.beerId, this.state.ratingValue, this.state.ratingComment)
+    .then((response) => {
+
+    })
+    .catch((error) => console.log(error));
+  }
+
+
 
   render() {
     const { open } = this.state;
@@ -68,15 +84,17 @@ class RatingComponent extends Component {
               onChange={this.handleSliderChange}
             />
             <p>Comment:</p>
-            <Form.Control
-              as="textarea" 
-              rows="3" 
-              maxLength={MAX_RATING_COMMENT_LENGTH} 
-              value={this.state.ratingComment}
-              onChange={this.handleChange}
-              placeholder="Describe the drink in few words.." />
-            <Button onClick={this.postRating} className="mt-3" variant="success">
-              Submit rating
+            <Form.Group controlId="ratingComment">
+              <Form.Control
+                value={this.state.ratingComment}
+                onChange={this.handleChange}
+                as="textarea" 
+                rows="3" 
+                maxLength={MAX_RATING_COMMENT_LENGTH} 
+                placeholder="Describe the drink in few words.." />
+            </Form.Group>
+            <Button onClick={this.postRating} className="mt-3" variant={this.state.userHasAlreadyRated ? "warning" : "success"}>
+              {this.state.userHasAlreadyRated ? "Update rating" : "Submit rating"}
             </Button>
           </Form>
         </Collapse>
