@@ -13,28 +13,29 @@ class TastingApp extends Component {
 
     this.getUpcomingSessions = this.getUpcomingSessions.bind(this);
     this.getLatestBeer = this.getLatestBeer.bind(this);
-    this.getDateFromDatabase = this.getDateFromDatabase.bind(this);
-    this.getCurrentDate = this.getCurrentDate.bind(this);
+    this.compareDates = this.compareDates.bind(this);
   }
 
-  getCurrentDate() {
+  compareDates(DBdate) {
+    var dateFromDB = DBdate.split(/[.,\/ -]/);
     var today = new Date();
 
-    var day = today.getDate();
-    var month = today.getMonth() + 1;
-    var year = today.getFullYear();
+    var DBday = parseInt(dateFromDB[0]);
+    var DBmonth = parseInt(dateFromDB[1]);
+    var DByear = parseInt(dateFromDB[2]);
 
-    if (month < 10) {
-      month = '0' + month;
+    var currentDay = today.getDate();
+    var currentMonth = today.getMonth() + 1;
+    var currentYear = today.getFullYear();
+
+    if ( DByear > currentYear 
+        || (DByear === currentYear && DBmonth > currentMonth) 
+        || (DByear === currentYear && DBmonth == currentMonth && DBday >= currentDay )) {
+      
+      return true;
     }
-
-    return (day + month + year).valueOf();
-  }
-
-  getDateFromDatabase(DBdate) {
-    var date = DBdate.split(/[.,\/ -]/);
-
-    return (date[0] + date[1] + date[2]).valueOf();
+    
+    return false;
   }
 
   getUpcomingSessions() {
@@ -46,7 +47,7 @@ class TastingApp extends Component {
       .then(response => {
         if (response.status === 200 && response.data.length > 0) {
           for (let i = 0; i < response.data.length; i++) {
-            if (this.getDateFromDatabase(response.data[i].startingDate) >= this.getCurrentDate()) {
+            if (this.compareDates(response.data[i].startingDate)) {
               arrayOfSessions.push(response.data[i]);
             }
           }
