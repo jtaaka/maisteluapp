@@ -80,7 +80,7 @@ class TastingApp extends Component {
 
   showLatestBeers(name, description, alcoholPercent) {
     return (
-      <Carousel.Item>
+      <Carousel.Item key={name}>
         <img
           className="d-block w-100"
           style={{opacity: 0.7}}
