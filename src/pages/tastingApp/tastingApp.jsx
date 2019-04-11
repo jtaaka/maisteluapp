@@ -36,14 +36,11 @@ class TastingApp extends Component {
     let currentYear = today.getFullYear();
     let currentHours = today.getHours();
 
-    console.log("db hours " + DBhours)
-    console.log("current " + currentHours)
-
-    if ( DByear > currentYear 
-        || (DByear === currentYear && DBmonth > currentMonth) 
+    if ( DByear > currentYear
+        || (DByear === currentYear && DBmonth > currentMonth)
         || (DByear === currentYear && DBmonth === currentMonth && DBday > currentDay)
         || (DByear === currentYear && DBmonth === currentMonth && DBday === currentDay && DBhours >= currentHours)) {
-      
+
       return true;
     }
     
@@ -64,7 +61,7 @@ class TastingApp extends Component {
             }
           }
           this.setState({ upcomingSessions: arrayOfSessions });
-        } else {
+        } else if (response.status === 200 && response.data.length === 0) {
           this.setState({ upcomingSessions: [{additionalInfo: "No upcoming sessions."}] });
         }
       }
