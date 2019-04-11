@@ -12,7 +12,8 @@ class Profile extends Component {
 
         this.state = {
             user: new User(),
-            joinedSessions: [],
+            upcomingSessions: [],
+            pastSessions: [],
             beers: [],
             ratings: []
         }
@@ -20,6 +21,7 @@ class Profile extends Component {
         this.getJoinedSessionsById = this.getJoinedSessionsById.bind(this);
         this.getBeerIds = this.getBeerIds.bind(this);
         this.getAllUserRatingsByBeerId = this.getAllUserRatingsByBeerId.bind(this);
+        this.compareDates = this.compareDates.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +34,11 @@ class Profile extends Component {
             axios.get('tastingsession/' + sessionId)
                 .then(response => {
                     if (response.status === 200) {
-                        this.setState({joinedSessions: [...this.state.joinedSessions, response.data]});
+                        if (this.compareDates(response.data.startingDate)) {
+                            this.setState({upcomingSessions: [...this.state.upcomingSessions, response.data]});
+                        } else {
+                            this.setState({pastSessions: [...this.state.pastSessions, response.data]})
+                        }
                         console.log(response.data);
                     }
                 })
@@ -62,16 +68,60 @@ class Profile extends Component {
         })
     }
 
+    compareDates(DBdate) {
+        let dateFromDB = DBdate.split(/[.,\/ -]/);
+        let today = new Date();
+
+        let DBday = parseInt(dateFromDB[0]);
+        let DBmonth = parseInt(dateFromDB[1]);
+        let DByear = parseInt(dateFromDB[2]);
+        let DBhours = parseInt(dateFromDB[3]);
+
+        let currentDay = today.getDate();
+        let currentMonth = today.getMonth() + 1;
+        let currentYear = today.getFullYear();
+        let currentHours = today.getHours();
+
+        if ( DByear > currentYear
+            || (DByear === currentYear && DBmonth > currentMonth)
+            || (DByear === currentYear && DBmonth === currentMonth && DBday > currentDay)
+            || (DByear === currentYear && DBmonth === currentMonth && DBday === currentDay && DBhours >= currentHours)) {
+
+            return true;
+        }
+
+        return false;
+    }
+
     render() {
+
         return (
+
             <Container>
                 <Row id="header">
-                    <h1>Your Sessions</h1>
+                    <h1>Your Upcoming Sessions</h1>
                 </Row>
 
                 <Row>
                     <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                        {this.state.joinedSessions.map( session =>
+                        {this.state.upcomingSessions.map( session =>
+                            <Card key={session.id} bg="dark" text="white" style={cardStyle}>
+                                <Card.Header><h5>{session.startingDate}</h5></Card.Header>
+                                <Card.Body>
+                                    <Card.Title>{session.name}</Card.Title>
+                                    {session.additionalInfo}
+                                </Card.Body>
+                            </Card>)}
+                    </Col>
+                </Row>
+
+                <Row id="header">
+                    <h1>Your Past Sessions</h1>
+                </Row>
+
+                <Row>
+                    <Col xs={11} sm={11} md={8} lg={6} xl={5}>
+                        {this.state.pastSessions.map( session =>
                             <Card key={session.id} bg="dark" text="white" style={cardStyle}>
                                 <Card.Header><h5>{session.startingDate}</h5></Card.Header>
                                 <Card.Body>
