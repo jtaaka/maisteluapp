@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import './AddModifyBeer.css';
 
+const ALLOWED_FILE_TYPES = ['']
 
 /**
  * TODO: Add image uploading possibility.
@@ -19,16 +20,43 @@ class AddModifyBeer extends Component {
         this.state = {
           beerName: "",
           description: "",
-          alcoholPercent: 0.0
+          alcoholPercent: 0.0,
+          imageFile: '',
+          imageFileSrc: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
       event.preventDefault();
       this.setState({[event.target.id] : event.target.value});    
+    }
+
+    handleImageChange(event) {
+      event.preventDefault();
+
+      let fileReader = new FileReader();
+      let file = event.target.files[0];
+
+      fileReader.onloadend = () => {
+        this.setState({
+          imageFile: file,
+          imageFileSrc: fileReader.result
+        });
+        console.log(this.state.imageFile);
+      }
+      
+      if(file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+        fileReader.readAsDataURL(file)
+      } else {
+        this.setState({
+          imageFile: '',
+          imageFileSrc: ''
+        });
+      }
     }
 
     handleSubmit(event) {
@@ -87,6 +115,23 @@ class AddModifyBeer extends Component {
                         value={this.state.alcoholPercent}
                         onChange={this.handleChange}
                       />
+                  </Form.Group>
+                  <Form.Group className>
+                  <Form.Label>Image</Form.Label>
+                    <div className="custom-file">
+                      <input
+                        onChange={this.handleImageChange}
+                        id="beer-img-upload"
+                        type="file"
+                        accept="image/x-png, image/jpg, image/jpeg, image/gif"
+                        className="custom-file-input"
+                        aria-describedby="beer-img-upload"
+                      />
+                      <label className="custom-file-label" htmlFor="beer-img-upload">
+                        {this.state.imageFile === '' ? 'Choose name' : this.state.imageFile.name}
+                      </label>
+                    </div>
+                    {this.state.imageFileSrc !== '' ? <img className="mt-3" id="previewimage" src={this.state.imageFileSrc}/> : ''}
                   </Form.Group>
                   <div id="buttons">
                     <Button variant="success" type="submit">Add beer</Button>
