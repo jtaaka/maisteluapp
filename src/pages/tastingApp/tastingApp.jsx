@@ -43,7 +43,7 @@ class TastingApp extends Component {
 
       return true;
     }
-    
+
     return false;
   }
 
@@ -60,8 +60,12 @@ class TastingApp extends Component {
               arrayOfSessions.push(response.data[i]);
             }
           }
-          this.setState({ upcomingSessions: arrayOfSessions });
-        } else if (response.status === 200 && response.data.length === 0) {
+          if (arrayOfSessions.length !== 0) {
+            this.setState({upcomingSessions: arrayOfSessions});
+          } else {
+            this.setState({ upcomingSessions: [{additionalInfo: "No upcoming sessions."}] });
+          }
+        } else {
           this.setState({ upcomingSessions: [{additionalInfo: "No upcoming sessions."}] });
         }
       }
