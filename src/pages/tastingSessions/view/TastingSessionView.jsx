@@ -94,7 +94,7 @@ class TastingSessionView extends Component {
             </Col>
         </Row>
         <Row className="justify-content-center">
-          <h1>
+          <h1 id="header1">
             Information:
           </h1>
         </Row>
@@ -104,7 +104,7 @@ class TastingSessionView extends Component {
           </div>
         </Row>
         <Row className="justify-content-center">
-          <h1>Drinks:</h1>
+          <h1 id="header1">Drinks:</h1>
         </Row>
         <Row className="justify-content-center homo">
         <ul id="beer-rate-list">
