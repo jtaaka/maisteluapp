@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Container} from "react-bootstrap";
+import {Card, Col, Container, Row} from "react-bootstrap";
 import User from "../../User";
 import axios from 'axios';
 
+const cardStyle = {marginTop: '10px', marginBottom: '10px'};
 
 class Profile extends Component {
 
@@ -64,6 +65,22 @@ class Profile extends Component {
     render() {
         return (
             <Container>
+                <Row id="header">
+                    <h1>Your Sessions</h1>
+                </Row>
+
+                <Row>
+                    <Col xs={11} sm={11} md={8} lg={6} xl={5}>
+                        {this.state.joinedSessions.map( session =>
+                            <Card key={session.id} bg="dark" text="white" style={cardStyle}>
+                                <Card.Header><h5>{session.startingDate}</h5></Card.Header>
+                                <Card.Body>
+                                    <Card.Title>{session.name}</Card.Title>
+                                    {session.additionalInfo}
+                                </Card.Body>
+                            </Card>)}
+                    </Col>
+                </Row>
             </Container>
         );
     }
