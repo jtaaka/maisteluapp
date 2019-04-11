@@ -92,7 +92,7 @@ class TastingSessions extends Component {
 
     return (
       <li sessionid={id}>
-        <Card className="m-2">
+        <Card className="m-2" bg="dark" text="white">
           <Card.Header as="h5">{startingDateTime}</Card.Header>
           <Card.Body>
             <Card.Title>{name}</Card.Title>
