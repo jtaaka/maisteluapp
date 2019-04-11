@@ -7,8 +7,6 @@ import axios from 'axios';
 
 import './AddModifyBeer.css';
 
-const ALLOWED_FILE_TYPES = ['']
-
 /**
  * TODO: Add image uploading possibility.
  * TODO: Implement a better way getting the alcoholPercent. Currently using a text field with no validation.
@@ -38,24 +36,26 @@ class AddModifyBeer extends Component {
     handleImageChange(event) {
       event.preventDefault();
 
-      let fileReader = new FileReader();
-      let file = event.target.files[0];
+      if(event.target.value.length > 0) {
 
-      fileReader.onloadend = () => {
-        this.setState({
-          imageFile: file,
-          imageFileSrc: fileReader.result
-        });
-        console.log(this.state.imageFile);
-      }
-      
-      if(file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
-        fileReader.readAsDataURL(file)
-      } else {
-        this.setState({
-          imageFile: '',
-          imageFileSrc: ''
-        });
+        let fileReader = new FileReader();
+        let file = event.target.files[0];
+
+        fileReader.onloadend = () => {
+          if(file.name.match(/.(jpg|jpeg|png|gif)$/i)) {
+            this.setState({
+              imageFile: file,
+              imageFileSrc: fileReader.result
+            });
+          } else {
+            this.setState({
+              imageFile: '',
+              imageFileSrc: ''
+            });
+            notificationError('The file selected was not recognized as an image file!')
+          }
+        }
+        fileReader.readAsDataURL(file);
       }
     }
 
