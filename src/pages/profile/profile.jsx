@@ -11,14 +11,19 @@ class Profile extends Component {
 
         this.state = {
             user: new User(),
-            joinedSessions: []
+            joinedSessions: [],
+            beers: [],
+            ratings: []
         }
 
         this.getJoinedSessionsById = this.getJoinedSessionsById.bind(this);
+        this.getBeerIds = this.getBeerIds.bind(this);
+        this.getAllUserRatingsByBeerId = this.getAllUserRatingsByBeerId.bind(this);
     }
 
     componentDidMount() {
         this.state.user.updateJoinedSessions(this.getJoinedSessionsById);
+        this.getBeerIds();
     }
 
     getJoinedSessionsById() {
@@ -35,13 +40,33 @@ class Profile extends Component {
                 }));
     }
 
+    getBeerIds() {
+        axios.get('beers/')
+            .then(response => {
+                if (response.status === 200) {
+                    this.setState({beers: response.data});
+                }
+            }).then(() => this.getAllUserRatingsByBeerId())
+            .catch(function (response) {
+                console.log(response);
+            });
+    }
+
+    getAllUserRatingsByBeerId() {
+        this.state.beers.map((beer) => {
+            this.state.user.getRating(beer.id).then((response) => {
+                this.setState({ratings: [...this.state.ratings, response.data]});
+                console.log(this.state.ratings);
+            })
+        })
+    }
+
     render() {
         return (
             <Container>
             </Container>
         );
     }
-
 }
 
 export default Profile;
