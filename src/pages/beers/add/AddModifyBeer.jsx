@@ -49,8 +49,10 @@ class AddModifyBeer extends Component {
 
     render() {
         return(
-            <div id="addModifyBeer">
-            <Container>
+            <Container id="addModifyBeer" className="rounded">
+              <h1>Add Beer</h1>
+                <div id="beerForm">
+
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Group controlId="beerName">
                       <Form.Label>Beer name</Form.Label>
@@ -71,7 +73,7 @@ class AddModifyBeer extends Component {
                       />
                   </Form.Group>
                   <Form.Group controlId="alcoholPercent">
-                      <Form.Label>Alchohol Percent</Form.Label>
+                      <Form.Label>Alcohol Percent</Form.Label>
                       <Form.Control 
                         type="text"
                         value={this.state.alcoholPercent}
@@ -86,8 +88,8 @@ class AddModifyBeer extends Component {
                     </Button>
                   </div>
                 </Form>
-              </Container>
-            </div>
+              </div>
+            </Container>
         );
     }
 
