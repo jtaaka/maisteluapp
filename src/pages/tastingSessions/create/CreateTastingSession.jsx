@@ -229,7 +229,11 @@ class CreateTastingSession extends Component {
                     </ul>
                   </div>
                   <div id="buttons">
-                    <Button variant="success" type="submit">Create tasting session</Button>
+                    <Button
+                        variant="success"
+                        type="submit"
+                        disabled={!this.state.additionalInfo || (selectedBeersElem.length === 0) || !this.state.sessionName}
+                    >Create tasting session</Button>
                   </div>
                 </Form>
             </div>
