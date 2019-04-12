@@ -19,19 +19,21 @@ class Profile extends Component {
             pastSessions: [],
             beers: [],
             ratings: []
-        }
+        };
 
         this.getJoinedSessionsById = this.getJoinedSessionsById.bind(this);
-        this.getBeerIds = this.getBeerIds.bind(this);
+        this.getBeers = this.getBeers.bind(this);
         this.getAllUserRatingsByBeerId = this.getAllUserRatingsByBeerId.bind(this);
         this.compareDates = this.compareDates.bind(this);
         this.ratingBeerName = this.ratingBeerName.bind(this);
         this.renderRatings = this.renderRatings.bind(this);
+        this.renderUpcomingSessions = this.renderUpcomingSessions.bind(this);
+        this.renderPastSessions = this.renderPastSessions.bind(this);
     }
 
     componentDidMount() {
         this.state.user.updateJoinedSessions(this.getJoinedSessionsById);
-        this.getBeerIds();
+        this.getBeers();
     }
 
     getJoinedSessionsById() {
@@ -51,7 +53,7 @@ class Profile extends Component {
                 }));
     }
 
-    getBeerIds() {
+    getBeers() {
         axios.get('beers/')
             .then(response => {
                 if (response.status === 200) {
@@ -129,6 +131,52 @@ class Profile extends Component {
         }
     }
 
+    renderUpcomingSessions() {
+        if (this.state.upcomingSessions.length !== 0) {
+            return (
+                this.state.upcomingSessions.map(session =>
+                    <Card key={session.id} bg="dark" text="white" style={cardStyle}>
+                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
+                        <Card.Body>
+                            <Card.Title>{session.name}</Card.Title>
+                            {session.additionalInfo}
+                        </Card.Body>
+                    </Card>
+                )
+            );
+        } else {
+            return (
+                <Card key="no-past-sessions" bg="dark" text="white" style={cardStyle}>
+                    <Card.Header/>
+                    <Card.Body>You have no upcoming sessions!</Card.Body>
+                </Card>
+            );
+        }
+    }
+
+    renderPastSessions() {
+        if (this.state.pastSessions.length !== 0) {
+            return (
+                this.state.pastSessions.map(session =>
+                    <Card key={session.id} bg="dark" text="white" style={cardStyle}>
+                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
+                        <Card.Body>
+                            <Card.Title>{session.name}</Card.Title>
+                            {session.additionalInfo}
+                        </Card.Body>
+                    </Card>
+                )
+            );
+        } else {
+            return (
+                <Card key="no-past-sessions" bg="dark" text="white" style={cardStyle}>
+                    <Card.Header/>
+                    <Card.Body>You have no past sessions!</Card.Body>
+                </Card>
+            );
+        }
+    }
+
     render() {
 
         return (
@@ -141,14 +189,7 @@ class Profile extends Component {
 
                         <Row>
                             <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                                {this.state.upcomingSessions.map( session =>
-                                    <Card key={session.id} bg="dark" text="white" style={cardStyle}>
-                                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
-                                        <Card.Body>
-                                            <Card.Title>{session.name}</Card.Title>
-                                            {session.additionalInfo}
-                                        </Card.Body>
-                                    </Card>)}
+                                {this.renderUpcomingSessions()}
                             </Col>
                         </Row>
 
@@ -158,14 +199,7 @@ class Profile extends Component {
 
                         <Row>
                             <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                                {this.state.pastSessions.map( session =>
-                                    <Card key={session.id} bg="dark" text="white" style={cardStyle}>
-                                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
-                                        <Card.Body>
-                                            <Card.Title>{session.name}</Card.Title>
-                                            {session.additionalInfo}
-                                        </Card.Body>
-                                    </Card>)}
+                                {this.renderPastSessions()}
                             </Col>
                         </Row>
                     </Tab>
