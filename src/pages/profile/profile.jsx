@@ -26,6 +26,7 @@ class Profile extends Component {
         this.getAllUserRatingsByBeerId = this.getAllUserRatingsByBeerId.bind(this);
         this.compareDates = this.compareDates.bind(this);
         this.ratingBeerName = this.ratingBeerName.bind(this);
+        this.renderRatings = this.renderRatings.bind(this);
     }
 
     componentDidMount() {
@@ -70,7 +71,7 @@ class Profile extends Component {
                     console.log(this.state.ratings);
                 }
             })
-        })
+        });
     }
 
     compareDates(DBdate) {
@@ -103,6 +104,28 @@ class Profile extends Component {
             if (beerId === this.state.beers[i].id) {
                 return this.state.beers[i].beerName;
             }
+        }
+    }
+
+    renderRatings() {
+        if (this.state.ratings.length !== 0) {
+            return (
+                this.state.ratings.map( rating =>
+                    <Card key={rating.id} bg="dark" text="white" style={cardStyle}>
+                        <Card.Header>{<img className="d-block w-100" src={beerImg} alt="beerImage"/>}</Card.Header>
+                        <Card.Body>
+                            <Card.Title>{this.ratingBeerName(rating.beerId) + " " + rating.ratingValue + " / 5"}</Card.Title>
+                            {rating.comment}
+                        </Card.Body>
+                    </Card>)
+            );
+        } else {
+            return (
+                    <Card key="no-ratings" bg="dark" text="white" style={cardStyle}>
+                        <Card.Header/>
+                        <Card.Body>You have not rated anything yet!</Card.Body>
+                    </Card>
+            );
         }
     }
 
@@ -153,14 +176,7 @@ class Profile extends Component {
 
                         <Row>
                             <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                                {this.state.ratings.map( rating =>
-                                    <Card key={rating.id} bg="dark" text="white" style={cardStyle}>
-                                        <Card.Header>{<img className="d-block w-100" src={beerImg} alt="beerImage"/>}</Card.Header>
-                                        <Card.Body>
-                                            <Card.Title>{this.ratingBeerName(rating.beerId) + " / " + rating.ratingValue}</Card.Title>
-                                            {rating.comment}
-                                        </Card.Body>
-                                    </Card>)}
+                                {this.renderRatings()}
                             </Col>
                         </Row>
                     </Tab>
