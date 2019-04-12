@@ -11,3 +11,14 @@
     text-align: center;
     margin:auto;
 }
+
+#addModifyBeer > h1 {
+    color: #f5f5f5;
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 5%;
+}
+
+#beerForm {
+    position: relative;
+}
