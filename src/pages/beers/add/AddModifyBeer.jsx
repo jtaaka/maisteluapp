@@ -80,7 +80,7 @@ class AddModifyBeer extends Component {
                   </Form.Group>
                   <div id="buttons">
                     <Button 
-                      disabled={!this.state.beerName} 
+                      disabled={!this.state.beerName || !this.state.description || !this.state.alcoholPercent}
                       variant="success" type="submit">
                       Add beer
                     </Button>
