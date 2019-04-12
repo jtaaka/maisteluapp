@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
-
 import {BACKEND_URL} from '../../GlobalConfig';
 import {withRouter} from "react-router-dom";
 import Cookies from "js-cookie";
