@@ -3,9 +3,9 @@ import {Navbar, Nav, NavDropdown, Image, Button} from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import Cookies from "js-cookie";
 import { Redirect } from 'react-router-dom';
-import { removeCookies } from './../authorization/Auth';
-import profileIcon from '../img/profile-icon-test.png';
-import beerIcon from '../img/beericon.png';
+import { removeCookies } from '../../authorization/Auth';
+import profileIcon from '../../img/profile-icon.png';
+import beerIcon from '../../img/beericon.png';
 import './navigation.css';
 
 export class Navigation extends Component {
@@ -58,13 +58,12 @@ export class Navigation extends Component {
             <LinkContainer to="/">
               <Navbar.Brand>
                 <img
-                style={{marginRight: "10px"}}
-                alt=""
-                src={beerIcon}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-                />
+                  style={{marginRight: "10px"}}
+                  alt=""
+                  src={beerIcon}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"/>
                 Tasting app
                 </Navbar.Brand>
             </LinkContainer>
@@ -95,7 +94,13 @@ export class Navigation extends Component {
                 </NavDropdown>
 
                 <LinkContainer to="/profile/profile" exact={true}>
-                  <Nav.Link><Image alt="" src={profileIcon} width="30" height="30" /></Nav.Link>
+                  <Nav.Link>
+                    <Image 
+                      alt="" 
+                      src={profileIcon} 
+                      width="23" 
+                      height="23"/>
+                  </Nav.Link>
                 </LinkContainer>
 
                 <Nav.Item>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute'
-import {Navigation} from "./components/Navigation";
+import {Navigation} from "./components/navigation/Navigation";
 import { Redirect } from 'react-router-dom'
 
 import {ToastContainer} from 'react-toastify';
