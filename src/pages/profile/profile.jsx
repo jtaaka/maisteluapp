@@ -3,6 +3,7 @@ import {Card, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import User from "../../User";
 import axios from 'axios';
 import beerImg from '../../img/testbeer.png';
+import './profile.css'
 
 
 const cardStyle = {marginTop: '10px', marginBottom: '10px'};
