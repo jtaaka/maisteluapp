@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Card, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import User from "../../User";
 import axios from 'axios';
+import beerImg from '../../img/testbeer.png';
+
 
 const cardStyle = {marginTop: '10px', marginBottom: '10px'};
 
@@ -22,6 +24,7 @@ class Profile extends Component {
         this.getBeerIds = this.getBeerIds.bind(this);
         this.getAllUserRatingsByBeerId = this.getAllUserRatingsByBeerId.bind(this);
         this.compareDates = this.compareDates.bind(this);
+        this.ratingBeerName = this.ratingBeerName.bind(this);
     }
 
     componentDidMount() {
@@ -39,7 +42,6 @@ class Profile extends Component {
                         } else {
                             this.setState({pastSessions: [...this.state.pastSessions, response.data]})
                         }
-                        console.log(response.data);
                     }
                 })
                 .catch(function (response) {
@@ -62,8 +64,10 @@ class Profile extends Component {
     getAllUserRatingsByBeerId() {
         this.state.beers.map((beer) => {
             this.state.user.getRating(beer.id).then((response) => {
-                this.setState({ratings: [...this.state.ratings, response.data]});
-                console.log(this.state.ratings);
+                if (response.data !== "") {
+                    this.setState({ratings: [...this.state.ratings, response.data]});
+                    console.log(this.state.ratings);
+                }
             })
         })
     }
@@ -93,44 +97,74 @@ class Profile extends Component {
         return false;
     }
 
+    ratingBeerName(beerId) {
+        for(let i = 0; i < this.state.beers.length; i++) {
+            if (beerId === this.state.beers[i].id) {
+                return this.state.beers[i].beerName;
+            }
+        }
+    }
+
     render() {
 
         return (
-
             <Container>
-                <Row id="header">
-                    <h1>Your Upcoming Sessions</h1>
-                </Row>
+                <Tabs defaultActiveKey="sessions" id="profile-tabs">
+                    <Tab eventKey="sessions" title="Your Sessions">
+                        <Row id="header">
+                            <h1>Your Upcoming Sessions</h1>
+                        </Row>
 
-                <Row>
-                    <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                        {this.state.upcomingSessions.map( session =>
-                            <Card key={session.id} bg="dark" text="white" style={cardStyle}>
-                                <Card.Header><h5>{session.startingDate}</h5></Card.Header>
-                                <Card.Body>
-                                    <Card.Title>{session.name}</Card.Title>
-                                    {session.additionalInfo}
-                                </Card.Body>
-                            </Card>)}
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col xs={11} sm={11} md={8} lg={6} xl={5}>
+                                {this.state.upcomingSessions.map( session =>
+                                    <Card key={session.id} bg="dark" text="white" style={cardStyle}>
+                                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
+                                        <Card.Body>
+                                            <Card.Title>{session.name}</Card.Title>
+                                            {session.additionalInfo}
+                                        </Card.Body>
+                                    </Card>)}
+                            </Col>
+                        </Row>
 
-                <Row id="header">
-                    <h1>Your Past Sessions</h1>
-                </Row>
+                        <Row id="header">
+                            <h1>Your Past Sessions</h1>
+                        </Row>
 
-                <Row>
-                    <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                        {this.state.pastSessions.map( session =>
-                            <Card key={session.id} bg="dark" text="white" style={cardStyle}>
-                                <Card.Header><h5>{session.startingDate}</h5></Card.Header>
-                                <Card.Body>
-                                    <Card.Title>{session.name}</Card.Title>
-                                    {session.additionalInfo}
-                                </Card.Body>
-                            </Card>)}
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col xs={11} sm={11} md={8} lg={6} xl={5}>
+                                {this.state.pastSessions.map( session =>
+                                    <Card key={session.id} bg="dark" text="white" style={cardStyle}>
+                                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
+                                        <Card.Body>
+                                            <Card.Title>{session.name}</Card.Title>
+                                            {session.additionalInfo}
+                                        </Card.Body>
+                                    </Card>)}
+                            </Col>
+                        </Row>
+                    </Tab>
+                    <Tab eventKey="ratings" title="Your Ratings">
+                        <Row id="header">
+                            <h1>Your Ratings</h1>
+                        </Row>
+
+                        <Row>
+                            <Col xs={11} sm={11} md={8} lg={6} xl={5}>
+                                {this.state.ratings.map( rating =>
+                                    <Card key={rating.id} bg="dark" text="white" style={cardStyle}>
+                                        <Card.Header>{<img className="d-block w-100" src={beerImg} alt="beerImage"/>}</Card.Header>
+                                        <Card.Body>
+                                            <Card.Title>{this.ratingBeerName(rating.beerId) + " / " + rating.ratingValue}</Card.Title>
+                                            {rating.comment}
+                                        </Card.Body>
+                                    </Card>)}
+                            </Col>
+                        </Row>
+                    </Tab>
+                </Tabs>;
+
             </Container>
         );
     }
