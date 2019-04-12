@@ -88,7 +88,7 @@ class TastingSessions extends Component {
       additionalInfo = additionalInfo.slice(0, DESCRIPTION_MAX_LENGTH) + '...';
     }
 
-    startingDateTime = moment(new Date(startingDateTime)).format(DATE_FORMAT);
+    // startingDateTime = moment(new Date(startingDateTime)).format(DATE_FORMAT);
 
     return (
       <li sessionid={id}>
