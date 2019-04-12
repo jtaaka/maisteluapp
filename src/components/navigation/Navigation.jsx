@@ -98,8 +98,8 @@ export class Navigation extends Component {
                     <Image 
                       alt="" 
                       src={profileIcon} 
-                      width="23" 
-                      height="23"/>
+                      width="20" 
+                      height="20"/>
                   </Nav.Link>
                 </LinkContainer>
 

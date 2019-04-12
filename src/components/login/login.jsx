@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 
 import {BACKEND_URL} from '../../GlobalConfig';
 import {withRouter} from "react-router-dom";
@@ -9,11 +9,12 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {username: "", password: ""};
+    this.state = {username: "", password: "", alert: false};
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.showAlert = this.showAlert.bind(this);
   }
 
   validateForm() {
@@ -53,11 +54,21 @@ class Login extends Component {
         });
 
       } else if(response.status === 401) {
-        alert("Invalid username or password");
+        parent.setState({alert: true})
       }
     });
     //this.props.history.push('/tastingapp');
   };
+
+  showAlert() {
+    if (this.state.alert) {
+      return (
+        <Alert variant="danger">
+          Invalid username or password
+        </Alert>
+      )
+    } 
+  }
 
   render() {
     return (
@@ -79,6 +90,7 @@ class Login extends Component {
             value={this.state.password}
             onChange={this.handleChange}/>
         </Form.Group>
+        {this.showAlert()}
           <Button
             variant ="success"
             block
