@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, Form} from 'react-bootstrap';
+import {Container, Row, Col, Card, Form, Badge} from 'react-bootstrap';
 
 import axios from 'axios';
 import moment from 'moment';
@@ -33,7 +33,7 @@ class TastingSessionView extends Component {
       tastingSessionAdditionalInfo: '',
       tastingSessionBeers: [],
       tastingSessionParticipantsIds: [],
-      tastingSessionParticipantsNames: [],
+      tastingSessionParticipants: [],
       userJoinedInSession: false
     };
 
@@ -87,9 +87,9 @@ class TastingSessionView extends Component {
               .then((response) => {
                   if(response.status === 200) {
                       this.setState({
-                          tastingSessionParticipantsNames: [...this.state.tastingSessionParticipantsNames, response.data]
+                          tastingSessionParticipants: [...this.state.tastingSessionParticipants, response.data]
                       });
-                      console.log(this.state.tastingSessionParticipantsNames)
+                      console.log(this.state.tastingSessionParticipants)
                   }
               })
               .catch(error => console.log(error));})
@@ -137,15 +137,20 @@ class TastingSessionView extends Component {
         <Row className="justify-content-center">
           <h1 id="header1">Drinks</h1>
         </Row>
-        <Row className="justify-content-center homo">
+        <Row className="justify-content-center">
         <ul id="beer-rate-list">
           {beerRatingListItems}
         </ul>
         </Row>
-        <Row className="justify-content-center homo">
-          <ul id="beer-rate-list">
-            {this.state.tastingSessionParticipants}
-          </ul>
+        <Row className="justify-content-center">
+            <h1 id="header1">Participants</h1>
+        </Row>
+        <Row className="justify-content-center">
+            <ul id="participant-list">
+                { this.state.tastingSessionParticipants.map((user) =>
+                    <Badge variant="secondary">{user.username}</Badge>
+                )}
+            </ul>
         </Row>
       </Container>
     );
