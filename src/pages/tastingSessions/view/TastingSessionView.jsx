@@ -29,7 +29,7 @@ class TastingSessionView extends Component {
       tastingSessionId: passedParameters.tastingSessionId != null ? passedParameters.tastingSessionId : -1,
       user: passedParameters.user != null ? passedParameters.user : new User(),
       tastingSessionName: '',
-      tastingSessionStartingDate: new Date(),
+      tastingSessionStartingDate: '',
       tastingSessionAdditionalInfo: '',
       tastingSessionBeers: [],
       userJoinedInSession: false
@@ -44,7 +44,7 @@ class TastingSessionView extends Component {
         if(response.status === 200) {
           this.setState({
             tastingSessionName: response.data.name,
-            tastingSessionStartingDate: new Date(response.data.startingDate),
+            tastingSessionStartingDate: response.data.startingDate,
             tastingSessionAdditionalInfo: response.data.additionalInfo,
             tastingSessionBeers: response.data.beers
           });
@@ -90,7 +90,7 @@ class TastingSessionView extends Component {
               <h1 className="ml-4">{this.state.tastingSessionName}</h1>
             </Col>
             <Col>
-              <p className="text-right mr-4">{moment(this.state.tastingSessionStartingDate).format(DATE_FORMAT)}</p>
+              <p className="text-right mr-4">{this.state.tastingSessionStartingDate}</p>
             </Col>
         </Row>
         <Row className="justify-content-center">
