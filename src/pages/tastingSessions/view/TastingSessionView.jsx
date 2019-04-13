@@ -32,10 +32,14 @@ class TastingSessionView extends Component {
       tastingSessionStartingDate: '',
       tastingSessionAdditionalInfo: '',
       tastingSessionBeers: [],
+      tastingSessionParticipantsIds: [],
+      tastingSessionParticipantsNames: [],
       userJoinedInSession: false
     };
 
     this.createRateBeerCard = this.createRateBeerCard.bind(this);
+    this.getSessionsParticipants = this.getSessionsParticipants.bind(this);
+    this.getNamesOfParticipants = this.getNamesOfParticipants.bind(this);
   }
 
   componentWillMount() {
@@ -49,7 +53,7 @@ class TastingSessionView extends Component {
             tastingSessionBeers: response.data.beers
           });
         }
-    })
+    }).then(() => this.getSessionsParticipants())
     .catch(error => console.log(error));
   }
 
@@ -62,6 +66,23 @@ class TastingSessionView extends Component {
         this.setState({userJoinedInSession : false});
       }
     })
+  }
+
+  getSessionsParticipants() {
+      axios.get('userandtastingsession/users/' + this.state.tastingSessionId)
+          .then((response) => {
+              if(response.status === 200) {
+                  this.setState({
+                      tastingSessionParticipantsIds: response.data
+                  });
+                  console.log(this.state.tastingSessionParticipantsIds)
+              }
+          }).then(() => this.getNamesOfParticipants())
+          .catch(error => console.log(error));
+  }
+
+  getNamesOfParticipants() {
+        
   }
 
   createRateBeerCard(beer) {
@@ -110,6 +131,11 @@ class TastingSessionView extends Component {
         <ul id="beer-rate-list">
           {beerRatingListItems}
         </ul>
+        </Row>
+        <Row className="justify-content-center homo">
+          <ul id="beer-rate-list">
+            {this.state.tastingSessionParticipants}
+          </ul>
         </Row>
       </Container>
     );
