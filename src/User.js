@@ -29,7 +29,6 @@ class User {
       JSON.stringify(requestBody)
     )
     .then(function(response) {
-      alert("Succesfully joined tasting session!");
       successCallBack();
     })
     .catch(e => console.log(e));
@@ -46,7 +45,6 @@ class User {
       }
     )
     .then(function(response) {
-      alert("Succesfully left tasting session!");
       successCallBack();
     })
     .catch(e => console.log(e));

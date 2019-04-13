@@ -93,7 +93,7 @@ class RatingComponent extends Component {
                 as="textarea" 
                 rows="3" 
                 maxLength={MAX_RATING_COMMENT_LENGTH} 
-                placeholder="Describe the drink in few words.." />
+                placeholder="Describe the drink in few words..." />
             </Form.Group>
             <Button onClick={this.postRating} className="mt-3" variant={this.state.userHasAlreadyRated ? "warning" : "success"}>
               {this.state.userHasAlreadyRated ? "Update rating" : "Submit rating"}
