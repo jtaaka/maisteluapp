@@ -82,7 +82,17 @@ class TastingSessionView extends Component {
   }
 
   getNamesOfParticipants() {
-        
+      this.state.tastingSessionParticipantsIds.map((userId) => {
+          axios.get('users/' + userId)
+              .then((response) => {
+                  if(response.status === 200) {
+                      this.setState({
+                          tastingSessionParticipantsNames: [...this.state.tastingSessionParticipantsNames, response.data]
+                      });
+                      console.log(this.state.tastingSessionParticipantsNames)
+                  }
+              })
+              .catch(error => console.log(error));})
   }
 
   createRateBeerCard(beer) {
