@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Container, Button} from 'react-bootstrap';
+import { Form, Container, Button, Alert, Row, Col } from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -15,11 +15,13 @@ class AddModifyBeer extends Component {
         this.state = {
           beerName: "",
           description: "",
-          alcoholPercent: 0.0
+          alcoholPercent: 0.0,
+          alert: false
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.showAlert    = this.showAlert.bind(this);
     }
 
     handleChange(event) {
@@ -43,8 +45,24 @@ class AddModifyBeer extends Component {
           'beers/add',
           JSON.stringify(requestBody)
         )
-      .then(r => alert("Succesfully added beer " + this.state.beerName + "."))
+      .then(r => {
+        this.setState({alert: true});
+      })
       .catch(e => console.log(e));
+    }
+
+    showAlert() {
+      if (this.state.alert) {
+        setTimeout(() => {
+          this.setState({alert: false})
+        }, 3000)
+  
+        return (
+          <Alert variant="success">
+            Successfully added beer {this.state.beerName}. 
+          </Alert>
+        );
+      } 
     }
 
     render() {
@@ -86,6 +104,11 @@ class AddModifyBeer extends Component {
                       variant="success" type="submit">
                       Add beer
                     </Button>
+                    <Row className="justify-content-center">
+                      <Col xs={11} sm={11} md={8} lg={6} xl={5}>
+                        {this.showAlert()}
+                      </Col>
+                    </Row>
                   </div>
                 </Form>
               </div>
