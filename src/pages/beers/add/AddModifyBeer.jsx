@@ -70,7 +70,8 @@ class AddModifyBeer extends Component {
 
       console.log(JSON.stringify(requestBody));
 
-      axios
+      /* BEER */
+      /*axios
         .put(
           'beers/add',
           JSON.stringify(requestBody)
@@ -82,7 +83,20 @@ class AddModifyBeer extends Component {
       })
       .catch((error) => {
         notificationError("Error adding beer!");
-      });
+      });*/
+
+      /* BEER IMAGE */
+      if(this.state.imageFile !== '') {
+        var formData = new FormData();
+        formData.append("file", this.state.imageFile);
+        axios.post('imageUpload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((response) => 
+            console.log(response)
+        ).catch(error => console.log(error));
+      }
     }
 
     render() {
