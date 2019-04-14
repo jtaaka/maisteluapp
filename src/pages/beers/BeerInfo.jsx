@@ -13,8 +13,11 @@ class BeerInfo extends Component {
         super(props);
         this.beerInfoColumn = this.beerInfoColumn.bind(this);
         this.state = {
-            beer: []
+            beer: [],
+            ratings: []
         }
+
+        this.calculateRatingMediumForBeer = this.calculateRatingMediumForBeer.bind(this);
     }
 
     componentWillMount() {
@@ -31,6 +34,30 @@ class BeerInfo extends Component {
         .catch(function(response) {
             console.log(response);
         });
+
+        axios.get('rating')
+            .then(response => {
+                if(response.status === 200) {
+                    this.setState({ratings: response.data});
+                }
+            })
+            .catch(function(response) {
+                console.log(response);
+            });
+    }
+
+    calculateRatingMediumForBeer() {
+        let medium = null;
+        let count = 0;
+
+        this.state.ratings.map((rating) => {
+            if (rating.beerId === this.state.beer.id) {
+                medium += rating.ratingValue;
+                count++;
+            }
+        });
+
+        return medium / count;
     }
 
     beerInfoColumn(){
@@ -52,7 +79,7 @@ class BeerInfo extends Component {
               
             </Row>
             <Alert variant='dark'>
-              Rating 5/5 (TODO)
+              Rating {this.calculateRatingMediumForBeer()} / 5
             </Alert>
             <Row style={{margin:1 + "%"}}>
               <Col>
