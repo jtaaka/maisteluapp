@@ -88,7 +88,9 @@ class CreateTastingSession extends Component {
     for(let i = 0; i < currentlySelectedBeers.length; i++) {
       if(beerId === currentlySelectedBeers[i].id) {
         currentlySelectedBeers.splice(i, 1);
-        this.setState({selectedBeers:currentlySelectedBeers});
+        this.setState({selectedBeers: []})
+        setTimeout(() =>
+        this.setState({selectedBeers:currentlySelectedBeers}), 100);
         break;
       }
     }
@@ -177,7 +179,7 @@ class CreateTastingSession extends Component {
       <li className="beerItem">
         <Container>
           <Row>
-            <BeerCard 
+            <BeerCard
                 beerName={d.beerName}
                 description={d.description}
                 alcoholPercent={d.alcoholPercent}
