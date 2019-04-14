@@ -49,7 +49,9 @@ class Beers extends Component {
         });
 
 
-        this.setState({filteredBeers: filtered})
+        this.setState({filteredBeers: []});
+        setTimeout(() =>
+            this.setState({filteredBeers: filtered}), 100);
     }
 
     renderBeers() {
