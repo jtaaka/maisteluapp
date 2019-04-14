@@ -15,8 +15,12 @@ class Beers extends Component {
         super(props);
         
         this.state = {
-            listOfBeers: []
+            listOfBeers: [],
+            filteredBeers: []
         }
+
+        this.search = this.search.bind(this);
+        this.renderBeers = this.renderBeers.bind(this);
     }
 
     componentWillMount() {
@@ -29,24 +33,40 @@ class Beers extends Component {
                 console.log(response.data);
                 console.log(this.state.listOfBeers);
             }
-        })
+        }).then(() => this.setState({filteredBeers: this.state.listOfBeers}))
         .catch(function(response) {
             console.log(response);
         });
     }
 
-    render() {
-        const beerCards = this.state.listOfBeers.map((d) =>
+    search(e) {
+        let filtered = [];
+
+        this.state.listOfBeers.map( (beer) => {
+            if (beer.beerName.toLowerCase().includes(e.target.value)) {
+                filtered = [...filtered, beer];
+            }
+        });
+
+
+        this.setState({filteredBeers: filtered})
+    }
+
+    renderBeers() {
+        return (
+            this.state.filteredBeers.map((beer) =>
                 <li className="beerItem">
-                  <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + d.id}>
-                    <BeerCard 
-                      beerName={d.beerName}
-                      description={d.description}
-                      alcoholPercent={d.alcoholPercent}
-                    />
-                  </Link>
-                </li>
-        );
+                    <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + beer.id}>
+                        <BeerCard
+                            beerName={beer.beerName}
+                            description={beer.description}
+                            alcoholPercent={beer.alcoholPercent}
+                        />
+                    </Link>
+                </li>));
+    }
+
+    render() {
 
         return (
           <Container>
@@ -56,20 +76,18 @@ class Beers extends Component {
                 <Row className="justify-content-md-center">
                   <Col id="searchColumn" xl={7} xs={12}>
                     <InputGroup id="searchInputGroup">
-                      <Form.Control type="text" placeholder="TODO"></Form.Control>
-                      <Button>Search</Button>
+                      <Form.Control type="text" placeholder="Search..." onChange={this.search}/>
                     </InputGroup>
                   </Col>
                 </Row>
               </div>
               <ul id="beerCardsList">
-                {beerCards}
+                  {this.renderBeers()}
               </ul>
             </div>
           </Container>
         );
     }
-
 }
 
 export default Beers;
