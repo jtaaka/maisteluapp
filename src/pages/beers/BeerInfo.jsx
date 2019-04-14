@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image} from 'react-bootstrap';
+import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image, Badge} from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -71,25 +71,25 @@ class BeerInfo extends Component {
         console.log(this.props.match.params.id);
 
         return (
-          <Container>
-            <div id="beersPage" className="rounded">
-            <Row className='justify-content-center'>
-                <Image src={beerImg} rounded style={{margin:1 + "%"}}></Image>
-  
-              
-            </Row>
-            <Alert variant='dark'>
-              Rating {this.calculateRatingMediumForBeer()} / 5
-            </Alert>
-            <Row style={{margin:1 + "%"}}>
-              <Col>
-                <h1>{this.state.beer.beerName}</h1>
-                <p>Alcohol: <b>{this.state.beer.alcoholPercent}%</b></p>
-                <p>{this.state.beer.description}</p>
-              </Col>
-            </Row>
-            </div>
-          </Container>
+            <Container id="beerInfo" className="rounded">
+                <Row className='justify-content-center'>
+                    <img className="d-block w-30" src={beerImg} alt="beerImage"/>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <Alert variant='dark'>
+                        Overall Rating {this.calculateRatingMediumForBeer()} / 5
+                    </Alert>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <h2>{this.state.beer.beerName} {this.state.beer.alcoholPercent}‰</h2>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <h4>{this.state.beer.description}</h4>
+                </Row>
+            </Container>
         )
     }
 
