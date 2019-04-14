@@ -57,7 +57,11 @@ class BeerInfo extends Component {
             }
         });
 
-        return medium / count;
+        if (medium !== null) {
+            return "Overall rating " + medium / count + " / 5";
+        } else {
+            return "No ratings yet!"
+        }
     }
 
     beerInfoColumn(){
@@ -78,7 +82,7 @@ class BeerInfo extends Component {
 
                 <Row className="justify-content-center">
                     <Alert variant='dark'>
-                        Overall Rating {this.calculateRatingMediumForBeer()} / 5
+                        {this.calculateRatingMediumForBeer()}
                     </Alert>
                 </Row>
 
