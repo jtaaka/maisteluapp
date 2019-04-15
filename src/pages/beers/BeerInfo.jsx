@@ -77,7 +77,7 @@ class BeerInfo extends Component {
         return (
             <Container id="beerInfo" className="rounded">
                 <Row className='justify-content-center'>
-                    <img className="d-block w-30" src={beerImg} alt="beerImage"/>
+                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.state.beer.id} alt="beerImage"/>
                 </Row>
 
                 <Row className="justify-content-center">
