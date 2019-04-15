@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setInterval(refreshToken, 30000);
+    setInterval(refreshToken, 120000);
   }
 
   render() {
