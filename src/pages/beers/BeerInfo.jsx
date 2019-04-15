@@ -50,6 +50,8 @@ class BeerInfo extends Component {
         let medium = null;
         let count = 0;
 
+        console.log(this.state.ratings)
+
         this.state.ratings.map((rating) => {
             if (rating.beerId === this.state.beer.id) {
                 medium += rating.ratingValue;
@@ -77,7 +79,7 @@ class BeerInfo extends Component {
         return (
             <Container id="beerInfo" className="rounded">
                 <Row className='justify-content-center'>
-                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.state.beer.id} width="300" height="400" alt="beerImage"/>
+                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.props.match.params.id} width="300" height="400" alt="beerImage"/>
                 </Row>
 
                 <Row className="justify-content-center">
