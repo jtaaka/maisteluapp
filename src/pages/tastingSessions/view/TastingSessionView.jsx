@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import RatingComponent from './Rating';
 import User from '../../../User';
-import {beerImageOnError, DATE_FORMAT} from '../../../GlobalConfig';
+import {beerImageOnError} from '../../../GlobalConfig';
 
 import './TastingSessionView.css';
 import { notificationSuccess, notificationError } from '../../../components/Notification';
