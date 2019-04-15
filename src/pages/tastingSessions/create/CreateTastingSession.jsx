@@ -19,6 +19,8 @@ class CreateTastingSession extends Component {
     super(props);
 
     this.state = {
+      isModify: this.props.isModify !== undefined ? this.props.isModify : false,
+      sessionId: this.props.match.params.id !== undefined ? Number(this.props.match.params.id) : -1,
       sessionName: "",
       startingDate: new Date(),
       additionalInfo: "",
@@ -31,22 +33,39 @@ class CreateTastingSession extends Component {
     this.handleSubmit       = this.handleSubmit.bind(this);
     this.selectBeerFromList = this.selectBeerFromList.bind(this);
     this.removeSelectedBeer = this.removeSelectedBeer.bind(this);
+    this.addBeersToTastingSession = this.addBeersToTastingSession.bind(this);
   }
 
   componentWillMount() {
+      axios.get(
+        'beers/'
+      )
+      .then(response => {
+        if(response.status === 200) {
+          this.setState({beerList : response.data})
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 
-    axios.get(
-      'beers/'
-    )
-    .then(response => {
-      if(response.status === 200) {
-        this.setState({beerList : response.data})
-      }
-    })
-    .catch(function(response) {
-      console.log(response);
-    });
-
+    if(this.state.isModify === true) {
+      /* We are modifying so we load the data */
+      axios.get(
+        'tastingsession/' + this.state.sessionId
+      ).then((response) => {
+        if(response.status === 200) {
+          this.setState({
+            sessionName: response.data.name,
+            // TODO: startingDate: response.data.startingDate,
+            additionalInfo: response.data.additionalInfo,
+            selectedBeers: response.data.beers
+          });
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
   }
 
   handleDateChange(date) {
@@ -104,61 +123,89 @@ class CreateTastingSession extends Component {
    */
   handleSubmit(event) {
     event.preventDefault();
-    
-    let tastingSessionRequestBody = {
-      name: this.state.sessionName,
-      startingDate: moment(this.state.startingDate).format("DD-MM-YYYY HH:mm"),
-      additionalInfo: this.state.additionalInfo
-    };
   
     /* Creating the tasting session. */
+    if(this.state.isModify === false) {
+      let newTastingSessionRequestBody = {
+        name: this.state.sessionName,
+        startingDate: moment(this.state.startingDate).format("DD-MM-YYYY HH:mm"),
+        additionalInfo: this.state.additionalInfo
+      };
+
+      axios
+        .put(
+          'tastingsession/',
+          JSON.stringify(newTastingSessionRequestBody)
+      )
+      .then((response) => {
+        if(response.status === 200) {
+          let tastingSessionId = response.data.id;
+          this.addBeersToTastingSession(tastingSessionId);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        notificationError("Error while creating tasting session!");
+      });
+    } else {
+      /* Modify an existing one */
+      let modifyTastingSessionRequestBody = {
+        id: this.state.sessionId,
+        name: this.state.sessionName,
+        startingDate: moment(this.state.startingDate).format("DD-MM-YYYY HH:mm"),
+        additionalInfo: this.state.additionalInfo
+      };
+
+      axios
+        .post(
+          'tastingsession/',
+          JSON.stringify(modifyTastingSessionRequestBody)
+      )
+      .then((response) => {
+        if(response.status === 200) {
+          let tastingSessionId = response.data.id;
+          this.addBeersToTastingSession(tastingSessionId);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        notificationError("Error while updating tasting session!");
+      });
+    }
+  }
+
+  addBeersToTastingSession(tastingSessionId) {
+    let beersArray = [];
+    
+    for(let i = 0; i < this.state.selectedBeers.length; i++) {
+      let currentBeer = this.state.selectedBeers[i];
+      beersArray.push({
+        beerId: currentBeer.id,
+        tastingSessionId: tastingSessionId
+      });
+    }
+
+    /* Adding all the beers to the tasting session. */
     axios
       .put(
-        'tastingsession/',
-        JSON.stringify(tastingSessionRequestBody)
-    )
-    .then((response) => {
-      if(response.status === 200) {
-        let tastingSessionId = response.data.id;
+        'tastingsession/addbeers/',
+        JSON.stringify(beersArray)
+      )
+      .then((response) => {
+        if(response.status === 200)
+          notificationSuccess("Tasting session created succesfully!");
 
-        let beersArray = [];
-    
-        for(let i = 0; i < this.state.selectedBeers.length; i++) {
-          let currentBeer = this.state.selectedBeers[i];
-          beersArray.push({
-            beerId: currentBeer.id,
-            tastingSessionId: tastingSessionId
-          });
-        }
-
-        /* Adding all the beers to the tasting session. */
-        axios
-          .put(
-            'tastingsession/addbeers/',
-            JSON.stringify(beersArray)
-          )
-          .then((response) => {
-            if(response.status === 200)
-              notificationSuccess("Tasting session created succesfully!");
-
-          })
-          .catch(e => {
-            console.log(e);
-            notificationError("Error while adding beers to tasting session!");
-          });
-
-      }
-    })
-    .catch(e => {
-      console.log(e);
-      notificationError("Error while creating tasting session!");
-    });
+      })
+      .catch(e => {
+        console.log(e);
+        notificationError("Error while adding beers to tasting session!");
+      });
   }
 
   render() {
 
     const selectableBeersElem = this.state.beerList.map((d) =>
-        <Dropdown.Item beerid={d.id} onClick={() => this.selectBeerFromList(d.id)}>{d.beerName}</Dropdown.Item>
+        <Dropdown.Item key={d.id} beerid={d.id} onClick={() => this.selectBeerFromList(d.id)}>{d.beerName}</Dropdown.Item>
     );
 
     const selectedBeersElem = this.state.selectedBeers.map((d) =>
@@ -239,7 +286,9 @@ class CreateTastingSession extends Component {
                       variant="success"
                       type="submit"
                       disabled={!this.state.additionalInfo || (selectedBeersElem.length === 0) || !this.state.sessionName}
-                  >Create tasting session</Button>
+                  >
+                  {this.state.isModify === false ? "Create tasting session" : "Update tasting session"}
+                  </Button>
                 </div>
               </Form>
             </Col>

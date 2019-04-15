@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, Form, Badge} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import {Container, Row, Col, Card, Button} from 'react-bootstrap';
 
 import axios from 'axios';
-import moment from 'moment';
 
 import RatingComponent from './Rating';
 import User from '../../../User';
 import {beerImageOnError, DATE_FORMAT} from '../../../GlobalConfig';
 
-import beerImg from '../../../img/testbeer.png';
-
 import './TastingSessionView.css';
+import { notificationSuccess, notificationError } from '../../../components/Notification';
 
 /**
  * TODO: Better design for the layout.
@@ -40,6 +39,7 @@ class TastingSessionView extends Component {
     this.createRateBeerCard = this.createRateBeerCard.bind(this);
     this.getSessionsParticipants = this.getSessionsParticipants.bind(this);
     this.getNamesOfParticipants = this.getNamesOfParticipants.bind(this);
+    this.deleteSession = this.deleteSession.bind(this);
   }
 
   componentWillMount() {
@@ -75,7 +75,6 @@ class TastingSessionView extends Component {
                   this.setState({
                       tastingSessionParticipantsIds: response.data
                   });
-                  console.log(this.state.tastingSessionParticipantsIds)
               }
           }).then(() => this.getNamesOfParticipants())
           .catch(error => console.log(error));
@@ -89,10 +88,23 @@ class TastingSessionView extends Component {
                       this.setState({
                           tastingSessionParticipants: [...this.state.tastingSessionParticipants, response.data]
                       });
-                      console.log(this.state.tastingSessionParticipants)
                   }
               })
               .catch(error => console.log(error));})
+  }
+
+  deleteSession() {
+    axios.delete(
+      'tastingsession/' + this.state.tastingSessionId
+    ).then((response) => {
+      if(response.status === 200) {
+        this.props.history.push("/tastingsessions");
+        notificationSuccess("Tasting session deleted succesfully!");
+      }
+    }).catch((error) => {
+      console.log(error);
+      notificationError("Error deleting tasting session!");
+    });
   }
 
   createRateBeerCard(beer) {
@@ -151,6 +163,19 @@ class TastingSessionView extends Component {
                     <h5 id="participant">| {user.username} |</h5>
                 )}
             </ul>
+        </Row>
+        <Row className="justify-content-center">
+            <h1 id="header1">Manage</h1>
+        </Row>
+        <Row className="justify-content-center">
+          <Link 
+              style={{ textDecoration: 'none' }} 
+              to={{
+                pathname: '/tastingsessions/modify/' + this.state.tastingSessionId,
+              }}>
+              <Button variant="info" className="mr-2 mb-5">Modify session</Button>
+          </Link>
+          <Button onClick={this.deleteSession} variant="danger" className="ml-2 mb-5">Delete session</Button>
         </Row>
       </Container>
     );
