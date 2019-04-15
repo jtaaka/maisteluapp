@@ -12,14 +12,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   refreshToken();
   // = Cookies.get("token") != undefined;
   
-
-
   return (
     <Route
       {...rest}
       render={props =>
         isLoggedIn ? (
-          <Component {...props} />
+          <Component {...props} {...rest} />
         ) : (
           <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
         )
