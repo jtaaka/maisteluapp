@@ -19,6 +19,8 @@ class CreateTastingSession extends Component {
     super(props);
 
     this.state = {
+      isModify: this.props.isModify !== undefined ? this.props.isModify : false,
+      sessionId: this.props.match.params.id !== undefined ? Number(this.props.match.params.id) : -1,
       sessionName: "",
       startingDate: new Date(),
       additionalInfo: "",
@@ -35,18 +37,35 @@ class CreateTastingSession extends Component {
 
   componentWillMount() {
 
-    axios.get(
-      'beers/'
-    )
-    .then(response => {
-      if(response.status === 200) {
-        this.setState({beerList : response.data})
-      }
-    })
-    .catch(function(response) {
-      console.log(response);
-    });
+      axios.get(
+        'beers/'
+      )
+      .then(response => {
+        if(response.status === 200) {
+          this.setState({beerList : response.data})
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 
+    if(this.state.isModify === true) {
+      /* We are modifying so we load the data */
+      axios.get(
+        'tastingsession/' + this.state.sessionId
+      ).then((response) => {
+        if(response.status === 200) {
+          this.setState({
+            sessionName: response.data.name,
+            // TODO: startingDate: response.data.startingDate,
+            additionalInfo: response.data.additionalInfo,
+            selectedBeers: response.data.beers
+          });
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
   }
 
   handleDateChange(date) {
@@ -146,7 +165,7 @@ class CreateTastingSession extends Component {
             console.log(e);
             notificationError("Error while adding beers to tasting session!");
           });
-
+          
       }
     })
     .catch(e => {
@@ -158,7 +177,7 @@ class CreateTastingSession extends Component {
   render() {
 
     const selectableBeersElem = this.state.beerList.map((d) =>
-        <Dropdown.Item beerid={d.id} onClick={() => this.selectBeerFromList(d.id)}>{d.beerName}</Dropdown.Item>
+        <Dropdown.Item key={d.id} beerid={d.id} onClick={() => this.selectBeerFromList(d.id)}>{d.beerName}</Dropdown.Item>
     );
 
     const selectedBeersElem = this.state.selectedBeers.map((d) =>

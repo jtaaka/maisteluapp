@@ -45,6 +45,7 @@ class App extends Component {
             <PrivateRoute exact path = '/profile/profile' component ={Profile}/>
             <PrivateRoute exact path = '/tastingsessions/' component = {TastingSessions}/>
             <PrivateRoute exact path = '/tastingsessions/create' component = {CreateTastingSession}/>
+            <PrivateRoute exact path = '/tastingsessions/modify/:id' component = {CreateTastingSession} isModify={true}/>
             <PrivateRoute exact path = '/tastingsessions/:id' component = {TastingSessionView} />     
             <PrivateRoute exact path = '/tastingapp/' component = {TastingApp}/>
             <PrivateRoute exact path = '/tastingapp/beers' component = {Beers}/>
