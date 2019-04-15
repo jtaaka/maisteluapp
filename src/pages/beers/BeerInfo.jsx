@@ -35,7 +35,7 @@ class BeerInfo extends Component {
             console.log(response);
         });
 
-        axios.get('rating')
+        axios.get('rating/' + this.props.match.params.id)
             .then(response => {
                 if(response.status === 200) {
                     this.setState({ratings: response.data});
