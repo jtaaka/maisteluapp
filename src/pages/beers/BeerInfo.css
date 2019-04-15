@@ -1,3 +1,11 @@
+#beerInfo {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:rgba(163, 163, 163, 0.2);
+}
+
 #beerInfo > h1 {
     color: #f5f5f5;
     text-align: center;
@@ -5,16 +13,13 @@
     margin-bottom: 5%;
 }
 
-#beerInfo {
-    margin-top: 5%;
-    background-color: #343a40;
-    border-style: solid;
-    border-color: #e0e0e0;
-    border-width: 2px;
-    padding-bottom: 5px;
-    margin-bottom: 100px;
+#header2 {
+    color: #f5f5f5;
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 5%;
 }
 
-h4 {
+#header4 {
    color: #f5f5f5;
 }
