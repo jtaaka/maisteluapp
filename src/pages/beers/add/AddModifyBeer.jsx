@@ -8,7 +8,6 @@ import axios from 'axios';
 import './AddModifyBeer.css';
 
 /**
- * TODO: Add image uploading possibility.
  * TODO: Implement a better way getting the alcoholPercent. Currently using a text field with no validation.
  */
 class AddModifyBeer extends Component {
@@ -68,35 +67,38 @@ class AddModifyBeer extends Component {
         alcoholPercent: this.state.alcoholPercent
       };
 
-      console.log(JSON.stringify(requestBody));
-
       /* BEER */
-      /*axios
+      axios
         .put(
           'beers/add',
           JSON.stringify(requestBody)
         )
       .then((response) => {
         if(response.status === 200) {
-          notificationSuccess("Succesfully added beer " + this.state.beerName + "!");
+          notificationSuccess("Succesfully added beer " + this.state.beerName + "!")
+
+          /* After succesful PUT of a beer we POST the image to the backend server*/
+          if(this.state.imageFile !== '') {
+            var formData = new FormData();
+            formData.append("file", this.state.imageFile);
+            formData.append("beerId", response.data.id);
+            axios.post('images/upload', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }).then((response) => {
+              notificationSuccess("Image uploaded succesfully!");
+            }).catch((error) => {
+              console.log(error);
+              notificationError("Error while uploading an image!");
+            });
+          }
+
         }
       })
       .catch((error) => {
         notificationError("Error adding beer!");
-      });*/
-
-      /* BEER IMAGE */
-      if(this.state.imageFile !== '') {
-        var formData = new FormData();
-        formData.append("file", this.state.imageFile);
-        axios.post('imageUpload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then((response) => 
-            console.log(response)
-        ).catch(error => console.log(error));
-      }
+      });
     }
 
     render() {

@@ -26,8 +26,6 @@ class Beers extends Component {
         .then(response => {
             if(response.status === 200) {
                 this.setState({listOfBeers: response.data});
-                console.log(response.data);
-                console.log(this.state.listOfBeers);
             }
         })
         .catch(function(response) {
@@ -40,6 +38,7 @@ class Beers extends Component {
                 <li className="beerItem">
                   <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + d.id}>
                     <BeerCard 
+                      beerId={d.id}
                       beerName={d.beerName}
                       description={d.description}
                       alcoholPercent={d.alcoholPercent}
