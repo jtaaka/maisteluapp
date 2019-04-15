@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, Form, Badge} from 'react-bootstrap';
+import {Container, Row, Col, Card, Button} from 'react-bootstrap';
 
 import axios from 'axios';
-import moment from 'moment';
 
 import RatingComponent from './Rating';
 import User from '../../../User';
-import {DATE_FORMAT} from '../../../GlobalConfig';
-
-import beerImg from '../../../img/testbeer.png';
 
 import './TastingSessionView.css';
 
@@ -36,6 +32,8 @@ class TastingSessionView extends Component {
       tastingSessionParticipants: [],
       userJoinedInSession: false
     };
+
+    console.log(props)
 
     this.createRateBeerCard = this.createRateBeerCard.bind(this);
     this.getSessionsParticipants = this.getSessionsParticipants.bind(this);
@@ -151,6 +149,19 @@ class TastingSessionView extends Component {
                     <h5 id="participant">| {user.username} |</h5>
                 )}
             </ul>
+        </Row>
+        <Row className="justify-content-center">
+            <h1 id="header1">Manage</h1>
+        </Row>
+        <Row className="justify-content-center">
+            <Button 
+              variant="info" 
+              className="mr-2 mb-5"
+              onClick={() => this.props.history.push("/tastingsessions/create")}
+              >
+              Modify session
+            </Button>
+            <Button variant="danger" className="ml-2 mb-5">Delete session</Button>
         </Row>
       </Container>
     );
