@@ -30,8 +30,6 @@ class Beers extends Component {
         .then(response => {
             if(response.status === 200) {
                 this.setState({listOfBeers: response.data});
-                console.log(response.data);
-                console.log(this.state.listOfBeers);
             }
         }).then(() => this.setState({filteredBeers: this.state.listOfBeers}))
         .catch(function(response) {
@@ -58,18 +56,19 @@ class Beers extends Component {
         return (
             this.state.filteredBeers.map((beer) =>
                 <li className="beerItem">
-                    <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + beer.id}>
-                        <BeerCard
-                            beerName={beer.beerName}
-                            description={beer.description}
-                            alcoholPercent={beer.alcoholPercent}
-                        />
-                    </Link>
-                </li>));
+                  <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + d.id}>
+                    <BeerCard 
+                      beerId={d.id}
+                      beerName={d.beerName}
+                      description={d.description}
+                      alcoholPercent={d.alcoholPercent}
+                    />
+                  </Link>
+                </li>
+        );
     }
 
     render() {
-
         return (
           <Container>
             <div id="beersPage" className="rounded">

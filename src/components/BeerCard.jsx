@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import {Card} from 'react-bootstrap';
 
+import axios from 'axios';
+
 import beerImg from '../img/testbeer.png';
 
 const DESCRIPTION_MAX_LENGTH = 25;
@@ -12,6 +14,7 @@ class BeerCard extends Component {
       super(props);
 
       this.state = {
+        beerId: this.props.beerId != null ? this.props.beerId : "",
         beerName: this.props.beerName != null ? this.props.beerName : "",
         description: this.props.description != null ? this.props.description : "",
         alcoholPercent: this.props.alcoholPercent != null ? this.props.alcoholPercent : 0.0,
@@ -33,7 +36,7 @@ class BeerCard extends Component {
     render() {
         return(
           <Card className="beerCard shadow" style={{ width: '13rem' }}>
-            <Card.Img variant="top" src={beerImg} />
+            <Card.Img variant="top" src={axios.defaults.baseURL + 'images/get/' + this.state.beerId} />
             <Card.Body>
               <Card.Title>{this.state.beerName}</Card.Title>
               <Card.Text>{this.state.description}</Card.Text>
