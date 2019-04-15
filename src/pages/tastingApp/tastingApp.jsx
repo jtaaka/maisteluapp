@@ -85,13 +85,13 @@ class TastingApp extends Component {
     );
   }
 
-  showLatestBeers(name, description, alcoholPercent) {
+  showLatestBeers(name, id, description, alcoholPercent) {
     return (
       <Carousel.Item key={name}>
         <img
           className="d-block w-100"
           style={{opacity: 0.7}}
-          src={beerImg}
+          src={axios.defaults.baseURL + 'images/get/' + id}
           alt="First slide"
         />
         <Carousel.Caption>
@@ -107,7 +107,7 @@ class TastingApp extends Component {
 
   render() {
     const latestBeers = this.state.latestAddedBeers.map((beer) => 
-      this.showLatestBeers(beer.beerName, beer.description, beer.alcoholPercent)
+      this.showLatestBeers(beer.beerName, beer.id, beer.description, beer.alcoholPercent)
     );
 
     return (
