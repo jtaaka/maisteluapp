@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Card, Row, Col, Carousel } from 'react-bootstrap';
 import './tastingApp.css';
 import beerImg from '../../img/testbeer.png';
+import {beerImageOnError} from "../../GlobalConfig";
 
 const cardStyle = {marginTop: '10px', marginBottom: '10px'};
 
@@ -93,6 +94,7 @@ class TastingApp extends Component {
           width="300"
           height="400"
           style={{opacity: 0.7}}
+          onError={beerImageOnError}
           src={axios.defaults.baseURL + 'images/get/' + id}
           alt="First slide"
         />

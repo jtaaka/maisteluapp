@@ -4,6 +4,7 @@ import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image, Badg
 import axios from 'axios';
 
 import './BeerInfo.css';
+import {beerImageOnError} from "../../GlobalConfig";
 
 class BeerInfo extends Component {
 
@@ -77,7 +78,7 @@ class BeerInfo extends Component {
         return (
             <Container id="beerInfo" className="rounded">
                 <Row className='justify-content-center'>
-                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.props.match.params.id} width="300" height="400" alt="beerImage"/>
+                    <img className="d-block w-30" onError={beerImageOnError} src={axios.defaults.baseURL + 'images/get/' + this.props.match.params.id} width="300" height="400" alt="beerImage"/>
                 </Row>
 
                 <Row className="justify-content-center">

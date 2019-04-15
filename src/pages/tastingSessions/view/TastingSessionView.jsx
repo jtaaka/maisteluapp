@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import RatingComponent from './Rating';
 import User from '../../../User';
-import {DATE_FORMAT} from '../../../GlobalConfig';
+import {beerImageOnError, DATE_FORMAT} from '../../../GlobalConfig';
 
 import beerImg from '../../../img/testbeer.png';
 
@@ -98,7 +98,7 @@ class TastingSessionView extends Component {
   createRateBeerCard(beer) {
     return (
       <Card className="shadow align-items-center" style={{width:'23rem'}}>
-        <Card.Img variant="top" src={axios.defaults.baseURL + 'images/get/' + beer.id} width="300" height="400" />
+        <Card.Img variant="top" onError={beerImageOnError} src={axios.defaults.baseURL + 'images/get/' + beer.id} width="300" height="400" />
           <Card.Body className="text-center w-100">
             <Card.Title>{beer.beerName}</Card.Title>
             <Card.Text>{beer.description}</Card.Text>
