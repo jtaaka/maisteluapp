@@ -114,7 +114,7 @@ class Profile extends Component {
             return (
                 this.state.ratings.map( rating =>
                     <Card key={rating.id} bg="dark" text="white" style={cardStyle}>
-                        <Card.Header>{<img className="d-block w-100" src={beerImg} alt="beerImage"/>}</Card.Header>
+                        <Card.Header>{<img className="d-block w-100" src={axios.defaults.baseURL + 'images/get/' + rating.beerId} width="300" height="400" alt="beerImage"/>}</Card.Header>
                         <Card.Body>
                             <Card.Title>{this.ratingBeerName(rating.beerId) + " " + rating.ratingValue + " / 5"}</Card.Title>
                             {rating.comment}

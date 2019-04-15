@@ -98,7 +98,7 @@ class TastingSessionView extends Component {
   createRateBeerCard(beer) {
     return (
       <Card className="shadow align-items-center" style={{width:'23rem'}}>
-        <Card.Img variant="top" src={beerImg} />
+        <Card.Img variant="top" src={axios.defaults.baseURL + 'images/get/' + beer.id} width="300" height="400" />
           <Card.Body className="text-center w-100">
             <Card.Title>{beer.beerName}</Card.Title>
             <Card.Text>{beer.description}</Card.Text>
@@ -145,10 +145,10 @@ class TastingSessionView extends Component {
         <Row className="justify-content-center">
             <h1 id="header1">Participants</h1>
         </Row>
-        <Row className="justify-content-center">
+        <Row>
             <ul id="participant-list">
                 { this.state.tastingSessionParticipants.map((user) =>
-                    <Badge variant="secondary">{user.username}</Badge>
+                    <Badge id="user-badge" variant="secondary">{user.username}</Badge>
                 )}
             </ul>
         </Row>

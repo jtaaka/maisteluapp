@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image, Badge} from 'react-bootstrap';
+import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image, Badge, Card} from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -77,7 +77,7 @@ class BeerInfo extends Component {
         return (
             <Container id="beerInfo" className="rounded">
                 <Row className='justify-content-center'>
-                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.state.beer.id} alt="beerImage"/>
+                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.state.beer.id} width="300" height="400" alt="beerImage"/>
                 </Row>
 
                 <Row className="justify-content-center">

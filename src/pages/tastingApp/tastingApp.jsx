@@ -90,6 +90,8 @@ class TastingApp extends Component {
       <Carousel.Item key={name}>
         <img
           className="d-block w-100"
+          width="300"
+          height="400"
           style={{opacity: 0.7}}
           src={axios.defaults.baseURL + 'images/get/' + id}
           alt="First slide"
