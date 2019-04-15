@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import { Container, Form, Dropdown, Row, Col, Button, Alert } from 'react-bootstrap';
+import { Container, Form, Dropdown, Row, Col, Button } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 
 import axios from 'axios';
@@ -8,6 +8,7 @@ import moment from 'moment';
 
 import {CustomMenu} from '../../../components/CustomToggle';
 import BeerCard from '../../../components/BeerCard'
+import {notificationSuccess, notificationError} from '../../../components/Notification';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './CreateTastingSession.css';
@@ -23,7 +24,6 @@ class CreateTastingSession extends Component {
       additionalInfo: "",
       beerList: [],
       selectedBeers: [],
-      alert: false
     }
 
     this.handleDateChange   = this.handleDateChange.bind(this);
@@ -31,7 +31,6 @@ class CreateTastingSession extends Component {
     this.handleSubmit       = this.handleSubmit.bind(this);
     this.selectBeerFromList = this.selectBeerFromList.bind(this);
     this.removeSelectedBeer = this.removeSelectedBeer.bind(this);
-    this.showAlert          = this.showAlert.bind(this);
   }
 
   componentWillMount() {
@@ -142,31 +141,19 @@ class CreateTastingSession extends Component {
             JSON.stringify(beersArray)
           )
           .then((response) => {
-            console.log(response);
             if(response.status === 200)
-              this.setState({alert: true});
+              notificationSuccess("Tasting session created succesfully!");
 
           })
-          .catch(e => console.log(e));
+          .catch(e => {
+            console.log(e);
+            notificationError("Error while creating tasting session!");
+          });
 
       }
     })
     .catch(e => console.log(e));
 
-  }
-
-  showAlert() {
-    if (this.state.alert) {
-      setTimeout(() => {
-        this.setState({alert: false})
-      }, 3000)
-
-      return (
-        <Alert variant="success">
-          Tasting session and beers added succesfully! 
-        </Alert>
-      );
-    } 
   }
 
   render() {
@@ -253,12 +240,6 @@ class CreateTastingSession extends Component {
                       type="submit"
                       disabled={!this.state.additionalInfo || (selectedBeersElem.length === 0) || !this.state.sessionName}
                   >Create tasting session</Button>
-
-                  <Row className="justify-content-center">
-                    <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                      {this.showAlert()}
-                    </Col>
-                  </Row>
                 </div>
               </Form>
           </div>
