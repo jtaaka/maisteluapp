@@ -3,8 +3,6 @@ import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image, Badg
 
 import axios from 'axios';
 
-import beerImg from '../../img/testbeer.png';
-
 import './BeerInfo.css';
 
 class BeerInfo extends Component {
@@ -89,11 +87,11 @@ class BeerInfo extends Component {
                 </Row>
 
                 <Row className="justify-content-center">
-                    <h2>{this.state.beer.beerName} {this.state.beer.alcoholPercent}‰</h2>
+                    <h2 id="header2">{this.state.beer.beerName} {this.state.beer.alcoholPercent}%</h2>
                 </Row>
 
                 <Row className="justify-content-center">
-                    <h4>{this.state.beer.description}</h4>
+                    <h4 id="header4">{this.state.beer.description}</h4>
                 </Row>
             </Container>
         )
