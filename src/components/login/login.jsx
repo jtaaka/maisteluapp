@@ -3,6 +3,7 @@ import { Button, Form, Alert } from "react-bootstrap";
 import {BACKEND_URL} from '../../GlobalConfig';
 import {withRouter} from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from 'axios';
 
 class Login extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class Login extends Component {
         console.log("SUCCESS");
         response.json().then(function(json){
           Cookies.set("token", json.token);
+          axios.defaults.headers.common["token"] = json.token;
           Cookies.set("username", json.user);
           Cookies.set("userId", json.id);
           parent.props.history.push("/tastingapp");
