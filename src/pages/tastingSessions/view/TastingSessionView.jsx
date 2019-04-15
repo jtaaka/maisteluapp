@@ -145,10 +145,10 @@ class TastingSessionView extends Component {
         <Row className="justify-content-center">
             <h1 id="header1">Participants</h1>
         </Row>
-        <Row>
+        <Row className="justify-content-center">
             <ul id="participant-list">
                 { this.state.tastingSessionParticipants.map((user) =>
-                    <Badge id="user-badge" variant="secondary">{user.username}</Badge>
+                    <h5 id="participant">| {user.username} |</h5>
                 )}
             </ul>
         </Row>
