@@ -30,3 +30,15 @@
     width:250px;
     height:250px;
 }
+
+#description {
+    text-align: center;
+}
+
+#alcoholPercent {
+    text-align: center;
+}
+
+#beerName {
+    text-align: center;
+}
