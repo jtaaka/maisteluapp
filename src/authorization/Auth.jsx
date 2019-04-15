@@ -27,7 +27,7 @@ export function refreshToken () {
             removeCookies();
             window.location.pathname = "/login";
         });
-    } else {
+    } else if(window.location.pathname !== "/login") {
         window.location.pathname = "/login";
     }
     

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { checkCookies } from '../authorization/Auth';
+import { checkCookies, refreshToken } from '../authorization/Auth';
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -9,6 +9,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
    * TODO: IMPLEMENT THE AUTHENTICATION CHECKING
    */
   let isLoggedIn = checkCookies();
+  refreshToken();
   // = Cookies.get("token") != undefined;
   
 
