@@ -1,3 +1,17 @@
+#add-beer-container {
+    margin-top: 1%;
+    padding-bottom: 40px;
+    margin-bottom: 100px;
+    background-color:rgba(163, 163, 163, 0.2);
+}
+
+#add-beer-container > h1 {
+    color: #f5f5f5;
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+
 .form-group {
     color: white;
     text-align: center;
@@ -10,4 +24,9 @@
 #buttons {
     text-align: center;
     margin:auto;
+}
+
+#previewimage {
+    width:250px;
+    height:250px;
 }

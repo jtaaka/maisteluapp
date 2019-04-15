@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Button, Form, Row, Col} from "react-bootstrap";
-import {BACKEND_URL} from '../../GlobalConfig';
+import { Button, Form, Alert } from "react-bootstrap";
+import { BACKEND_URL } from '../../GlobalConfig';
+import { withRouter } from "react-router-dom";
 
 class Signup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {username: "", password: ""};
+    this.state = {username: "", password: "", alert: false};
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -34,54 +35,56 @@ class Signup extends Component {
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(reqBody)
     })
-      .then((result) => result.json())
-      .then((info) => {console.log(info)})
+    .then(response => {
+      if (response.status === 200)
+        this.props.history.push("/");
+      else if (response.status === 409)
+        this.setState({alert: true});
+      }
+    );
+  }
+
+  showAlert() {
+    if (this.state.alert) {
+      return (
+        <Alert variant="danger">
+          Username is already taken
+        </Alert>
+      )
+    } 
   }
 
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group controlId="username">
-          <Row className="justify-content-md-center">
-            <Col xs={12}  xl={5}>
-              <h2 id="loginSignupHeader">Sign up</h2>
-            </Col>
-          </Row>
-          <Row className="justify-content-md-center">
-            <Col xs={12}  xl={5}>
-              <Form.Control
-                type="text"
-                placeholder="Enter username"
-                value={this.state.username}
-                onChange={this.handleChange}/>
-            </Col>
-          </Row>
+          <h2>Sign up</h2>
+          <Form.Control
+            className="loginAndSignupFormControl"
+            type="text"
+            placeholder="Enter username"
+            value={this.state.username}
+            onChange={this.handleChange}/>
         </Form.Group>
         <Form.Group controlId="password">
-          <Row className="justify-content-md-center">
-            <Col xs={12}  xl={5}>
-              <Form.Control
-                type="password"
-                placeholder="Enter password"
-                value={this.state.password}
-                onChange={this.handleChange}/>
-            </Col>
-          </Row>
+          <Form.Control
+            className="loginAndSignupFormControl"
+            type="password"
+            placeholder="Enter password"
+            value={this.state.password}
+            onChange={this.handleChange}/>
         </Form.Group>
-        <Row className="justify-content-md-center">
-          <Col xs={12}  xl={5}>
-            <Button
-              variant ="primary"
-              block
-              disabled={!this.validateForm()}
-              type="submit">
-              Sign up
-            </Button>
-          </Col>
-        </Row>
+        {this.showAlert()}
+          <Button
+            variant ="primary"
+            block
+            disabled={!this.validateForm()}
+            type="submit">
+            Sign up
+          </Button>
       </Form>
     );
   }
 }
 
-export default Signup;
+export default withRouter(Signup);
