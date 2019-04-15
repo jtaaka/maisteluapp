@@ -181,6 +181,7 @@ class CreateTastingSession extends Component {
           <Row>
             <BeerCard
                 beerName={d.beerName}
+                beerId={d.id}
                 description={d.description}
                 alcoholPercent={d.alcoholPercent}
             />
