@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
-import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image, Badge, Card} from 'react-bootstrap';
+import {Container, Row, Alert, Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import { LinkContainer } from "react-router-bootstrap";
 
 import axios from 'axios';
 
 import './BeerInfo.css';
+import {beerImageOnError} from "../../GlobalConfig";
 
 class BeerInfo extends Component {
 
     constructor(props) {
         super(props);
         this.beerInfoColumn = this.beerInfoColumn.bind(this);
+        this.deleteBeer = this.deleteBeer.bind(this);
+        this.modifyBeer = this.modifyBeer.bind(this);
         this.state = {
             beer: [],
             ratings: []
@@ -70,14 +74,35 @@ class BeerInfo extends Component {
       )
     }
 
+    deleteBeer(){
+
+    }
+
+    modifyBeer(){
+
+    }
+
     render() {
         
         console.log(this.props.match.params.id);
 
         return (
             <Container id="beerInfo" className="rounded">
+            <Navbar>
+                <Nav id="borderless" variant="tabs" className="ml-auto" activeKey="1">
+                    <NavDropdown title="Manage beer" id="basic-nav-dropdown">
+                    <LinkContainer to="/" exact={true} onClick={this.deleteBeer}>
+                        <NavDropdown.Item>Delete beer</NavDropdown.Item>
+                    </LinkContainer>
+                    
+                    <LinkContainer to="/" exact={true} onClick={this.modifyBeer}>
+                        <NavDropdown.Item>Modify beer</NavDropdown.Item>
+                    </LinkContainer>
+                    </NavDropdown>
+                </Nav>
+            </Navbar>
                 <Row className='justify-content-center'>
-                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.props.match.params.id} width="300" height="400" alt="beerImage"/>
+                    <img className="d-block w-30" onError={beerImageOnError} src={axios.defaults.baseURL + 'images/get/' + this.props.match.params.id} width="300" height="400" alt="beerImage"/>
                 </Row>
 
                 <Row className="justify-content-center">
