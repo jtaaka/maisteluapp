@@ -1,40 +1,20 @@
-#beersPage {
-    margin-top: 1%;
-}
-
-#beersH1 {
+#beerInfo > h1 {
     color: #f5f5f5;
     text-align: center;
     margin-top: 1%;
     margin-bottom: 5%;
 }
 
-.beerCard {
-    opacity: 1;
-    transition: 0.3s;
+#beerInfo {
+    margin-top: 5%;
+    background-color: #343a40;
+    border-style: solid;
+    border-color: #e0e0e0;
+    border-width: 2px;
+    padding-bottom: 5px;
+    margin-bottom: 100px;
 }
 
-.beerCard:hover {
-    opacity: 0.6;
-    transform: scale(1.1);
-}
-
-#beerSearch {
-    margin-bottom: 7%;
-}
-
-#searchInputGroup {
-    text-align:left;
-}
-
-#beerCardsList {
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.beerItem {
-    display: inline-flex;
-    margin: 10px;
+h4 {
+   color: #f5f5f5;
 }

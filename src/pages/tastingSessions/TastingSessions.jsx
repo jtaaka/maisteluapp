@@ -88,11 +88,11 @@ class TastingSessions extends Component {
       additionalInfo = additionalInfo.slice(0, DESCRIPTION_MAX_LENGTH) + '...';
     }
 
-    startingDateTime = moment(new Date(startingDateTime)).format(DATE_FORMAT);
+    // startingDateTime = moment(new Date(startingDateTime)).format(DATE_FORMAT);
 
     return (
       <li sessionid={id}>
-        <Card className="m-2">
+        <Card className="m-2" bg="dark" text="white">
           <Card.Header as="h5">{startingDateTime}</Card.Header>
           <Card.Body>
             <Card.Title>{name}</Card.Title>

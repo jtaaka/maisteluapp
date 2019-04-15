@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Button, Form } from "react-bootstrap";
-import {BACKEND_URL} from '../../GlobalConfig';
+import { Button, Form, Alert } from "react-bootstrap";
+import { BACKEND_URL } from '../../GlobalConfig';
+import { withRouter } from "react-router-dom";
 
 class Signup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {username: "", password: ""};
+    this.state = {username: "", password: "", alert: false};
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -34,8 +35,23 @@ class Signup extends Component {
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(reqBody)
     })
-      .then((result) => result.json())
-      .then((info) => {console.log(info)})
+    .then(response => {
+      if (response.status === 200)
+        this.props.history.push("/");
+      else if (response.status === 409)
+        this.setState({alert: true});
+      }
+    );
+  }
+
+  showAlert() {
+    if (this.state.alert) {
+      return (
+        <Alert variant="danger">
+          Username is already taken
+        </Alert>
+      )
+    } 
   }
 
   render() {
@@ -58,6 +74,7 @@ class Signup extends Component {
             value={this.state.password}
             onChange={this.handleChange}/>
         </Form.Group>
+        {this.showAlert()}
           <Button
             variant ="primary"
             block
@@ -70,4 +87,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

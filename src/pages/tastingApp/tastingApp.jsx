@@ -23,24 +23,27 @@ class TastingApp extends Component {
   }
 
   compareDates(DBdate) {
-    var dateFromDB = DBdate.split(/[.,\/ -]/);
-    var today = new Date();
+    let dateFromDB = DBdate.split(/[.,\/ -]/);
+    let today = new Date();
 
-    var DBday = parseInt(dateFromDB[0]);
-    var DBmonth = parseInt(dateFromDB[1]);
-    var DByear = parseInt(dateFromDB[2]);
+    let DBday = parseInt(dateFromDB[0]);
+    let DBmonth = parseInt(dateFromDB[1]);
+    let DByear = parseInt(dateFromDB[2]);
+    let DBhours = parseInt(dateFromDB[3]);
 
-    var currentDay = today.getDate();
-    var currentMonth = today.getMonth() + 1;
-    var currentYear = today.getFullYear();
+    let currentDay = today.getDate();
+    let currentMonth = today.getMonth() + 1;
+    let currentYear = today.getFullYear();
+    let currentHours = today.getHours();
 
-    if ( DByear > currentYear 
-        || (DByear === currentYear && DBmonth > currentMonth) 
-        || (DByear === currentYear && DBmonth === currentMonth && DBday >= currentDay )) {
-      
+    if ( DByear > currentYear
+        || (DByear === currentYear && DBmonth > currentMonth)
+        || (DByear === currentYear && DBmonth === currentMonth && DBday > currentDay)
+        || (DByear === currentYear && DBmonth === currentMonth && DBday === currentDay && DBhours >= currentHours)) {
+
       return true;
     }
-    
+
     return false;
   }
 
@@ -57,7 +60,11 @@ class TastingApp extends Component {
               arrayOfSessions.push(response.data[i]);
             }
           }
-          this.setState({ upcomingSessions: arrayOfSessions });
+          if (arrayOfSessions.length !== 0) {
+            this.setState({upcomingSessions: arrayOfSessions});
+          } else {
+            this.setState({ upcomingSessions: [{additionalInfo: "No upcoming sessions."}] });
+          }
         } else {
           this.setState({ upcomingSessions: [{additionalInfo: "No upcoming sessions."}] });
         }
@@ -80,7 +87,7 @@ class TastingApp extends Component {
 
   showLatestBeers(name, description, alcoholPercent) {
     return (
-      <Carousel.Item>
+      <Carousel.Item key={name}>
         <img
           className="d-block w-100"
           style={{opacity: 0.7}}

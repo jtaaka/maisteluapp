@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, Form} from 'react-bootstrap';
+import {Container, Row, Col, Card, Form, Badge} from 'react-bootstrap';
 
 import axios from 'axios';
 import moment from 'moment';
@@ -29,13 +29,17 @@ class TastingSessionView extends Component {
       tastingSessionId: passedParameters.tastingSessionId != null ? passedParameters.tastingSessionId : -1,
       user: passedParameters.user != null ? passedParameters.user : new User(),
       tastingSessionName: '',
-      tastingSessionStartingDate: new Date(),
+      tastingSessionStartingDate: '',
       tastingSessionAdditionalInfo: '',
       tastingSessionBeers: [],
+      tastingSessionParticipantsIds: [],
+      tastingSessionParticipants: [],
       userJoinedInSession: false
     };
 
     this.createRateBeerCard = this.createRateBeerCard.bind(this);
+    this.getSessionsParticipants = this.getSessionsParticipants.bind(this);
+    this.getNamesOfParticipants = this.getNamesOfParticipants.bind(this);
   }
 
   componentWillMount() {
@@ -44,12 +48,12 @@ class TastingSessionView extends Component {
         if(response.status === 200) {
           this.setState({
             tastingSessionName: response.data.name,
-            tastingSessionStartingDate: new Date(response.data.startingDate),
+            tastingSessionStartingDate: response.data.startingDate,
             tastingSessionAdditionalInfo: response.data.additionalInfo,
             tastingSessionBeers: response.data.beers
           });
         }
-    })
+    }).then(() => this.getSessionsParticipants())
     .catch(error => console.log(error));
   }
 
@@ -62,6 +66,33 @@ class TastingSessionView extends Component {
         this.setState({userJoinedInSession : false});
       }
     })
+  }
+
+  getSessionsParticipants() {
+      axios.get('userandtastingsession/users/' + this.state.tastingSessionId)
+          .then((response) => {
+              if(response.status === 200) {
+                  this.setState({
+                      tastingSessionParticipantsIds: response.data
+                  });
+                  console.log(this.state.tastingSessionParticipantsIds)
+              }
+          }).then(() => this.getNamesOfParticipants())
+          .catch(error => console.log(error));
+  }
+
+  getNamesOfParticipants() {
+      this.state.tastingSessionParticipantsIds.map((userId) => {
+          axios.get('users/' + userId)
+              .then((response) => {
+                  if(response.status === 200) {
+                      this.setState({
+                          tastingSessionParticipants: [...this.state.tastingSessionParticipants, response.data]
+                      });
+                      console.log(this.state.tastingSessionParticipants)
+                  }
+              })
+              .catch(error => console.log(error));})
   }
 
   createRateBeerCard(beer) {
@@ -90,12 +121,12 @@ class TastingSessionView extends Component {
               <h1 className="ml-4">{this.state.tastingSessionName}</h1>
             </Col>
             <Col>
-              <p className="text-right mr-4">{moment(this.state.tastingSessionStartingDate).format(DATE_FORMAT)}</p>
+              <p className="text-right mr-4">{this.state.tastingSessionStartingDate}</p>
             </Col>
         </Row>
         <Row className="justify-content-center">
-          <h1>
-            Information:
+          <h1 id="header1">
+            Information
           </h1>
         </Row>
         <Row className="justify-content-center">
@@ -104,12 +135,22 @@ class TastingSessionView extends Component {
           </div>
         </Row>
         <Row className="justify-content-center">
-          <h1>Drinks:</h1>
+          <h1 id="header1">Drinks</h1>
         </Row>
-        <Row className="justify-content-center homo">
+        <Row className="justify-content-center">
         <ul id="beer-rate-list">
           {beerRatingListItems}
         </ul>
+        </Row>
+        <Row className="justify-content-center">
+            <h1 id="header1">Participants</h1>
+        </Row>
+        <Row className="justify-content-center">
+            <ul id="participant-list">
+                { this.state.tastingSessionParticipants.map((user) =>
+                    <Badge variant="secondary">{user.username}</Badge>
+                )}
+            </ul>
         </Row>
       </Container>
     );

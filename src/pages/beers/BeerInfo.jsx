@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image} from 'react-bootstrap';
+import {Container, Form, InputGroup, Button, Col, Row, Media, Alert, Image, Badge} from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -13,8 +13,11 @@ class BeerInfo extends Component {
         super(props);
         this.beerInfoColumn = this.beerInfoColumn.bind(this);
         this.state = {
-            beer: []
+            beer: [],
+            ratings: []
         }
+
+        this.calculateRatingMediumForBeer = this.calculateRatingMediumForBeer.bind(this);
     }
 
     componentWillMount() {
@@ -31,6 +34,34 @@ class BeerInfo extends Component {
         .catch(function(response) {
             console.log(response);
         });
+
+        axios.get('rating')
+            .then(response => {
+                if(response.status === 200) {
+                    this.setState({ratings: response.data});
+                }
+            })
+            .catch(function(response) {
+                console.log(response);
+            });
+    }
+
+    calculateRatingMediumForBeer() {
+        let medium = null;
+        let count = 0;
+
+        this.state.ratings.map((rating) => {
+            if (rating.beerId === this.state.beer.id) {
+                medium += rating.ratingValue;
+                count++;
+            }
+        });
+
+        if (medium !== null) {
+            return "Overall rating " + medium / count + " / 5";
+        } else {
+            return "No ratings yet!"
+        }
     }
 
     beerInfoColumn(){
@@ -44,25 +75,25 @@ class BeerInfo extends Component {
         console.log(this.props.match.params.id);
 
         return (
-          <Container>
-            <div id="beersPage" className="rounded">
-            <Row className='justify-content-center'>
-                <Image src={beerImg} rounded style={{margin:1 + "%"}}></Image>
-  
-              
-            </Row>
-            <Alert variant='dark'>
-              Rating 5/5 (TODO)
-            </Alert>
-            <Row style={{margin:1 + "%"}}>
-              <Col>
-                <h1>{this.state.beer.beerName}</h1>
-                <p>Alcohol: <b>{this.state.beer.alcoholPercent}%</b></p>
-                <p>{this.state.beer.description}</p>
-              </Col>
-            </Row>
-            </div>
-          </Container>
+            <Container id="beerInfo" className="rounded">
+                <Row className='justify-content-center'>
+                    <img className="d-block w-30" src={beerImg} alt="beerImage"/>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <Alert variant='dark'>
+                        {this.calculateRatingMediumForBeer()}
+                    </Alert>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <h2>{this.state.beer.beerName} {this.state.beer.alcoholPercent}‰</h2>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <h4>{this.state.beer.description}</h4>
+                </Row>
+            </Container>
         )
     }
 

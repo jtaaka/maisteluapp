@@ -15,8 +15,12 @@ class Beers extends Component {
         super(props);
         
         this.state = {
-            listOfBeers: []
+            listOfBeers: [],
+            filteredBeers: []
         }
+
+        this.search = this.search.bind(this);
+        this.renderBeers = this.renderBeers.bind(this);
     }
 
     componentWillMount() {
@@ -27,14 +31,30 @@ class Beers extends Component {
             if(response.status === 200) {
                 this.setState({listOfBeers: response.data});
             }
-        })
+        }).then(() => this.setState({filteredBeers: this.state.listOfBeers}))
         .catch(function(response) {
             console.log(response);
         });
     }
 
-    render() {
-        const beerCards = this.state.listOfBeers.map((d) =>
+    search(e) {
+        let filtered = [];
+
+        this.state.listOfBeers.map( (beer) => {
+            if (beer.beerName.toLowerCase().includes(e.target.value)) {
+                filtered = [...filtered, beer];
+            }
+        });
+
+
+        this.setState({filteredBeers: []});
+        setTimeout(() =>
+            this.setState({filteredBeers: filtered}), 100);
+    }
+
+    renderBeers() {
+        return (
+            this.state.filteredBeers.map((beer) =>
                 <li className="beerItem">
                   <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + d.id}>
                     <BeerCard 
@@ -46,7 +66,9 @@ class Beers extends Component {
                   </Link>
                 </li>
         );
+    }
 
+    render() {
         return (
           <Container>
             <div id="beersPage" className="rounded">
@@ -55,20 +77,18 @@ class Beers extends Component {
                 <Row className="justify-content-md-center">
                   <Col id="searchColumn" xl={7} xs={12}>
                     <InputGroup id="searchInputGroup">
-                      <Form.Control type="text" placeholder="TODO"></Form.Control>
-                      <Button>Search</Button>
+                      <Form.Control type="text" placeholder="Search..." onChange={this.search}/>
                     </InputGroup>
                   </Col>
                 </Row>
               </div>
               <ul id="beerCardsList">
-                {beerCards}
+                  {this.renderBeers()}
               </ul>
             </div>
           </Container>
         );
     }
-
 }
 
 export default Beers;

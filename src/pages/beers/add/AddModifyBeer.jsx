@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Container, Button} from 'react-bootstrap';
+import { Form, Container, Button, Row, Col } from 'react-bootstrap';
 
 import {notificationSuccess, notificationError} from '../../../components/Notification'
 
@@ -25,6 +25,7 @@ class AddModifyBeer extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.showAlert    = this.showAlert.bind(this);
     }
 
     handleChange(event) {
@@ -73,32 +74,46 @@ class AddModifyBeer extends Component {
           'beers/add',
           JSON.stringify(requestBody)
         )
-      .then((response) => {
-        if(response.status === 200) {
-          notificationSuccess("Succesfully added beer " + this.state.beerName + "!")
+        .then((response) => {
+          if(response.status === 200) {
+            notificationSuccess("Succesfully added beer " + this.state.beerName + "!")
 
-          /* After succesful PUT of a beer we POST the image to the backend server*/
-          if(this.state.imageFile !== '') {
-            var formData = new FormData();
-            formData.append("file", this.state.imageFile);
-            formData.append("beerId", response.data.id);
-            axios.post('images/upload', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }).then((response) => {
-              notificationSuccess("Image uploaded succesfully!");
-            }).catch((error) => {
-              console.log(error);
-              notificationError("Error while uploading an image!");
-            });
+            /* After succesful PUT of a beer we POST the image to the backend server*/
+            if(this.state.imageFile !== '') {
+              var formData = new FormData();
+              formData.append("file", this.state.imageFile);
+              formData.append("beerId", response.data.id);
+              axios.post('images/upload', formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              }).then((response) => {
+                notificationSuccess("Image uploaded succesfully!");
+              }).catch((error) => {
+                console.log(error);
+                notificationError("Error while uploading an image!");
+              });
+            }
+
           }
+        })
+        .catch((error) => {
+          notificationError("Error adding beer!");
+        });
+    }
 
-        }
-      })
-      .catch((error) => {
-        notificationError("Error adding beer!");
-      });
+    showAlert() {
+      if (this.state.alert) {
+        setTimeout(() => {
+          this.setState({alert: false})
+        }, 3000)
+  
+        return (
+          <Alert variant="success">
+            Successfully added beer {this.state.beerName}. 
+          </Alert>
+        );
+      } 
     }
 
     render() {
@@ -125,7 +140,7 @@ class AddModifyBeer extends Component {
                       />
                   </Form.Group>
                   <Form.Group controlId="alcoholPercent">
-                      <Form.Label>Alchohol Percent</Form.Label>
+                      <Form.Label>Alcohol Percent</Form.Label>
                       <Form.Control 
                         type="text"
                         value={this.state.alcoholPercent}
@@ -150,7 +165,16 @@ class AddModifyBeer extends Component {
                     {this.state.imageFileSrc !== '' ? <img className="mt-3" id="previewimage" src={this.state.imageFileSrc}/> : ''}
                   </Form.Group>
                   <div id="buttons">
-                    <Button variant="success" type="submit">Add beer</Button>
+                    <Button 
+                      disabled={!this.state.beerName || !this.state.description || !this.state.alcoholPercent}
+                      variant="success" type="submit">
+                      Add beer
+                    </Button>
+                    <Row className="justify-content-center">
+                      <Col xs={11} sm={11} md={8} lg={6} xl={5}>
+                        {this.showAlert()}
+                      </Col>
+                    </Row>
                   </div>
                 </Form>
             </Container>
