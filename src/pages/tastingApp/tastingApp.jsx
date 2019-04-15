@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Container, Card, Row, Col, Carousel } from 'react-bootstrap';
 import './tastingApp.css';
-import beerImg from '../../img/testbeer.png';
 import {beerImageOnError} from "../../GlobalConfig";
 
 const cardStyle = {marginTop: '10px', marginBottom: '10px'};
@@ -23,6 +22,7 @@ class TastingApp extends Component {
     this.getLatestBeer();
   }
 
+  /* wtf */
   compareDates(DBdate) {
     let dateFromDB = DBdate.split(/[.,\/ -]/);
     let today = new Date();
