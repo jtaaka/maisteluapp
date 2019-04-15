@@ -15,6 +15,12 @@
     color: black;
 }
 
+.beerCard:hover {
+    opacity: 0.6;
+    transform: scale(1.1);
+    color: black;
+}
+
 #beerSearch {
     margin-bottom: 7%;
 }
