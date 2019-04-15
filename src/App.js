@@ -50,6 +50,7 @@ class App extends Component {
             <PrivateRoute exact path = '/tastingapp/' component = {TastingApp}/>
             <PrivateRoute exact path = '/tastingapp/beers' component = {Beers}/>
             <PrivateRoute exact path = '/tastingapp/beers/add' component = {AddModifyBeer}/>
+            <PrivateRoute exact path = '/tastingapp/beers/modify/:id' component = {AddModifyBeer} isModify={true}/>
             <PrivateRoute exact path = '/tastingapp/beers/:id' component = {BeerInfo}/>
             <Redirect from='*' to='/404' />
           </Switch>

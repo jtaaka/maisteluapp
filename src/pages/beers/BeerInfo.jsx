@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Container, Row, Alert, Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
+import { withRouter } from 'react-router-dom';
+
+import {notificationSuccess, notificationError} from '../../components/Notification'
 
 import axios from 'axios';
 
@@ -65,11 +68,22 @@ class BeerInfo extends Component {
     }
 
     deleteBeer(){
-
+        axios.delete('beers/' + this.state.beer.id)
+            .then((response) => {
+                if(response.status === 200){
+                    notificationSuccess("Deleted succesfully");
+                    this.props.history.push('/tastingapp/beers/')
+                } else {
+                    notificationError('Response: ' + response.data);
+                }
+                
+            }).catch((error) => {
+                notificationError(error.message);
+            })
     }
 
     modifyBeer(){
-
+        this.props.history.push("/tastingapp/beers/modify/" + this.state.beer.id);
     }
 
     render() {      
@@ -78,11 +92,11 @@ class BeerInfo extends Component {
             <Navbar>
                 <Nav id="borderless" variant="tabs" className="ml-auto" activeKey="1">
                     <NavDropdown title="Manage beer" id="basic-nav-dropdown">
-                    <LinkContainer to="/" exact={true} onClick={this.deleteBeer}>
+                    <LinkContainer to="#" exact={true} onClick={this.deleteBeer}>
                         <NavDropdown.Item>Delete beer</NavDropdown.Item>
                     </LinkContainer>
                     
-                    <LinkContainer to="/" exact={true} onClick={this.modifyBeer}>
+                    <LinkContainer to="#" exact={true} onClick={this.modifyBeer}>
                         <NavDropdown.Item>Modify beer</NavDropdown.Item>
                     </LinkContainer>
                     </NavDropdown>
@@ -111,5 +125,5 @@ class BeerInfo extends Component {
 
 }
 
-export default BeerInfo;
+export default withRouter(BeerInfo);
 
