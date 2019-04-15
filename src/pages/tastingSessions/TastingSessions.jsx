@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-import {Container, Card, Button} from 'react-bootstrap';
+import {Container, Card, Button, Row, Col} from 'react-bootstrap';
 
 import axios from 'axios';
 import moment from 'moment';
@@ -156,9 +156,14 @@ class TastingSessions extends Component {
     return (
       <Container id="tastingSessionsContainer" className="rounded">
         <h1>Tasting sessions</h1>
-        <ul id="tastingSessionsList">
-          {listOfTastingSessions}
-        </ul>
+
+        <Row className="justify-content-center">
+          <Col xs={12} sm={12} md={8} lg={7} xl={7}>
+            <ul id="tastingSessionsList">
+              {listOfTastingSessions}
+            </ul>
+          </Col>
+        </Row>
       </Container>
     );
   }
