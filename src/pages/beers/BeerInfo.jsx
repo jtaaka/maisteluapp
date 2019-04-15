@@ -12,6 +12,8 @@ class BeerInfo extends Component {
     constructor(props) {
         super(props);
         this.beerInfoColumn = this.beerInfoColumn.bind(this);
+        this.deleteBeer = this.deleteBeer.bind(this);
+        this.modifyBeer = this.modifyBeer.bind(this);
         this.state = {
             beer: [],
             ratings: []
@@ -72,6 +74,14 @@ class BeerInfo extends Component {
       )
     }
 
+    deleteBeer(){
+
+    }
+
+    modifyBeer(){
+
+    }
+
     render() {
         
         console.log(this.props.match.params.id);
@@ -81,11 +91,11 @@ class BeerInfo extends Component {
             <Navbar>
                 <Nav id="borderless" variant="tabs" className="ml-auto" activeKey="1">
                     <NavDropdown title="Manage beer" id="basic-nav-dropdown">
-                    <LinkContainer to="/" exact={true}>
+                    <LinkContainer to="/" exact={true} onClick={this.deleteBeer}>
                         <NavDropdown.Item>Delete beer</NavDropdown.Item>
                     </LinkContainer>
                     
-                    <LinkContainer to="/" exact={true}>
+                    <LinkContainer to="/" exact={true} onClick={this.modifyBeer}>
                         <NavDropdown.Item>Modify beer</NavDropdown.Item>
                     </LinkContainer>
                     </NavDropdown>
