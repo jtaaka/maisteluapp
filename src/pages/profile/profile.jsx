@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Card, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import User from "../../User";
 import axios from 'axios';
-import beerImg from '../../img/testbeer.png';
+
 import './profile.css'
 import {beerImageOnError} from "../../GlobalConfig";
 
@@ -71,7 +71,6 @@ class Profile extends Component {
             this.state.user.getRating(beer.id).then((response) => {
                 if (response.data !== "") {
                     this.setState({ratings: [...this.state.ratings, response.data]});
-                    console.log(this.state.ratings);
                 }
             })
         });
