@@ -183,8 +183,9 @@ class CreateTastingSession extends Component {
 
     return(
         <Container id="createTastingSession" className="rounded">
-          <h1>Create tasting session</h1>
-          <div id="tastingSessionForm">
+          <Row className="justify-content-center">
+            <Col xs={12} sm={12} md={10} lg={10} xl={10}>
+            <h1 id="header1">Create tasting session</h1>
 
             <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="sessionName">
@@ -241,7 +242,8 @@ class CreateTastingSession extends Component {
                   >Create tasting session</Button>
                 </div>
               </Form>
-          </div>
+            </Col>
+          </Row>
         </Container>
       );
   }

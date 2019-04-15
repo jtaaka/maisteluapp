@@ -103,8 +103,10 @@ class AddModifyBeer extends Component {
 
     render() {
         return(
-            <Container id="add-beer-container" className="rounded-lg">
-                <h1>Add beer</h1>
+            <Container id="add-beer-container" className="rounded">
+            <Row className="justify-content-center">
+                <Col xs={12} sm={12} md={10} lg={10} xl={10}>
+                  <h1 id="header1">Add beer</h1>
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Group controlId="beerName">
                       <Form.Label>Beer name</Form.Label>
@@ -157,6 +159,8 @@ class AddModifyBeer extends Component {
                     </Button>
                   </div>
                 </Form>
+                </Col>
+              </Row>
             </Container>
         );
     }
