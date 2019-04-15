@@ -181,7 +181,7 @@ class Profile extends Component {
 
         return (
             <Container>
-                <Tabs defaultActiveKey="sessions" id="profile-tabs">
+                <Tabs defaultActiveKey="sessions" id="profile">
                     <Tab eventKey="sessions" title="Your Sessions">
                         <Row id="header">
                             <h1>Your Upcoming Sessions</h1>

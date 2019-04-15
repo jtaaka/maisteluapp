@@ -71,7 +71,7 @@ export class Navigation extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
               
-              <Nav variant="tabs" className="mr-auto" activeKey="1" onSelect={k => this.handleSelect(k)}>
+              <Nav id ="borderless" variant="tabs" className="mr-auto" activeKey="1" onSelect={k => this.handleSelect(k)}>
                 <LinkContainer to={"/tastingsessions"} exact={true}>
                   <Nav.Link>Tasting Sessions</Nav.Link>
                 </LinkContainer>
@@ -81,7 +81,7 @@ export class Navigation extends Component {
                 </LinkContainer>
               </Nav>
 
-              <Nav variant="tabs" className="ml-auto" activeKey="1" onSelect={k => this.handleSelect(k)}>
+              <Nav id="borderless" variant="tabs" className="ml-auto" activeKey="1" onSelect={k => this.handleSelect(k)}>
 
                 <NavDropdown title="Manage app" id="basic-nav-dropdown">
                   <LinkContainer to="/tastingapp/beers/add" exact={true}>
