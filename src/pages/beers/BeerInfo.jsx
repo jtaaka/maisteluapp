@@ -91,7 +91,7 @@ class BeerInfo extends Component {
     }
 
     modifyBeer(){
-
+        this.props.history.push("/tastingapp/beers/modify/" + this.state.beer.id);
     }
 
     render() {

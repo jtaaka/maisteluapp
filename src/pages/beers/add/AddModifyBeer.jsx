@@ -15,6 +15,7 @@ class AddModifyBeer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          isModify: this.props.isModify !== undefined ? this.props.isModify : false,
           beerName: "",
           description: "",
           alcoholPercent: 0.0,
@@ -30,6 +31,21 @@ class AddModifyBeer extends Component {
     handleChange(event) {
       event.preventDefault();
       this.setState({[event.target.id] : event.target.value});    
+    }
+
+    componentWillMount(){
+      if(this.state.isModify){
+        axios.get("beers/" + this.props.match.params.id)
+          .then((response) => {
+            let beer = response.data[0];
+            this.setState({beerName: beer.beerName,
+              description: beer.description,
+              alcoholPercent: beer.alcoholPercent
+          })
+          })
+          .catch((error) => console.log(error))
+      }
+      
     }
 
     handleImageChange(event) {
@@ -66,9 +82,9 @@ class AddModifyBeer extends Component {
         description: this.state.description,
         alcoholPercent: this.state.alcoholPercent
       };
-
       /* BEER */
-      axios
+      if(!(this.state.isModify)){
+        axios
         .put(
           'beers/add',
           JSON.stringify(requestBody)
@@ -99,6 +115,17 @@ class AddModifyBeer extends Component {
         .catch((error) => {
           notificationError("Error adding beer!");
         });
+      } else {
+        axios.post("beers/modify/" + this.props.match.params.id, JSON.stringify(requestBody))
+          .then((response) => {
+            if(response.status === 200){
+              notificationSuccess("Succesfully modified beer " + this.state.beerName + "!")
+              this.props.history.push("/tastingapp/beers/" + this.props.match.params.id);
+            }
+          }).catch((error) => notificationError("Error modifying beer"));
+      }
+      
+      
     }
 
     render() {
@@ -106,7 +133,7 @@ class AddModifyBeer extends Component {
             <Container id="add-beer-container" className="rounded">
             <Row className="justify-content-center">
                 <Col xs={12} sm={12} md={10} lg={10} xl={10}>
-                  <h1 id="header1">Add beer</h1>
+                  <h1 id="header1">{this.state.isModify ? "Modify beer" : "Add beer"}</h1>
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Group controlId="beerName">
                       <Form.Label>Beer name</Form.Label>
@@ -144,6 +171,7 @@ class AddModifyBeer extends Component {
                         accept="image/x-png, image/jpg, image/jpeg, image/gif"
                         className="custom-file-input"
                         aria-describedby="beer-img-upload"
+                        disabled={this.state.isModify}
                       />
                       <label className="custom-file-label" htmlFor="beer-img-upload">
                         {this.state.imageFile === '' ? 'Choose name' : this.state.imageFile.name}
@@ -155,7 +183,7 @@ class AddModifyBeer extends Component {
                     <Button 
                       disabled={!this.state.beerName || !this.state.description || !this.state.alcoholPercent}
                       variant="success" type="submit">
-                      Add beer
+                      {this.state.isModify ? "Modify beer" : "Add beer"}
                     </Button>
                   </div>
                 </Form>
