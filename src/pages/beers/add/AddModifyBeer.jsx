@@ -25,7 +25,6 @@ class AddModifyBeer extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.showAlert    = this.showAlert.bind(this);
     }
 
     handleChange(event) {
@@ -102,20 +101,6 @@ class AddModifyBeer extends Component {
         });
     }
 
-    showAlert() {
-      if (this.state.alert) {
-        setTimeout(() => {
-          this.setState({alert: false})
-        }, 3000)
-  
-        return (
-          <Alert variant="success">
-            Successfully added beer {this.state.beerName}. 
-          </Alert>
-        );
-      } 
-    }
-
     render() {
         return(
             <Container id="add-beer-container" className="rounded-lg">
@@ -170,11 +155,6 @@ class AddModifyBeer extends Component {
                       variant="success" type="submit">
                       Add beer
                     </Button>
-                    <Row className="justify-content-center">
-                      <Col xs={11} sm={11} md={8} lg={6} xl={5}>
-                        {this.showAlert()}
-                      </Col>
-                    </Row>
                   </div>
                 </Form>
             </Container>

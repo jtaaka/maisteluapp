@@ -20,7 +20,6 @@ class Beers extends Component {
         }
 
         this.search = this.search.bind(this);
-        this.renderBeers = this.renderBeers.bind(this);
     }
 
     componentWillMount() {
@@ -29,9 +28,12 @@ class Beers extends Component {
         )
         .then(response => {
             if(response.status === 200) {
-                this.setState({listOfBeers: response.data});
+                this.setState({
+                  listOfBeers: response.data,
+                  filteredBeers: response.data
+                });
             }
-        }).then(() => this.setState({filteredBeers: this.state.listOfBeers}))
+        })
         .catch(function(response) {
             console.log(response);
         });
@@ -52,23 +54,20 @@ class Beers extends Component {
             this.setState({filteredBeers: filtered}), 100);
     }
 
-    renderBeers() {
-        return (
-            this.state.filteredBeers.map((beer) =>
-                <li className="beerItem">
-                  <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + d.id}>
-                    <BeerCard 
-                      beerId={d.id}
-                      beerName={d.beerName}
-                      description={d.description}
-                      alcoholPercent={d.alcoholPercent}
-                    />
-                  </Link>
-                </li>
-        );
-    }
-
     render() {
+      const beerListItems = this.state.filteredBeers.map((beer) =>
+        <li className="beerItem">
+          <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + beer.id}>
+            <BeerCard 
+              beerId={beer.id}
+              beerName={beer.beerName}
+              description={beer.description}
+              alcoholPercent={beer.alcoholPercent}
+            />
+          </Link>
+        </li>
+      );
+
         return (
           <Container>
             <div id="beersPage" className="rounded">
@@ -83,7 +82,7 @@ class Beers extends Component {
                 </Row>
               </div>
               <ul id="beerCardsList">
-                  {this.renderBeers()}
+                  {beerListItems}
               </ul>
             </div>
           </Container>
