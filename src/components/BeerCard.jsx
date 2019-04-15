@@ -36,7 +36,7 @@ class BeerCard extends Component {
     render() {
         return(
           <Card className="beerCard shadow" style={{ width: '13rem' }}>
-            <Card.Img variant="top" src={axios.defaults.baseURL + 'images/gets/' + this.state.beerId} onError={beerImageOnError} width="100" height="200" />
+            <Card.Img variant="top" src={axios.defaults.baseURL + 'images/get/' + this.state.beerId} onError={beerImageOnError} width="100" height="200" />
             <Card.Body>
               <Card.Title>{this.state.beerName}</Card.Title>
               <Card.Text>{this.state.description}</Card.Text>
