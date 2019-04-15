@@ -158,7 +158,7 @@ class TastingSessions extends Component {
         <h1>Tasting sessions</h1>
 
         <Row className="justify-content-center">
-          <Col xs={12} sm={12} md={8} lg={7} xl={7}>
+          <Col xs={12} sm={12} md={9} lg={8} xl={7}>
             <ul id="tastingSessionsList">
               {listOfTastingSessions}
             </ul>
