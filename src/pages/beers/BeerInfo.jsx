@@ -29,12 +29,10 @@ class BeerInfo extends Component {
         .then(response => {
             if(response.status === 200) {
                 this.setState({beer: response.data[0]});
-                console.log(response.data);
-                console.log(this.state.beer);
             }
         })
-        .catch(function(response) {
-            console.log(response);
+        .catch(function(error) {
+            console.log(error);
         });
 
         axios.get('rating/' + this.props.match.params.id)
@@ -43,8 +41,8 @@ class BeerInfo extends Component {
                     this.setState({ratings: response.data});
                 }
             })
-            .catch(function(response) {
-                console.log(response);
+            .catch(function(error) {
+                console.log(error);
             });
     }
 
