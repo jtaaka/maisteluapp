@@ -4,6 +4,7 @@ import User from "../../User";
 import axios from 'axios';
 import beerImg from '../../img/testbeer.png';
 import './profile.css'
+import {beerImageOnError} from "../../GlobalConfig";
 
 
 const cardStyle = {marginTop: '10px', marginBottom: '10px'};
@@ -114,7 +115,7 @@ class Profile extends Component {
             return (
                 this.state.ratings.map( rating =>
                     <Card key={rating.id} bg="dark" text="white" style={cardStyle}>
-                        <Card.Header id="cBody">{<img className="d-block w-100" src={axios.defaults.baseURL + 'images/get/' + rating.beerId} width="300" height="400" alt="beerImage"/>}</Card.Header>
+                        <Card.Header id="cBody">{<img className="d-block w-100" onError={beerImageOnError} src={axios.defaults.baseURL + 'images/get/' + rating.beerId} width="300" height="300" alt="beerImage"/>}</Card.Header>
                         <Card.Body id="cBody">
                             <Card.Title id="rating-title">{<h4>{this.ratingBeerName(rating.beerId)}</h4>} {<h4>{rating.ratingValue+ " / 5"}</h4>}</Card.Title>
                             <p id="description">{rating.comment}</p>

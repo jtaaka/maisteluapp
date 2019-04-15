@@ -4,9 +4,8 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import axios from 'axios';
 
-import beerImg from '../../img/testbeer.png';
-
 import './BeerInfo.css';
+import {beerImageOnError} from "../../GlobalConfig";
 
 class BeerInfo extends Component {
 
@@ -93,7 +92,7 @@ class BeerInfo extends Component {
                 </Nav>
             </Navbar>
                 <Row className='justify-content-center'>
-                    <img className="d-block w-30" src={axios.defaults.baseURL + 'images/get/' + this.props.match.params.id} width="300" height="400" alt="beerImage"/>
+                    <img className="d-block w-30" onError={beerImageOnError} src={axios.defaults.baseURL + 'images/get/' + this.props.match.params.id} width="300" height="400" alt="beerImage"/>
                 </Row>
 
                 <Row className="justify-content-center">
@@ -103,11 +102,11 @@ class BeerInfo extends Component {
                 </Row>
 
                 <Row className="justify-content-center">
-                    <h2>{this.state.beer.beerName} {this.state.beer.alcoholPercent}‰</h2>
+                    <h2 id="header2">{this.state.beer.beerName} {this.state.beer.alcoholPercent}%</h2>
                 </Row>
 
                 <Row className="justify-content-center">
-                    <h4>{this.state.beer.description}</h4>
+                    <h4 id="header4">{this.state.beer.description}</h4>
                 </Row>
             </Container>
         )
