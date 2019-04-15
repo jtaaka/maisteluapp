@@ -4,9 +4,7 @@ import {Link} from 'react-router-dom';
 import {Container, Card, Button, Row, Col} from 'react-bootstrap';
 
 import axios from 'axios';
-import moment from 'moment';
 
-import {DATE_FORMAT} from '../../GlobalConfig';
 import User from '../../User';
 
 import './TastingSessions.css';

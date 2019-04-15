@@ -149,7 +149,7 @@ class AddModifyBeer extends Component {
                         {this.state.imageFile === '' ? 'Choose name' : this.state.imageFile.name}
                       </label>
                     </div>
-                    {this.state.imageFileSrc !== '' ? <img className="mt-3" id="previewimage" src={this.state.imageFileSrc}/> : ''}
+                    {this.state.imageFileSrc !== '' ? <img alt="Preview" className="mt-3" id="previewimage" src={this.state.imageFileSrc}/> : ''}
                   </Form.Group>
                   <div id="buttons">
                     <Button 
