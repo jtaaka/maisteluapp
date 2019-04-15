@@ -54,7 +54,7 @@ class CreateTastingSession extends Component {
   }
 
   selectBeerFromList(beerId) {
-    let currentlySelectedBeers = this.state.selectedBeers;
+    let currentlySelectedBeers = this.state.selectedBeers.slice();
 
     let isAlreadySelected = false;
 
@@ -77,19 +77,18 @@ class CreateTastingSession extends Component {
         }
       }
     } else {
-      alert("This beer is already selected!");
+      notificationError("This drink is already selected.")
     }
+
   }
 
   removeSelectedBeer(beerId) {
-    let currentlySelectedBeers = this.state.selectedBeers;
+    let currentlySelectedBeers = this.state.selectedBeers.slice();
 
     for(let i = 0; i < currentlySelectedBeers.length; i++) {
       if(beerId === currentlySelectedBeers[i].id) {
         currentlySelectedBeers.splice(i, 1);
-        this.setState({selectedBeers: []})
-        setTimeout(() =>
-        this.setState({selectedBeers:currentlySelectedBeers}), 100);
+        this.setState({selectedBeers:currentlySelectedBeers});
         break;
       }
     }
@@ -119,8 +118,6 @@ class CreateTastingSession extends Component {
         JSON.stringify(tastingSessionRequestBody)
     )
     .then((response) => {
-      console.log(response);
-      console.log(this);
       if(response.status === 200) {
         let tastingSessionId = response.data.id;
 
@@ -147,13 +144,15 @@ class CreateTastingSession extends Component {
           })
           .catch(e => {
             console.log(e);
-            notificationError("Error while creating tasting session!");
+            notificationError("Error while adding beers to tasting session!");
           });
 
       }
     })
-    .catch(e => console.log(e));
-
+    .catch(e => {
+      console.log(e);
+      notificationError("Error while creating tasting session!");
+    });
   }
 
   render() {
@@ -163,7 +162,7 @@ class CreateTastingSession extends Component {
     );
 
     const selectedBeersElem = this.state.selectedBeers.map((d) =>
-      <li className="beerItem">
+      <li key={d.id.toString()} className="beerItem">
         <Container>
           <Row>
             <BeerCard
