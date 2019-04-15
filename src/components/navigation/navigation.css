@@ -11,6 +11,10 @@
     border-color: #dee2e6 #dee2e6 #fff;
 }
 
+.nav-tabs {
+    border-bottom: none;
+}
+
 .nav-tabs .nav-item.show .nav-link {
     background-color: #343a40;
     border-color: #dee2e6 #dee2e6 #fff;
