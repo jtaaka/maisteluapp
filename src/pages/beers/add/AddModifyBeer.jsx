@@ -127,7 +127,7 @@ class AddModifyBeer extends Component {
                   <Form.Group controlId="alcoholPercent">
                       <Form.Label>Alcohol Percent</Form.Label>
                       <Form.Control 
-                        type="text"
+                        type="number"
                         value={this.state.alcoholPercent}
                         onChange={this.handleChange}
                       />
