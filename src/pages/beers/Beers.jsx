@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Form, InputGroup, Button, Col, Row} from 'react-bootstrap';
+import {Container, Form, InputGroup, Col, Row} from 'react-bootstrap';
 
 import axios from 'axios';
 
@@ -42,21 +42,16 @@ class Beers extends Component {
     search(e) {
         let filtered = [];
 
-        this.state.listOfBeers.map( (beer) => {
-            if (beer.beerName.toLowerCase().includes(e.target.value)) {
-                filtered = [...filtered, beer];
-            }
+        filtered = this.state.listOfBeers.filter((beer) => {
+          return beer.beerName.toLowerCase().includes(e.target.value.toLowerCase());
         });
 
-
-        this.setState({filteredBeers: []});
-        setTimeout(() =>
-            this.setState({filteredBeers: filtered}), 100);
+        this.setState({filteredBeers: filtered});
     }
 
     render() {
       const beerListItems = this.state.filteredBeers.map((beer) =>
-        <li className="beerItem">
+        <li key={beer.id} className="beerItem">
           <Link style={{ textDecoration: 'none' }} to={"/tastingapp/beers/" + beer.id}>
             <BeerCard 
               beerId={beer.id}
