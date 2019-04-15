@@ -114,10 +114,10 @@ class Profile extends Component {
             return (
                 this.state.ratings.map( rating =>
                     <Card key={rating.id} bg="dark" text="white" style={cardStyle}>
-                        <Card.Header>{<img className="d-block w-100" src={axios.defaults.baseURL + 'images/get/' + rating.beerId} width="300" height="400" alt="beerImage"/>}</Card.Header>
-                        <Card.Body>
-                            <Card.Title>{this.ratingBeerName(rating.beerId) + " " + rating.ratingValue + " / 5"}</Card.Title>
-                            {rating.comment}
+                        <Card.Header id="cBody">{<img className="d-block w-100" src={axios.defaults.baseURL + 'images/get/' + rating.beerId} width="300" height="400" alt="beerImage"/>}</Card.Header>
+                        <Card.Body id="cBody">
+                            <Card.Title id="rating-title">{<h4>{this.ratingBeerName(rating.beerId)}</h4>} {<h4>{rating.ratingValue+ " / 5"}</h4>}</Card.Title>
+                            <p id="description">{rating.comment}</p>
                         </Card.Body>
                     </Card>)
             );
@@ -125,7 +125,7 @@ class Profile extends Component {
             return (
                     <Card key="no-ratings" bg="dark" text="white" style={cardStyle}>
                         <Card.Header/>
-                        <Card.Body>You have not rated anything yet!</Card.Body>
+                        <Card.Body id="cBody">You have not rated anything yet!</Card.Body>
                     </Card>
             );
         }
@@ -136,8 +136,8 @@ class Profile extends Component {
             return (
                 this.state.upcomingSessions.map(session =>
                     <Card key={session.id} bg="dark" text="white" style={cardStyle}>
-                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
-                        <Card.Body>
+                        <Card.Header id="cBody"><h5>{session.startingDate}</h5></Card.Header>
+                        <Card.Body id="cBody">
                             <Card.Title>{session.name}</Card.Title>
                             {session.additionalInfo}
                         </Card.Body>
@@ -148,7 +148,7 @@ class Profile extends Component {
             return (
                 <Card key="no-past-sessions" bg="dark" text="white" style={cardStyle}>
                     <Card.Header/>
-                    <Card.Body>You have no upcoming sessions!</Card.Body>
+                    <Card.Body id="cBody">You have no upcoming sessions!</Card.Body>
                 </Card>
             );
         }
@@ -159,8 +159,8 @@ class Profile extends Component {
             return (
                 this.state.pastSessions.map(session =>
                     <Card key={session.id} bg="dark" text="white" style={cardStyle}>
-                        <Card.Header><h5>{session.startingDate}</h5></Card.Header>
-                        <Card.Body>
+                        <Card.Header id="cBody"><h5>{session.startingDate}</h5></Card.Header>
+                        <Card.Body id="cBody">
                             <Card.Title>{session.name}</Card.Title>
                             {session.additionalInfo}
                         </Card.Body>
@@ -171,7 +171,7 @@ class Profile extends Component {
             return (
                 <Card key="no-past-sessions" bg="dark" text="white" style={cardStyle}>
                     <Card.Header/>
-                    <Card.Body>You have no past sessions!</Card.Body>
+                    <Card.Body id="cBody">You have no past sessions!</Card.Body>
                 </Card>
             );
         }

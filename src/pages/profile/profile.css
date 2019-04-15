@@ -19,3 +19,23 @@ a {
     text-decoration: none;
     background-color: transparent;
 }
+
+#rating-title h4:first-of-type {
+    text-align: center;
+}
+
+#rating-title h4:last-of-type {
+    text-align: right;
+}
+
+#beerName {
+    text-align: center;
+}
+
+#description {
+    text-align: center;
+}
+
+#cBody {
+    text-align: center;
+}
