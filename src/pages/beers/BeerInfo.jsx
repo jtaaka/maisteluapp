@@ -50,23 +50,15 @@ class BeerInfo extends Component {
     }
 
     calculateRatingMediumForBeer() {
-        let medium = null;
+        let medium = 0;
         let count = 0;
 
-        console.log(this.state.ratings)
+        this.state.ratings.forEach((rating) =>  {
+            medium += rating.ratingValue;
+            count++;
+        })
 
-        this.state.ratings.map((rating) => {
-            if (rating.beerId === this.state.beer.id) {
-                medium += rating.ratingValue;
-                count++;
-            }
-        });
-
-        if (medium !== null) {
-            return "Overall rating " + medium / count + " / 5";
-        } else {
-            return "No ratings yet!"
-        }
+        return medium / count;
     }
 
     beerInfoColumn(){
@@ -94,10 +86,7 @@ class BeerInfo extends Component {
         this.props.history.push("/tastingapp/beers/modify/" + this.state.beer.id);
     }
 
-    render() {
-        
-        console.log(this.props.match.params.id);
-
+    render() {      
         return (
             <Container id="beerInfo" className="rounded">
             <Navbar>
@@ -119,7 +108,7 @@ class BeerInfo extends Component {
 
                 <Row className="justify-content-center">
                     <Alert variant='dark'>
-                        {this.calculateRatingMediumForBeer()}
+                        {this.calculateRatingMediumForBeer() !== 0 ? "Overall rating: " + this.calculateRatingMediumForBeer() : "No ratings yet"}
                     </Alert>
                 </Row>
 

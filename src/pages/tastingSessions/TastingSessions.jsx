@@ -36,7 +36,6 @@ class TastingSessions extends Component {
     .then(response => {
       if(response.status === 200) {
           this.setState({tastingSessions: response.data});
-          console.log(response.data);
       }
     })
     .catch(function(response) {

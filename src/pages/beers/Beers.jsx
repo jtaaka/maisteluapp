@@ -64,7 +64,7 @@ class Beers extends Component {
       );
 
         return (
-          <Container>
+          <Container id="beers-page-container" className="rounded">
             <div id="beersPage" className="rounded">
               <h1 id="beersH1">Beers</h1>
               <div id="beerSearch">
